@@ -5,10 +5,8 @@
     inputs.noctalia.homeModules.default
   ];
 
-  # Dopasuj wersję do swojej instalacji (np. "24.11" lub "25.05")
   home.stateVersion = "25.11"; 
 
-  # Konfiguracja powłoki Noctalia
   programs.noctalia-shell = {
     enable = true;
     package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override { calendarSupport = true; };
@@ -21,21 +19,8 @@
     };
   };
 
-  # Bezpośrednia konfiguracja Niri przez plik KDL (odporna na błędy modułów)
-  xdg.configFile."niri/config.kdl".text = ''
-    // Autostart powłoki Noctalia wraz z Niri
-    spawn-at-startup "noctalia-shell"
-
-    // Skróty klawiszowe powiązane z powłoką Noctalia (IPC)
-    binds {
-        "Mod+Space" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-        "Mod+Escape" { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
-        "Mod+L" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
-        
-        // Klawisze multimedialne dżwięku
-        "XF86AudioLowerVolume" { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-        "XF86AudioRaiseVolume" { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
-        "XF86AudioMute"        { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
-    }
-  '';
-}
+  # Twoja konfiguracja niri z pliku
+  xdg.configFile."niri/config.kdl".source = ./niri-config.kdl;
+  xdg.configFile."niri/cfg".source = ./niri-cfg;
+  xdg.configFile."niri/noctalia.kdl".source = ./niri-noctalia.kdl;
+}  
