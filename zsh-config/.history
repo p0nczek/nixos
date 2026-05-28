@@ -1,0 +1,1612 @@
+sed -i 's/POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=39/POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=#ff6600/' ~/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh\
+sed -i 's/POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=39/POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=#ff6600/' ~/shell/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh\
+exec zsh
+python3 << 'EOF'\
+with open('/home/shin/shell/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh', 'r') as f:\
+    lines = f.readlines()\
+# Dodaj po linii 211\
+lines[211] = lines[211] + "  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND=213\n  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=213\n"\
+with open('/home/shin/shell/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh', 'w') as f:\
+    f.writelines(lines)\
+print('OK')\
+EOF
+python3 << 'EOF'\
+with open('/home/shin/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh', 'r') as f:\
+    lines = f.readlines()\
+lines[211] = lines[211] + "  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND=213\n  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=213\n"\
+with open('/home/shin/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh', 'w') as f:\
+    f.writelines(lines)\
+print('OK')\
+EOF
+python3 << 'EOF'\
+path = '/home/shin/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh'\
+\
+with open(path, 'r') as f:\
+    lines = f.readlines()\
+\
+# Definiujemy nowe linie z kolorem HEX (Å‚ososiowy/pink)\
+# UÅ¼ywamy cudzysÅ‚owÃ³w wokÃ³Å‚ wartoÅƒ»ci HEX!\
+new_configs = (\
+    "  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND='#f2cdcd'\n"\
+    "  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='#f2cdcd'\n"\
+)\
+\
+# Wstawiamy po linii 211 (indeks 211 w Pythonie to faktycznie 212 linia w pliku)\
+lines[211] = lines[211] + new_configs\
+\
+with open(path, 'w') as f:\
+    f.writelines(lines)\
+print('OK - Kolor Å‚ososiowy ustawiony!')\
+EOF
+python3 << 'EOF'\
+import os\
+\
+paths = [\
+    '/home/shin/shell/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh',\
+    '/home/shin/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh'\
+]\
+\
+# Kolor Å‚ososiowy z Twojego screena\
+color = "'#f2cdcd'"\
+\
+for path in paths:\
+    if not os.path.exists(path):\
+        continue\
+        \
+    with open(path, 'r') as f:\
+        lines = f.readlines()\
+    \
+    new_lines = []\
+    for line in lines:\
+        # 1. Naprawa bÅ‚Äƒ¹du z klamrami (rozbicie na osobne linie)\
+        if 'POWERLEVEL9K_PROMPT_CHAR_OK_{' in line or 'POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND' in line:\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND={color}\n")\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VICMD_FOREGROUND={color}\n")\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIVIS_FOREGROUND={color}\n")\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIOWR_FOREGROUND={color}\n")\
+        \
+        # 2. Ustawienie koloru dla katalogÃ³w (HOME i subfoldery)\
+        elif 'POWERLEVEL9K_DIR_HOME_FOREGROUND=' in line or 'POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=' in line:\
+            # Pomijamy te linie, wstawimy je niÅ¼ej w punkcie 3\
+            continue\
+            \
+        # 3. Aktualizacja gÅ‚Ã³wnego koloru Åƒ»cieÅ¼ki\
+        elif 'POWERLEVEL9K_DIR_FOREGROUND=' in line:\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_DIR_FOREGROUND={color}\n")\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND={color}\n")\
+            new_lines.append(f"  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND={color}\n")\
+        else:\
+            new_lines.append(line)\
+            \
+    with open(path, 'w') as f:\
+        f.writelines(new_lines)\
+    print(f'Przetworzono: {path}')\
+EOF
+rm -f ~/.cache/p10k-*.zsh\
+exec zsh
+sed -i "s/POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=.*/typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#f2cdcd'/" ~/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh\
+sed -i "s/POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=.*/typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#f2cdcd'/" ~/shell/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh
+python3 << 'EOF'\
+import os\
+\
+path = '/home/shin/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh'\
+\
+if os.path.exists(path):\
+    with open(path, 'r') as f:\
+        lines = f.readlines()\
+\
+    new_lines = []\
+    skip_next = False\
+    \
+    for line in lines:\
+        # Usuwamy wszystkie zduplikowane i bÅ‚Äƒ¹dne wpisy dotyczÄƒ¥ce kolorÃ³w, ktÃ³re mogÅ‚y siÄƒ¹ nagromadziÄƒ§\
+        if any(x in line for x in [\
+            'POWERLEVEL9K_DIR_HOME_FOREGROUND', \
+            'POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND',\
+            'POWERLEVEL9K_DIR_ANCHOR_FOREGROUND',\
+            'POWERLEVEL9K_PROMPT_CHAR_OK'\
+        ]):\
+            continue\
+            \
+        # Naprawiamy gÅ‚Ã³wnÄƒ¥ liniÄƒ¹ katalogu i dodajemy resztÄƒ¹ w czystej formie\
+        if 'POWERLEVEL9K_DIR_FOREGROUND=' in line:\
+            new_lines.append("  typeset -g POWERLEVEL9K_DIR_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VICMD_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIVIS_FOREGROUND='#f2cdcd'\n")\
+            new_lines.append("  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIOWR_FOREGROUND='#f2cdcd'\n")\
+        else:\
+            new_lines.append(line)\
+\
+    with open(path, 'w') as f:\
+        f.writelines(new_lines)\
+    print('Plik wyczyszczony i naprawiony!')\
+EOF
+python3 << 'EOF'\
+path = '/home/shin/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh'\
+\
+with open(path, 'r') as f:\
+    lines = f.readlines()\
+\
+new_lines = []\
+target_color = "'#f2cdcd'"\
+\
+for line in lines:\
+    # Szukamy linii odpowiedzialnych za kolor PROMPT_CHAR (kursora)\
+    if 'POWERLEVEL9K_PROMPT_CHAR_OK_' in line and '_FOREGROUND=' in line:\
+        # Podmieniamy koÅƒ¤cÃ³wkÄƒ¹ linii na nasz kolor HEX\
+        parts = line.split('=')\
+        new_lines.append(f"{parts[0]}={target_color}\n")\
+    elif 'POWERLEVEL9K_PROMPT_CHAR_ERROR_' in line and '_FOREGROUND=' in line:\
+        # Opcjonalnie: bÅ‚Äƒ¥d teÅ¼ moÅ¼emy ustawiÄƒ§ na ten sam kolor lub zostawiÄƒ§ czerwony\
+        new_lines.append(line) \
+    else:\
+        new_lines.append(line)\
+\
+with open(path, 'w') as f:\
+    f.writelines(new_lines)\
+print('Kursor ustawiony na Å‚ososiowy!')\
+EOF
+rm -f ~/.cache/p10k-*.zsh
+exec zsh
+micro ~/.config/kitty/kitty.conf
+micro ~/.config/niri/cfg/animation.kdl
+nano ~/.zshrc
+atuin import auto
+fzf
+paru -S krita
+paru -S wlsunset
+paru -S discord-canary
+paru -Rn discord-canary
+paru -Rn discord-canary-electron-bin
+paru -S weylus-bin\
+sudo pacman -S pipewire xdg-desktop-portal-wlr
+ip link show\
+# powinien pojawiÄƒ§ siÄƒ¹ nowy interfejs, np. usb0 lub enp0s...
+ip addr show enp1s0f0u4
+weylus --access-code 1234 --bind 0.0.0.0
+weylus --help
+ping 10.119.241.255
+\
+sudo nft list ruleset
+ss -tlnp | grep 1701
+sudo modprobe uinput\
+sudo chmod 660 /dev/uinput\
+sudo chown root:input /dev/uinput\
+sudo usermod -aG input $USER
+echo 'uinput' | sudo tee /etc/modules-load.d/uinput.conf\
+\
+echo 'KERNEL=="uinput", GROUP="input", MODE="0660"' | sudo tee /etc/udev/rules.d/99-uinput.rules\
+\
+sudo udevadm control --reload-rules && sudo udevadm trigger
+sudo ufw status\
+
+sudo groupadd -r uinput\
+sudo usermod -aG uinput $USER\
+echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/60-weylus.rules\
+sudo udevadm control --reload\
+sudo udevadm trigger
+sudo rm /etc/udev/rules.d/60-weylus.rules
+\
+sudo udevadm control --reload\
+sudo udevadm trigger
+\
+sudo groupadd -r uinput 2>/dev/null\
+sudo usermod -aG uinput $USER\
+echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/60-weylus.rules\
+sudo udevadm control --reload\
+sudo udevadm trigger\
+\
+#\
+sudo modprobe uinput\
+\
+#\
+ls -la /dev/uinput\
+groups
+sudo pacman -S xdg-desktop-portal-gnome\
+systemctl --user restart xdg-desktop-portal
+newgrp uinput
+newgrp uinput\
+weylus --access-code 1234 --no-gui --wayland-support --try-vaapi --auto-start
+sudo ufw allow 1701/tcp\
+sudo ufw allow 9001/tcp
+ip addr show enp1s0f0u4 | grep "inet "
+gst-inspect-1.0 | grep -E "vaapi|x264|vp8|pipewire"
+systemctl --user status xdg-desktop-portal\
+systemctl --user status xdg-desktop-portal-gnome
+sudo pacman -S xdg-desktop-portal-gtk\
+sudo pacman -R xdg-desktop-portal-gnome\
+systemctl --user restart xdg-desktop-portal
+mkdir -p ~/.config/xdg-desktop-portal\
+cat > ~/.config/xdg-desktop-portal/portals.conf << 'EOF'\
+[preferred]\
+default=gtk\
+org.freedesktop.impl.portal.ScreenCast=gtk\
+org.freedesktop.impl.portal.Screenshot=gtk\
+EOF\
+\
+systemctl --user restart xdg-desktop-portal\
+systemctl --user restart xdg-desktop-portal-gnome
+vainfo 2>&1 | grep -E "driver|VAProfile"
+sudo pacman -S libva-utils\
+vainfo
+avinfo 2>&1 | grep -E "driver|VAProfile"
+busctl --user list | grep portal
+cat ~/.config/xdg-desktop-portal/portals.conf
+cat > ~/.config/xdg-desktop-portal/portals.conf << 'EOF'\
+[preferred]\
+default=wlr\
+org.freedesktop.impl.portal.ScreenCast=wlr\
+org.freedesktop.impl.portal.Screenshot=wlr\
+EOF\
+\
+systemctl --user restart xdg-desktop-portal
+systemctl --user status xdg-desktop-portal-wlr
+cat /usr/lib/systemd/user/xdg-desktop-portal-wlr.service
+journalctl --user -u xdg-desktop-portal-wlr -n 50
+echo $WAYLAND_DISPLAY\
+echo $XDG_CURRENT_DESKTOP
+paru -S xdg-desktop-portal-gnome
+systemctl --user stop xdg-desktop-portal-wlr\
+\
+cat > ~/.config/xdg-desktop-portal/portals.conf << 'EOF'\
+[preferred]\
+default=gnome;gtk\
+org.freedesktop.impl.portal.ScreenCast=gnome\
+org.freedesktop.impl.portal.Screenshot=gnome\
+EOF\
+\
+systemctl --user restart xdg-desktop-portal\
+systemctl --user restart xdg-desktop-portal-gnome
+yay -Ss portal | grep -i "niri\|luminous\|hyprland\|lxqt"
+which slurp grim
+sudo pacman -Sy rust
+paru -S xdg-desktop-portal-luminous
+cat > ~/.config/xdg-desktop-portal/portals.conf << 'EOF'\
+[preferred]\
+default=luminous\
+org.freedesktop.impl.portal.ScreenCast=luminous\
+org.freedesktop.impl.portal.Screenshot=luminous\
+EOF\
+\
+systemctl --user restart xdg-desktop-portal
+groups | grep uinput
+niri msg action toggle-debug-tint
+/usr/lib/xdg-desktop-portal-luminous --help 2>&1 | head -30
+ls /usr/share/xdg-desktop-portal-luminous/ 2>/dev/null || ls /usr/lib/xdg-desktop-portal-luminous/ 2>/dev/null
+niri msg --help | grep -i cursor\
+niri --help | grep -i cursor
+weylus --access-code 1234 --no-gui --wayland-support --try-vaapi --auto-start
+cat ~/.config/gtk-3.0/settings.ini\
+cat ~/.config/gtk-4.0/settings.ini\
+echo $GTK_THEME
+ls /usr/share/themes/ | grep -i adw\
+ls ~/.local/share/themes/ | grep -i adw
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'\
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+echo $GTK_THEME
+sed -i 's/gtk-theme-name=adw-gtk3$/gtk-theme-name=adw-gtk3-dark/' ~/.config/gtk-3.0/settings.ini\
+cat ~/.config/gtk-3.0/settings.ini
+gsettings get org.gnome.desktop.interface gtk-theme\
+gsettings get org.gnome.desktop.interface icon-theme\
+gsettings get org.gnome.desktop.interface color-scheme
+cat ~/.zsh_history | grep icon-theme | tail -20
+ls /usr/share/icons/\
+ls ~/.local/share/icons/ 2>/dev/null
+gsettings set org.gnome.desktop.interface icon-theme 'Pop'
+gsettings set org.gnome.desktop.interface icon-theme 'Pop'\
+thunar -q && thunar
+gsettings set org.gnome.desktop.interface icon-theme 'Pop'\
+nautilus -q && nautilus
+gsettings set org.gnome.desktop.interface icon-theme 'Cosmic'
+history --help
+history -h
+history 1
+gsettings set org.gnome.desktop.interface icon-theme 'Cosmic'\
+pkill nautilus\
+nautilus &
+sudo snapper list
+dconf read /org/gnome/desktop/interface/icon-theme
+dconf read /org/gnome/desktop/interface/icon-theme\
+dconf write /org/gnome/desktop/interface/icon-theme "'Cosmic'"
+cat /usr/share/icons/Cosmic/index.theme | head -20
+âƒ½¯ cat /usr/share/icons/Cosmic/index.theme | head -20\
+[Icon Theme]\
+Name=COSMIC\
+Comment=COSMIC Icons\
+Example=folder\
+Inherits=Pop,hicolor\
+\
+#\
+DisplayDepth=32\
+LinkOverlay=link_overlay\
+LockOverlay=lock_overlay\
+ZipOverlay=zip_overlay\
+DesktopDefault=48\
+DesktopSizes=16,22,32,48,64,72,96,128\
+ToolbarDefault=22\
+ToolbarSizes=16,22,32,48\
+MainToolbarDefault=22\
+MainToolbarSizes=16,22,32,48\
+SmallDefault=16\
+SmallSizes=16\
+PanelDefault=32\
+âƒµ­âƒ´€ ïƒ¥¼ ï€ƒµ ~ \
+âƒµ°âƒ´€âƒ½¯
+ls /usr/share/icons/Cosmic/
+ls /usr/share/icons/Pop/ | head -20
+gsettings set org.gnome.desktop.interface icon-theme 'Pop'\
+dconf write /org/gnome/desktop/interface/icon-theme "'Pop'"
+sudo pacman -Rns xdg-desktop-portal-luminous xdg-desktop-portal-wlr xdg-desktop-portal-gtk libva-utils weylus-bin
+rm ~/.config/xdg-desktop-portal/portals.conf\
+systemctl --user restart xdg-desktop-portal
+micro ~/.p10k.zsh
+paru -S dracula-gtk-theme\
+gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
+git clone https://github.com/vinceliuice/Graphite-gtk-theme\
+cd Graphite-gtk-theme\
+./install.sh -t pink -c dark --tweaks darker\
+gsettings set org.gnome.desktop.interface gtk-theme 'Graphite-Dark-pink'
+paru -S papirus-icon-theme\
+papirus-folders -C pink --theme Papirus-Dark\
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+gsettings set org.gnome.desktop.interface gtk-theme 'Graphite-pink-Dark'
+paru -S papirus-folders-git
+papirus-folders -C pink --theme Papirus-Dark
+papirus-folders -l
+papirus-folders palebrown
+papirus-folders -C palebrown
+papirus-folders -C paleorange
+git clone https://github.com/catppuccin/papirus-folders.git\
+cd papirus-folders
+sudo cp -r src/* /usr/share/icons/Papirus
+curl -LO https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/papirus-folders && chmod +x ./papirus-folders
+./papirus-folders -C cat-mocha-blue --theme Papirus-Dark
+./papirus-folders -l
+papirus-folders -C rod
+papirus-folders -C red
+papirus-folders -C cat-frappe-rosewater
+/home/shin/Downloads/discord-canary-0.0.930/DiscordCanary
+DiscordCanary
+./DiscordCanary
+/home/shin/Downloads/discord-canary-0.0.930/DiscordCanary/DiscordCanary
+echo 'alias dc="/home/shin/Downloads/discord-canary-0.0.930/DiscordCanary/DiscordCanary"' >> ~/.zshrc
+cd
+echo 'function dc() { $(ls -d ~/Downloads/discord-canary-*/DiscordCanary/DiscordCanary 2>/dev/null | sort -V | tail -1) "$@" }' >> ~/.zshrc\
+source ~/.zshrc
+\
+grep -n "dc\|DiscordCanary" ~/.zshrc
+sed -i '19,20d' ~/.zshrc\
+echo 'function dc() { $(ls -d ~/Downloads/discord-canary-*/DiscordCanary/DiscordCanary 2>/dev/null | sort -V | tail -1) "$@" & }' >> ~/.zshrc\
+source ~/.zshrc
+grep -n "dc" ~/.zshrc
+sed -i '19s/.*/function dc() { $(ls -d ~\/Downloads\/discord-canary-*\/DiscordCanary\/DiscordCanary 2>\/dev\/null | sort -V | tail -1) "\$@" \& disown; exit }/' ~/.zshrc\
+source ~/.zshrc
+sudo pacman -S android-tools
+adb reverse tcp:5900 tcp:5900
+adb kill-server\
+adb start-server\
+adb reverse tcp:1701 tcp:1701\
+adb reverse tcp:9001 tcp:9001
+device unauthorized
+adb kill-server
+sudo pacman -S xdg-desktop-portal xdg-desktop-portal-gnome pipewire wireplumber libpipewire
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP\
+systemctl --user restart xdg-desktop-portal
+mkdir -p ~/.config/xdg-desktop-portal\
+nano ~/.config/xdg-desktop-portal/portals.conf
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri\
+systemctl --user restart xdg-desktop-portal
+sudo pacman -S ashpd-demo
+killall weylus
+weylus --access-code 1234 --no-gui --wayland-support --auto-start
+weylus
+weylus --start-minimized --web-port 1701 --websocket-port 9001
+weyluf -h
+weylus -h
+weylus --wayland-support --auto-start --no-gui
+export XDG_CURRENT_DESKTOP=GNOME\
+export XDG_SESSION_TYPE=wayland\
+dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=GNOME\
+weylus --wayland-support
+micro ~/.config/xdg-desktop-portal/portals.conf
+systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr
+weylus --wayland-support --no-gui
+QT_QPA_PLATFORM=wayland XDG_CURRENT_DESKTOP=niri weylus --wayland-support
+niri msg action reload-config
+niri msg --help
+niri msg action spawn -- niri validate
+micro ~/.config/niri/config.kdl
+killall discord
+paru -S xkill
+sudo pacman -S xkill
+sudo pacman -S xorg-xkill
+killall discord-canary
+killall discordCanary
+killall DiscordCanary
+dc
+Telegram --hide-window
+Telegram -h
+man Telegram
+Telegram &
+killall Telegram
+journalctl --user -xe -u niri
+journalctl --user -b | grep -i telegram
+journalctl --user -b
+spawn-sh-at-startup "sleep 3 && telegram-desktop -startintray"
+\
+dbus-send --session --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.ListNames | grep -i "tray\|status\|notif"
+telegram-desktop
+niri msg windows | grep workspace
+expand-column-to-available-width
+niri msg action expand-column-to-available-width
+niri va r
+niri msg action --help | grep -i width
+sudo pacman -S reflector
+micro /etc/xdg/reflector/reflector.conf
+sudo systemctl enable reflector.service\
+sudo systemctl enable reflector.timer
+cat /etc/xdg/reflector/reflector.conf
+sudo micro /etc/makepkg.conf
+sudo pacman -Rns $(pacman -Qdtq)
+du -sh /var/cache/pacman/pkg/
+sudo paccache -rk1
+sudo paccache -ruk0
+paru -Sc
+paru --clean
+systemd analyze
+systemctl analyze
+sudo systemctl disable plymouth\
+sudo pacman -Rns plymouth
+sudo nano /etc/default/grub
+\
+sudo systemctl mask ldconfig.service
+\
+systemd-analyze blame | head -20
+sudo systemctl disable NetworkManager-wait-online.service
+cat /etc/fstab | grep sdb
+lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT
+\
+systemctl list-units --type=mount
+systemctl list-dependencies network.target --reverse
+\
+nmcli connection show
+nmcli connection modify "TP-Link_1556 2,4G" connection.permissions "user:shin"
+sudo systemctl disable wpa_supplicant.service
+systemctl is-enabled wpa_supplicant.service
+sudo systemctl edit plymouth-quit.service
+systemctl cat plymouth-quit.service | grep After
+systemctl cat systemd-user-sessions.service | grep -E "After|Wants|Requires"
+sudo systemctl edit systemd-user-sessions.service
+systemctl cat systemd-user-sessions.service | grep After
+systemctl list-dependencies network.target --reverse --all
+sudo systemctl revert plymouth-quit.service\
+sudo systemctl revert systemd-user-sessions.service\
+sudo systemctl enable wpa_supplicant.service
+grep "model name" /proc/cpuinfo | head -1
+cat /etc/default/grub | grep GRUB_CMDLINE
+sudo micro /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
+ls /sys/firmware/efi
+\
+#\
+sudo cp /etc/default/grub /etc/default/grub.bak\
+sudo cp -r /boot/grub /boot/grub.bak
+lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT,PARTTYPE
+ls /boot/efi
+sudo ls /boot/efi
+sudo ls /boot/efi/EFI
+sudo ls /boot/efi/EFI/boot
+sudo ls /boot/efi/EFI/cachyos
+sudo ls /boot
+pacman -Qs systemd-boot\
+pacman -Qs cachyos-boot
+sudo bootctl install --esp-path=/boot/efi
+sudo blkid | grep -v swap
+sudo mount | grep " / "
+sudo cp /boot/vmlinuz-linux-cachyos /boot/efi/EFI/Linux/\
+sudo cp /boot/initramfs-linux-cachyos.img /boot/efi/EFI/Linux/\
+sudo cp /boot/amd-ucode.img /boot/efi/EFI/Linux/
+sudo bootctl list
+sudo reboot
+sudo efibootmgr --bootorder 0004,0000,0007
+sudo mkdir -p /etc/pacman.d/hooks\
+\
+#\
+sudo nano /etc/pacman.d/hooks/systemd-boot.hook
+bootctl status
+sudo pacman -Rns grub
+pacman -Q grub 2>/dev/null && echo "GRUB nadal zainstalowany" || echo "GRUB usuniÄƒ¹ty"\
+cat /etc/pacman.d/hooks/systemd-boot.hook 2>/dev/null || echo "Hook nie istnieje"
+sudo pacman -Rns grub grub-btrfs grub-hook
+uname -r\
+ls /boot/vmlinuz*
+sudo systemctl disable cachyos-rate-mirrors.service
+sudo systemctl disable --now cachyos-rate-mirrors.service
+sudo nano /boot/efi/loader/loader.conf
+sudo pacman -S booster
+mkdir /usr/lib/booster/regenerate
+mkdir -p /usr/lib/booster/regenerate
+sudo /usr/lib/booster/regenerate
+/usr/lib/booster/regenerate
+whereis booster
+sudo micro /etc/booster.yaml
+ls -lh /boot/booster-linux-cachyos.img
+micro /boot/loader/entries/cachyos.conf
+sudo nano /boot/efi/loader/entries/cachyos.conf
+sudo booster build /boot/booster-linux-cachyos.img
+ls /boot/EFI/Linux/
+ls -R /boot | grep cachyos
+ls /boot/efi/Linux/
+sudo micro /boot/efi/loader/entries/cachyos.conf
+ls -l /boot/efi/EFI/Linux/booster-linux-cachyos.img
+sudo ls -l /boot/efi/EFI/Linux/booster-linux-cachyos.img
+systemd-analyze critical-chain
+cat /proc/cmdline
+sudo systemctl disable reflector.service\
+sudo systemctl disable cachyos-rate-mirrors.service
+sudo systemctl disable --now reflector.timer\
+sudo systemctl disable --now cachyos-rate-mirrors.timer
+sudo systemctl mask reflector.service\
+sudo systemctl mask cachyos-rate-mirrors.service
+journalctl -b 0 -u systemd-tmpfiles-setup-dev-early.service
+sudo booster build --force /boot/booster-linux-cachyos.img
+sudo cp /boot/booster-linux-cachyos.img /boot/efi/EFI/Linux/booster-linux-cachyos.img
+re
+sudo nano /etc/booster.yaml
+sudo booster build --force /boot/booster-linux-cachyos.img\
+sudo cp /boot/booster-linux-cachyos.img /boot/efi/EFI/Linux/booster-linux-cachyos.img
+sudo micro /etc/fstab
+sudo systemctl disable avahi-daemon.service\
+sudo systemctl disable bluetooth.service
+sudo micro /etc/NetworkManager/conf.d/speed.conf
+sudo systemctl mask systemd-boot-random-seed.service
+nmcli con show
+\
+sudo nmcli con mod "TP-Link_1556 2,4G" ipv4.addresses 192.168.1.111/24\
+sudo nmcli con mod "TP-Link_1556 2,4G" ipv4.gateway 192.168.1.1\
+sudo nmcli con mod "TP-Link_1556 2,4G" ipv4.dns "1.1.1.1,8.8.8.8"\
+sudo nmcli con mod "TP-Link_1556 2,4G" ipv4.method manual\
+\
+#\
+sudo nmcli con mod "TP-Link_1556 2,4G" ipv6.method ignore\
+\
+#\
+sudo nmcli con up "TP-Link_1556 2,4G"\
+\
+#\
+sudo systemctl mask NetworkManager-wait-online.service
+systemd-analyze blame
+journalctl
+sudo dmesg --level=err,crit,alert
+journalctl -p 3 -xb
+systemctl --failed
+sudo pacman -Rn vim Shelly Alacritty
+sudo pacman -Rn vim shelly alacritty
+sudo pacman -Rs alacritty && flatpak uninstall shelly
+sudo pacman -Rdd vim
+paru -Rns shelly
+sudo rm /usr/share/applications/avahi-discover.desktop\
+sudo rm /usr/share/applications/bssh.desktop\
+sudo rm /usr/share/applications/bvnc.desktop
+sudo pacman -Rs avahi
+paru -S cava
+paru -Ss dzenbrowser
+paru -Ss zenbrowser
+paru zenbrowser
+paru zen
+paru -S zen-browser
+paru -Syy zen-browser
+zen
+zen-browser
+f r
+bâƒ©¤
+paru -Syy chromium
+niri vhttps://discord.gg/yZ7yBk7s
+systemctl --user status xdg-desktop-portal
+systemctl --user status xdg-desktop-portal-gtk
+pacman -Qs xdg-desktop-portal
+ps aux | grep xdg-desktop-portal
+ls /usr/share/xdg-desktop-portal/*.conf
+micro ~/bin/launch-discord.sh
+mkdir -p ~/bin
+chmod +x ~/bin/launch-discord.sh
+paru -Syy steam
+steam
+paru obs
+paru obs-droidcam
+paru -S obs-droidcam-bin
+paru -Syy obs-droidcam-bin
+paru -S droidcam-obs-plugin
+droidcam-obs-plugin
+paru -S obs-droidcam
+ls /usr/lib/obs-plugins/ | grep droidcam
+droidcam-obs
+sudo pacman -S obs-studio
+sudo cachyos-rate-mirrors \
+sudo pacman -Syyu
+QT_QPA_PLATFORM=wayland obs
+paru -S obs-droidcam-git
+paru -Ss droidcam
+paru -S droidcam-obs-plugin-git
+sudo pacman -S v4l2loopback-dkms
+re r
+\
+paru -S droidcam-obs-plugin\
+\
+#\
+yay -S droidcam-obs-plugin
+obs
+paru -Rn droidcam-obs-plugin-git
+paru -Q obs
+pacman -Qs obs\
+\
+#\
+pacman -Qs obs
+paru -Rn obs-studio
+flatpak install flathub com.obsproject.Studio\
+flatpak install flathub com.obsproject.Studio.Plugin.DroidCam\
+flatpak override --user --device=all com.obsproject.Studio
+sudo pacman -S flatpak
+flatpak install flathub com.obsproject.Studio\
+flatpak install flathub com.obsproject.Studio.Plugin.DroidCam
+flatpak override --user --device=all com.obsproject.Studio
+\
+sudo pacman -S android-tools\
+\
+#\
+adb devices
+flatpak run com.obsproject.Studio
+\
+sudo systemctl status iptables\
+sudo systemctl status nftables\
+sudo systemctl status ufw
+\
+sudo ufw allow 4747\
+sudo ufw reload
+journalctl -u bluetooth -b 0
+rfkill list
+lsmod | grep bt
+sudo systemctl restart bluetooth
+sudo pacman -S --needed bluez bluez-utils
+sudo systemctl enable --now bluetooth
+systemctl status bluetooth
+paru -S vesktop
+wpctl status
+mkdir -p ~/.config/wireplumber/wireplumber.conf.d/\
+nano ~/.config/wireplumber/wireplumber.conf.d/51-block-vesctop-gain.conf
+chromium --enable-features=WebHID
+sudo nano /etc/udev/rules.d/99-keyboards.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+paru -S obsidia
+paru -S obsidian
+ln -s /run/media/shin/Magazyn/lin/Obsidian /home/shin/Documents
+sudo make contra:default:avrdude
+ls /dev/tty*
+watch -n 0.1 "ls /dev/ttyACM*"
+sudo pacman -S avrdude
+sudo avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:/home/shin/Downloads/crkbd_rev1_layout_split_3x6_3_2026-04-02.hex
+while [ ! -c /dev/ttyACM0 ]; do echo "Czekam na reset klawiatury..."; sleep 0.5; done; sudo avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:/home/shin/Downloads/crkbd_rev1_layout_split_3x6_3_2026-04-02.hex
+chromium --device-scale-factor=1 --disable-dev-shm-usage
+micro ~/.config/niri/cfg/input.kdl
+while true; do \
+ PORT=$(ls /dev/ttyACM* 2>/dev/null | head -n 1)\
+ if [ -n "$PORT" ]; then\
+ echo "Wykryto port: $PORT. Wgrywam..."\
+ sudo avrdude -p atmega32u4 -c avr109 -P "$PORT" -U flash:w:/home/shin/Downloads/crkbd_rev1_layout_split_3x6_3_2026-04-02.hex\
+ break\
+ fi\
+ echo "Czekam na reset (double-tap)..."\
+ sleep 0.5\
+done
+python3 -m pip install --user qmk\
+qmk setup\
+# Odpowiedz 'y' na pytania o instalacjÄƒ¹ zaleÅ¼noÅƒ»ci
+sudo pacman -S python-pip qmk avr-gcc avr-libc avrdude
+qmk setup
+micro /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard.
+micro /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard
+nano /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard
+qmk new-keymap -kb crkbd/rev1
+micro /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard/config.h
+micro /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard/rules.mk
+while true; do \
+ PORT=$(ls /dev/ttyACM* 2>/dev/null | head -n 1)\
+ if [ -n "$PORT" ]; then\
+ echo "Wykryto port: $PORT. Wgrywam..."\
+ sudo avrdude -p atmega32u4 -c avr109 -P "$PORT" -U flash:w:/home/shin/Downloads/a.hex\
+ break\
+ fi\
+ echo "Czekam na reset (double-tap)..."\
+ sleep 0.5\
+done
+micro trash:///bango/keymap.c
+/home/shin/keymap.c
+micro /home/shin/keymap.c
+ping 8.8.8.8
+sudo -i
+paru -S yazi
+paru -S ranger
+ranger
+systemd-analyze
+paru -S emacs
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs\
+~/.config/emacs/bin/doom install
+paru -S python-build
+paru -S python-hatchling
+paru -S terminal-tetris
+tetris
+terminal-tetris
+adb forward tcp:4747 tcp:4747
+adb reverse tcp:1701 tcp:1701\
+adb reverse tcp:9001 tcp:9001
+adb devices
+adb reverse --list
+systemctl --user restart pipewire pipewire-pulse wireplumber xdg-desktop-portal
+paru -S sunshine
+sudo setup-sunshine
+\
+sudo usermod -aG input $USER\
+\
+#\
+echo 'KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/60-sunshine.rules\
+\
+#\
+sudo udevadm control --reload-rules && sudo udevadm trigger
+sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
+sudo pacman -S avahi\
+sudo systemctl enable --now avahi-daemon
+sudo systemctl stop ufw\
+#\
+sudo systemctl stop firewalld
+adb reverse tcp:47984 tcp:47984\
+adb reverse tcp:47989 tcp:47989\
+adb reverse tcp:48010 tcp:48010
+ip addr show | grep inet
+ss -tulpn | grep 47990
+sudo ufw disable\
+sudo systemctl stop firewalld
+sudo ufw enable
+sudo dhcpcd enp1s0f0u3
+sudo nmcli device connect enp1s0f0u3
+ip addr show enp1s0f0u3
+\
+sudo ufw allow from 10.64.8.0/24\
+\
+#\
+sudo ufw allow 47984,47989,47990,48010/tcp\
+sudo ufw allow 47998,47999,48000,48002,48010/udp
+sudo nmcli device connect enp1s0f0u4
+niri outputs
+niri --help
+niri msg outputs
+sunshine
+\
+adb reverse tcp:47990 tcp:47990\
+adb reverse tcp:47984 tcp:47984\
+adb reverse tcp:47989 tcp:47989\
+\
+#\
+adb reverse tcp:47998 tcp:47998\
+adb reverse tcp:47999 tcp:47999\
+adb reverse tcp:48000 tcp:48000\
+adb reverse tcp:48002 tcp:48002\
+adb reverse tcp:48010 tcp:48010
+ip addr show
+sudo nmcli device connect enp1s0f0u6
+sudo nmcli device connect enp1s0f0u*
+chmod +x ~/polacz_tablet.sh
+nano ~/polacz_tablet.sh
+xkill
+emacs &
+chmod +x niri-spawn-obszar.sh
+chmod +x ~/niri-spawn-obszar.sh
+chmod +x ~niri-spawn-obszar.sh
+chmod +x ~/.niri-spawn-obszar.sh
+chmod +x /home/shin/polacz_tablet.sh
+/home/shin/polacz_tablet.sh
+chmod +x /home/shin/niri-spawn-obszar
+micro spawn-at-selection
+chmod +x /home/shin/spawn-at-selection
+chmod +x /home/shin/spawn-at-selection.sh
+micro ~/.config/niri/cfg/display.kdl
+/home/shin/spawn-at-selection.sh
+/home/shin/spawn-at-selection
+niri-spawn-obszar
+.niri-spawn-obszar
+sudo pacman -S jq
+micro niri-spawn-obszar
+\
+\
+#\
+GEOMETRY=$(slurp -f "%x %y %w %h")\
+[ -z "$GEOMETRY" ] && exit 1\
+\
+#\
+#\
+mpv --wid=0 --geometry="$GEOMETRY" --no-osc --no-osd-bar --loop-file=inf --player-operation-mode=pseudo-gui --on-all-workspaces --title="wallpaper-overlay" "/sciezka/do/twojego/pliku_lub_wideo.mp4" &
+sudo pacman -S mpv slurp
+mpv
+mpv /home/shin/Downloads/ÐƒÐ¿Ñ€Ð°Ð¹Ñ‚-0ien001.png
+micro ~/.config/niri/cfg/r r
+killall mpv
+mpv --wid=0 --force-window=yes --idle=yes "lavfi://color=c=red:s=640x480"
+sudo pacman -S swaybg
+sudo pacman -S python-gobject gtk4-layer-shell
+sudo pacman -S gtk4-layer-shell libvips\
+#\
+sudo pacman -S gobject-introspection
+sudo pacman -Sy gtk4-layer-shell libvips\
+#\
+sudo pacman -S gobject-introspection
+paru -S gtk4-layer-shell-git
+paru -Sy gtk4-layer-shell-git
+\
+paru -S wbg
+gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys B19964FBBA09664CC81027ED5BBD4992C116573F
+paru -S wbg --mflags --skippgpcheck
+wbg
+sudo pacman -S imv
+/home/shin/niri-spawn-obszar
+paru -S foot
+niri msg --json windows | jq '.[] | select(.app_id == "filmik-tlo") | {id, is_floating}'
+niri msg action move-window-to-floating --id 79
+niri msg action --help | grep -i window
+niri --version
+niri msg action focus-window --id "$WIN_ID"\
+niri msg action focus-window-previous
+\
+find /usr -name "wlr-layer-shell*.xml" 2>/dev/null\
+find /usr -name "xdg-shell.xml" 2>/dev/null
+paru -S wlr-protocols
+find /usr -name "wlr-layer-shell*.xml" 2>/dev/null
+\
+wayland-scanner client-header /usr/share/wlr-protocols/unstable/wlr-layer-shell-unstable-v1.xml /tmp/wlr-layer-shell.h\
+wayland-scanner private-code /usr/share/wlr-protocols/unstable/wlr-layer-shell-unstable-v1.xml /tmp/wlr-layer-shell.c\
+\
+wayland-scanner client-header /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml /tmp/xdg-shell.h\
+wayland-scanner private-code /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml /tmp/xdg-shell.c
+micro /tmp/tlo.c
+\
+#\
+wayland-scanner client-header /usr/share/wlr-protocols/unstable/wlr-layer-shell-unstable-v1.xml /tmp/wlr-layer-shell.h\
+wayland-scanner private-code /usr/share/wlr-protocols/unstable/wlr-layer-shell-unstable-v1.xml /tmp/wlr-layer-shell.c\
+\
+#\
+gcc /tmp/tlo.c /tmp/wlr-layer-shell.c -I/tmp -lwayland-client -lrt -o ~/tlo-layer\
+\
+#\
+~/tlo-layer 100 100 400 300 1e1e2e
+wayland-scanner client-header /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml /tmp/xdg-shell.h\
+wayland-scanner private-code /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml /tmp/xdg-shell.c\
+\
+gcc /tmp/tlo.c /tmp/wlr-layer-shell.c /tmp/xdg-shell.c -I/tmp -lwayland-client -lrt -o ~/tlo-layer\
+\
+~/tlo-layer 100 100 400 300 1e1e2e
+chmod +x ~/tlo
+niri msg --json windows | jq '.[0]'
+niri msg --json windows | jq '.[] | select(.app_id == "zen") | .layout'
+niri msg event-stream
+grep -r "gaps" ~/.config/niri/
+~/tlo
+niri msg --json windows | jq '[.[] | select(.workspace_id == 1) | {id, app_id, col: .layout.pos_in_scrolling_layout[0], w: .layout.tile_size[0]}] | sort_by(.col)'
+niri msg --json outputs | jq '.[] | select(.name == "DP-1") | {name, logical}'
+niri msg --json windows | jq '.[] | {id, app_id, title, floating_window}'
+niri msg --json workspaces | jq '.'
+micro followbox
+chmod +x followbox\
+./followbox
+./followbox
+.rect
+.box
+niri msg -j focused-window
+niri msg --json outputs | jq '.[] | {name, logical}'
+micro ~/tlo
+wayland-scanner client-header /usr/share/wlr-protocols/unstable/wlr-layer-shell-unstable-v1.xml /tmp/wlr-layer-shell.h\
+wayland-scanner private-code /usr/share/wlr-protocols/unstable/wlr-layer-shell-unstable-v1.xml /tmp/wlr-layer-shell.c\
+wayland-scanner client-header /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml /tmp/xdg-shell.h\
+wayland-scanner private-code /usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml /tmp/xdg-shell.c\
+\
+gcc /tmp/tlo.c /tmp/wlr-layer-shell.c /tmp/xdg-shell.c -I/tmp -lwayland-client -lrt -o ~/tlo-layer
+history
+sudo pacman -Rn foot wbg ranger weylus
+sudo pacman -Rn foot wbg ranger
+pacman -Qs weylus
+sudo pacman -Rn weylus-bin
+ip route
+cat /etc/resolv.conf
+\
+#\
+#\
+\
+sudo iptables -A OUTPUT -o "$INTERFACE" ! -d 10.64.8.0/24 -j REJECT
+micro ~/polacz_tablet.sh
+~/polacz_tablet.sh
+sudo pacman -S firejail
+firejail --net=wlan0 vesktop
+âƒ½¯ cp /usr/share/applications/vesktop.desktop ~/.local/share/applications/\
+cp: cannot create regular file '/home/shin/.local/share/applications/': Not a directory\
+âƒµ­âƒ´€ ïƒ¥¼ ï€ƒµ ~ \
+âƒµ°âƒ´€âƒ½¯
+mkdir -p ~/.local/share/applications/
+cp /usr/share/applications/vesktop.desktop ~/.local/share/applications/
+micro ~/.local/share/applications/vesktop.desktop
+Mod+D hotkey-overlay-title="Open vesktop" { spawn "firejail" "--net=wlan0" "--nopi" "vesktop"; }
+spawn "firejail" "--net=wlan0" "--nopi" "vesktop"
+firejail --net=wlan0 --nopi vesktop
+firejail --net=wlan0 --noprofile vesktop
+firejail --net=wlan0 --noprofile --blacklist=~/.config/pulse --blacklist=~/.config/pipewire vesktop
+firejail --list
+emacs
+/home/shin/Downloads/nekoray-4.0.1-2024-12-12-linux-x64.AppImage
+sudo /home/shin/Downloads/nekoray-4.0.1-2024-12-12-linux-x64.AppImage
+\
+/home/shin/Downloads/nekoray-4.0.1-2024-12-12-linux-x64.AppImage --appimage-extract\
+\
+#\
+sudo setcap cap_net_admin,cap_net_bind_service=+ep ./squashfs-root/nekobox\
+sudo setcap cap_net_admin,cap_net_bind_service=+ep ./squashfs-root/nekobox_core\
+\
+#\
+./squashfs-root/AppRun
+cd ~/Downloads\
+QT_QPA_PLATFORM=xcb LD_LIBRARY_PATH=./squashfs-root/usr/lib QT_PLUGIN_PATH=./squashfs-root/usr/plugins ./squashfs-root/nekobox
+\
+lsmod | grep tun\
+\
+#\
+sudo modprobe tun\
+\
+#\
+pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY HOME=$HOME QT_QPA_PLATFORM=xcb /home/shin/Downloads/nekoray-4.0.1-2024-12-12-linux-x64.AppImage
+gsettings get org.gnome.system.proxy mode
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+sudo systemctl restart NetworkManager
+sudo ip route flush cache\
+sudo systemctl restart NetworkManager
+unset http_proxy https_proxy ftp_proxy all_proxy HTTP_PROXY HTTPS_PROXY FTP_PROXY ALL_PROXY
+QT_QPA_PLATFORM=xcb /home/shin/Downloads/nekoray-4.0.1-2024-12-12-linux-x64.AppImage
+sudo pacman -Syy curl
+sudo nano /etc/environment
+ping 1.1.1.1
+ip rule
+killall vesktop
+paru -S nasp2
+paru -S naps2
+sudo pacman -S cups ghostscript gsfonts
+sudo systemctl enable --now cups
+sudo pacman -S hplip
+sudo pacman -S sane sane-airscan simple-scan
+sudo usermod -aG scanner,lp $USER
+scanimage -L
+sudo hp-plugin
+micro /home/shin/qmk_firmware/keyboards/mechboards/crkbd/pro/keyboard.json
+micro /home/shin/qmk_firmware/keyboards/mechboards/crkbd/pro/keymaps/default/keymap.c
+\
+systemctl status bluetooth\
+\
+#\
+sudo systemctl start bluetooth\
+sudo systemctl enable bluetooth\
+\
+#\
+sudo systemctl restart bluetooth
+\
+lsmod | grep bluetooth\
+lsmod | grep btusb\
+\
+#\
+sudo modprobe btusb\
+sudo modprobe bluetooth\
+\
+#\
+rfkill list\
+#\
+rfkill unblock bluetooth
+micro ~/.zshrc
+cat ~/.zshrc
+yay -Syy
+paru -S youtube-music-cli-bin
+paru -S youtui
+youtube-music-cli-bin
+youtube-music-cli
+youtube-music-cli search "monetochka"
+youtui --help
+youtui -a
+youtui setup-oauth
+cat /home/shin/.config/youtui/cookie.txt.
+paru -S chromium
+youtui -s
+micro /home/shin/.config/youtui/cookie.txt.
+youtui -d
+paru -Rns youtube-music-cli-bin
+paru -Rn youtube-music-cli-bin
+paru -Rns youtui
+cava
+fastfetch & clear
+fastfetch &
+clear
+lsusb
+sudo pacman -S gvfs-mtp gvfs-gphoto2 libmtp
+sudo pacman -S android-udev
+sudo pacman -S jmtpfs
+sudo pacman -Syy jmtpfs
+sudo usermod -aG adbusers $USER
+sudo systemctl enable --now sshd
+ssh 192.168.1.119/24
+fa r
+sudo ufw status
+sudo ufw allow ssh
+sudo pacman -S avahi nss-mdns\
+sudo systemctl enable --now avahi-daemon
+sudo systemctl enable --now avahi-daemon
+ping archlinux
+sudo hostnamectl set-hostname shin
+sudo hostnamectl set-hostname cachy
+whoim
+whoami
+ssh-keygen -t ed25519
+ssh-copy-id a
+scp ~/.zshrc l:~/
+scp ~/.zshrc a:~/
+micro sftp://192.168.1.119/home/shin/.ssh
+cd ~/.ssh
+micro config
+systemctl status sshd
+micro ~/.ssh/config
+cat /etc/nsswitch.conf | grep hosts
+hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [files myhostname dns
+sudo micro /etc/nsswitch.conf
+hostnamectl set-hostname arch
+hostnamectl set-hostname cachy
+hostname
+ping arch.local
+ssh arch.local
+ssh-keygen -R arch.local
+sudo pacman -S nss-mdns
+sudo micro /etc/avahi/avahi-daemon.conf
+sudo systemctl restart avahi-daemon
+\
+avahi-browse -a -t -r\
+\
+#\
+avahi-resolve -n arch.local\
+\
+#\
+cat /etc/nsswitch.conf | grep hosts\
+\
+#\
+systemctl status avahi-daemon
+scp ~/.zshrc a:~/\
+scp -r ~/.oh-my-zsh a:~/
+source ~/.zshrc
+ssh a
+sftp://192.168.1.119/home/shin/.config/niri
+ssh 192.168.1.119
+history 100
+uname -v
+f
+sudo poweroff
+b r
+yazi
+micro /run/media/shin/Magazyn/lin/Obsidian/.obsidian/snippets/gemini-code-1777214092587.css
+killall pacman
+micro /etc/pacman.conf
+sudo rm /var/lib/pacman/db.lck
+aw-watcher-afk
+rehash
+aw-server
+pacman -Ql activitywatch-bin | grep bin
+\
+/opt/activitywatch/aw-server-rust/aw-server-rust &\
+\
+#\
+/opt/activitywatch/aw-watcher-afk/aw-watcher-afk &\
+\
+#\
+aw-watcher-window-wayland &
+whereis aw-watcher-window-wayland
+ls -F ~/.cache/paru/clone/aw-watcher-window-wayland-git/src/*/target/release/aw-watcher-window-wayland
+paru -S --needed --noconfirm aw-watcher-window-wayland-git
+aw-watcher-window-wayland
+paru -S aw-watcher-window-wayland
+paru -Rn aw-watcher-window-wayland
+paru -Rn aw-watcher-window-wayland-git
+pip install aw-watcher-window-wayland
+sudo pacman -S python-pipx
+pipx install aw-watcher-window-wayland
+rm -rf ~/.cache/paru/clone/aw-watcher-window-wayland-git
+/home/shin/Downloads/activitywatch-linux-x86_64.AppImage
+paru -Ss aw-watcher-window-wayland
+paru -Ss aw-watcher-window
+pip install aw-watcher-window-wayland --break-system-packages
+chmod +x ~/.local/bin/niri-tracker ~/.local/bin/niri-viewer
+chmod +x ~/.local/bin/niri-tracker.py ~/.local/bin/niri-viewer.py
+pip install rich
+sudo pacman -S python-rich
+mkdir /home/shin/.config/niri-tracker
+ls /home/shin/.config/niri-tracker
+mkdir ~/.local/share/niri-tracker
+micro niri-tracker.py
+cd ~/.local/bin
+cd ~/.local/bin/clode/
+micro ~/.config/niri-tracker/config.toml
+sudo pacman -S python-textual
+python3 /home/shin/Downloads/gemini-code-1777299137921.py
+sudo pacman -S expac
+sudo python3 /home/shin/Downloads/gemini-code-1777299137921.py
+python3 /home/shin/Downloads/gemini-code-1777299368018.py
+cd /home/shin/.local/bin/gpt
+python/home/shin/Downloads/gemini-code-1777299613315.py
+python3 /home/shin/Downloads/gemini-code-1777299613315.py
+python3 /home/shin/Downloads/gemini-code-1777299613316.py
+python3 /home/shin/Downloads/gemini-code-1777299777316.py
+python3 /home/shin/Downloads/gemini-code-1777299956248.py
+python3 /home/shin/Downloads/gemini-code-1777300001145.py
+python3 /home/shin/Downloads/gemini-code-1777300139924.py
+sudo pacman -S python-plotext
+python3 /home/shin/Downloads/gemini-code-1777300203427.py
+dialog --title "Menu" --checklist "Wybierz aktywnoÅƒ»Äƒ§:" 15 40 5 1 "Kodowanie" on 2 "MÃ³j wykres" off 3 "WyjÅƒ»cie" off
+python3 niri-tui.py
+cd /home/shin/.local/bin/clode
+python3 niri-viewer.py
+python3 niri-tracker.py
+cd /home/shin/Downloads
+mkdir -p ~/.local/bin ~/.config/niri-tracker\
+\
+cp tracker.py ~/.local/bin/niri-tracker.py\
+cp tui.py ~/.local/bin/niri-tui.py\
+cp categories.toml ~/.config/niri-tracker/categories.toml\
+\
+chmod +x ~/.local/bin/niri-tracker.py ~/.local/bin/niri-tui.py
+cd /home/shin/.local/bin/
+micro ~/.config/niri-tracker/categories.toml
+python3 ~/.local/bin/niri-tracker.py
+rm niri-tui.py
+ls
+cd ~/.local/bin/
+micro niri-tui.py
+python3 ~/.local/bin/niri-tui.py
+micro /home/shin/Downloads/niri_tui_enhanced.py
+n
+micro /home/shin/.local/bin/niri-tui-et.py
+sudo python3 /home/shin/.local/bin/niri-tui-et.py
+python3 /home/shin/.local/bin/niri-tui-et.py
+echo $TERM
+echo $TERM\
+echo $COLORTERM
+python3 /home/shin/.local/bin/niri-tracker.py &
+killall kitty
+micro /home/shin/.local/bin/niri-tui-e.py
+python3 /home/shin/.local/bin/niri-tui-e.py
+micro /home/shin/.config/niri-tracker/categories.toml
+stdscr.addstr(0, 0, f"COLORS: {curses.COLORS} PAIRS: {curses.COLOR_PAIRS}")
+killall niri-tracker
+killall niri-tracker.py
+micro ~/.config/niri/cfg/autostart.kdl
+killall python3
+poweroff
+
+sudo cp /etc/fstab /etc/fstab.bak
+sudo nano /etc/fstab
+lsblk -f
+sudo mkdir -p /mnt/magazyn
+sudo mount -a
+sudo chown -R $USER:$USER /mnt/magazyn
+sudo systemctl daemon-reload
+ls -la /mnt/magazyn
+python3 /home/shin/.local/bin/niri-tracker.py
+micro /home/shin/.local/bin/niri-tui-e1.py
+cat ~/.local/share/niri-tracker/activity.csv | tail -20
+cat ~/.local/share/niri-tracker/activity.csv | tail -200
+cat ~/.local/share/niri-tracker/activity.csv
+python3 /home/shin/.local/bin/niri-tui-e1.py
+python3 /home/shin/Downloads/niri-tui-e1(1).py
+micro trash:///niri-tui-e1.py
+micro /home/shin/Downloads/niri-tui.py
+micro /home/shin/Downloads/niri-tui-e1.py
+python3 /home/shin/Downloads/niri-tui-e1.py
+python3 /home/shin/Downloads/gemini-code-1777396153843.py
+python3 /home/shin/Downloads/gemini-code-1777396316621.py
+python3 /home/shin/Downloads/gemini-code-1777477592837.py
+micro /home/shin/Downloads/__pycache__/niri_config.cpython-314.pyc
+python /home/shin/Downloads/niri-tui-v2.py
+micro /home/shin/Downloads/gemini-code-1777478631224.py
+kitty +kitten themes
+/home/shin/Downloads/gemini-code-1777482051465.py
+python /home/shin/Downloads/gemini-code-1777482051465.py
+python /home/shin/Downloads/gemini-code-1777478631224.py
+python /home/shin/Downloads/gemini-code-1777487430652.py
+micro /home/shin/Downloads/niri-tui-final.py
+python /home/shin/Downloads/gemini-code-1777487959822.py
+micro /home/shin/Downloads/gemini-code-1777488406138.py
+python /home/shin/Downloads/niri-tui-e1.py
+python /home/shin/Downloads/niri-tui-final.py
+paru -S prismlauncher-offline
+micro /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard/keymap.c
+qmk flash -kb crkbd/rev1 -km cornemykeyboard
+sudo pacman -S android-tools \
+fastboot devices
+lsusb  # czy w ogÃ³le system widzi telefon?
+\
+sudo fastboot devices
+sudo pacman -S android-udev\
+sudo udevadm control --reload-rules\
+sudo udevadm trigger\
+#\
+sudo usermod -aG plugdev $USER
+fastboot getvar current-slot
+fastboot set_active b\
+fastboot reboot
+fastboot set_active a
+fastboot getvar version\
+fastboot getvar version-baseband \
+fastboot getvar product
+fastboot getvar version-os\
+fastboot getvar version-software
+fastboot getvar all 2>&1
+fastboot oem edl
+lsusb | grep -i qualcomm
+fastboot reboot bootloader
+fastboot reboot recovery
+wtype -k adiaeresis
+paru -S wl-clipboard
+micro ~/.config/niri/cfg/rules.kdl
+niri validate
+micro wtype-if-not-obsidian
+chmod +x /home/shin/.config/niri/wtype-if-not-obsidian
+cat /home/shin/.config/niri/wtype-if-not-obsidian
+grep -A2 "Alt+A" ~/.config/niri/cfg/binds.kdl
+python /home/shin/Downloads/gemini-code-1777488406138.py
+micro /home/shin/.config/niri/wtype-if-not-obsidian
+niri msg --json focused-window
+niri msg --json
+niri msg
+niri msg -j windows
+btop
+paru -S superproductivity
+adb shell dumpsys usagestats > usagestats_full.txt
+adb shell\
+run-as com.google.android.apps.wellbeing\
+cd databases\
+ls
+cat usage_stats.db > /sdcard/usage.db\
+exit\
+adb pull /sdcard/usage.db
+adb devices\
+adb shell dumpsys usagestats > usage.txt
+adb shell dumpsys usagestats | grep "package=" > apps.txt
+ls -lh usage.txt\
+ls -lh apps.txt
+head usage.txt\
+head apps.txt
+grep "ACTIVITY_RESUMED" usage.txt | head
+grep "ACTIVITY_PAUSED" usage.txt | head
+grep "package=" usage.txt | cut -d'=' -f2 | cut -d' ' -f1 | sort | uniq -c | sort -nr | head
+adb root\
+adb pull /data/system/usagestats ./usagestats
+sudo adb root\
+adb pull /data/system/usagestats ./usagestats
+adb shell\
+su\
+whoami
+su\
+whoami
+adb shell\
+su
+micro /home/shin/Downloads/shineiNouzen_animes.json
+micro /home/shin/Downloads/shineiNouzen_animes.xml
+python /home/shin/Downloads/anilist_to_mal_xml.py
+paru -S heroiclauncher
+paru -Ss heroiclauncher
+paru -Ss heroic
+paru -S heroic-games-launcher-bin
+fastfetch
+paru -S dust
+dust
+sudo pacman -Qs | grep portal
+sudo pacman -Rns xdg-desktop-portal-gnome xdg-desktop-portal-kde xdg-desktop-portal-cosmic
+sudo pacman -Rcns xdg-desktop-portal-gnome xdg-desktop-portal-kde xdg-desktop-portal-cosmic
+discord --enable-features=UseOzonePlatform --ozone-platform=wayland
+vesktop-bin
+micro ~/.config/niri/cfg/keybinds.kdl
+sudo pacman -S xdg-desktop-portal-gnome
+sudo pacman -Rns xdg-desktop-portal-wlr xdg-desktop-portal-luminous
+mkdir -p ~/.config/xdg-desktop-portal
+echo -e "[preferred]\ndefault=gnome;gtk" > ~/.config/xdg-desktop-portal/niri-portals.conf
+systemctl --user enable --now pipewire wireplumber
+echo $XDG_CURRENT_DESKTOP
+systemctl --user restart xdg-desktop-portal
+vesktop
+systemctl --user status xdg-desktop-portal-gnome
+sudo pacman -S xdg-desktop-portal-wlr
+nano ~/.config/xdg-desktop-portal/niri-portals.conf
+export XDG_CURRENT_DESKTOP=wlroots
+reboot
+: 1779476984:0;sudo ~/.zshrc
+: 1779476993:0;micro ~/.zshrc
+: 1779477139:0;sudo pacman -Rns xdg-desktop-portal-wlr xdg-desktop-portal-luminous
+: 1779477147:0;sudo pacman -Rns xdg-desktop-portal-wlr
+: 1779477190:0;sudo pacman -S xdg-desktop-portal-gnome
+: 1779477195:0;reboot
+: 1779477398:0;rm -rf ~/.config/xdg-desktop-portal/
+: 1779477447:0;sudo pacman -Q | grep xdg-desktop-portal
+: 1779477534:0;sudo pacman -S xdg-desktop-portal-wlr
+: 1779477577:0;sudo pacman -Rns xdg-desktop-portal-gnome
+: 1779477621:0;mkdir -p ~/.config/xdg-desktop-portal
+: 1779477660:0;micro ~/.config/xdg-desktop-portal/portals.conf
+: 1779477939:0;cat ~/.config/xdg-desktop-portal/portals.conf
+: 1779477970:0;cat ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779478062:0;mv ~/.config/xdg-desktop-portal/portals.conf ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779478070:0;cat ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779478110:0;reboot
+: 1779478269:0;journalctl --user -b -n 50
+: 1779478488:0;journalctl -b | grep -i "niri/|greetd\|login\|failed\|error" | tail -40
+: 1779478519:0;systemctl status greetd
+: 1779478562:0;journalctl -b | grep -i niri | tail -20
+: 1779478684:0;ls /usr/share/wayland-session
+: 1779478695:0;ls /usr/share/wayland-sessions/
+: 1779478802:0;which niri
+: 1779478824:0;pacman -Q niri
+: 1779478832:0;pacman -S niri
+: 1779478838:0;sudo pacman -S niri
+: 1779478856:0;niri
+: 1779480429:0;systemctl --user status xdg-desktop-portal\
+systemctl --user status xdg-desktop-portal-wlr
+: 1779480447:0;systemctl --user start xdg-desktop-portal-wlr\
+systemctl --user status xdg-desktop-portal-wlr
+: 1779480459:0;journalctl --user -u xdg-desktop-portal-wlr -n 20
+: 1779480477:0;echo $WAYLAND_DISPLAY\
+systemctl --user show-environment | grep WAYLAND
+: 1779480494:0;systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP\
+systemctl --user start xdg-desktop-portal-wlr\
+systemctl --user status xdg-desktop-portal-wlr
+: 1779480514:0;micro ~/.config/niri/config.kdl
+: 1779480618:0;vesktop
+: 1779480657:0;systemctl --user restart xdg-desktop-portal-wlr\
+sleep 2\
+systemctl --user restart xdg-desktop-portal
+: 1779480662:0;journalctl --user -u xdg-desktop-portal -n 20
+: 1779480776:0;journalctl --user -u xdg-desktop-portal -n 50 | grep -i "wlr\|screencast\|backend\|impl"
+: 1779480779:0;G_MESSAGES_DEBUG=all /usr/lib/xdg-desktop-portal 2>&1 | head -50
+: 1779480786:0;pacman -Q | grep xdg-desktop-portal
+: 1779480809:0;micro ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779480822:0;systemctl --user restart xdg-desktop-portal-wlr\
+sleep 1\
+systemctl --user restart xdg-desktop-portal
+: 1779480827:0;gdbus introspect --session --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop | grep ScreenCast
+: 1779480884:0;vesktop
+: 1779480929:0;vesktop --ozone-platform=wayland --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer
+: 1779480956:0;ls ~/.config/vesktop/\
+cat ~/.config/vesktop/settings.json 2>/dev/null
+: 1779480975:0;DISPLAY="" vesktop --ozone-platform=wayland --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --disable-features=AllowX11 2>&1 | grep -i "screencast\|pipewire\|wayland\|error"
+: 1779481023:0;micro ~/.config/vesktop/settings.json
+: 1779481052:0;vesktop
+: 1779481081:0;micro ~/.config/vesktop/chrome-flags.conf
+: 1779481093:0;vesktop
+: 1779481120:0;cat /usr/bin/vesktop 2>/dev/null || cat /usr/local/bin/vesktop 2>/dev/null
+: 1779481123:0;which vesktop\
+cat $(which vesktop)
+: 1779481140:0;micro ~/.config/vesktop-flags.conf
+: 1779481161:0;vesktop
+: 1779481185:0;systemctl --user status xdg-desktop-portal-wlr
+: 1779481205:0;sudo pacman -S xdg-desktop-portal-hyprland
+: 1779481212:0;micro ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779481220:0;systemctl --user stop xdg-desktop-portal-wlr\
+systemctl --user restart xdg-desktop-portal
+: 1779481245:0;vesktop
+: 1779481279:0;/usr/lib/vesktop/vesktop --version
+: 1779481286:0;gdbus call --session --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop --method org.freedesktop.portal.ScreenCast.CreateSession "{'handle_token': <'test1'>, 'session_handle_token': <'test2'>}"
+: 1779481307:0;pacman -Qi vesktop | grep Version\
+yay -Ss vesktop-bin
+: 1779481329:0;sudo pacman -S vesktop-bin
+: 1779481343:0;vesktop
+: 1779481374:0;electron --version
+: 1779481386:0;pacman -Q | grep electron
+: 1779481433:0;journalctl --user -u xdg-desktop-portal-hyprland -f
+: 1779481444:0;systemctl --user status xdg-desktop-portal-hyprland
+: 1779481460:0;micro ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779481473:0;systemctl --user stop xdg-desktop-portal-hyprland\
+systemctl --user restart xdg-desktop-portal
+: 1779481494:0;vesktop
+: 1779481529:0;journalctl --user -u xdg-desktop-portal-wlr -f
+: 1779481553:0;cat ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779481562:0;G_MESSAGES_DEBUG=all /usr/lib/xdg-desktop-portal 2>&1 | grep -i "screencast\|wlr\|hyprland\|found"
+: 1779481583:0;niri msg version
+: 1779481595:0;journalctl --user -u niri -f
+: 1779481614:0;yay -Ss xdg-desktop-portal-niri
+: 1779481640:0;yay -S xdg-desktop-portal-niri
+: 1779481661:0;niri msg --help | grep -i screen\
+niri msg version
+: 1779481773:0;systemctl --user stop xdg-desktop-portal-wlr\
+micro ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779481831:0;discord
+: 1779481887:0;yazi
+: 1779481948:0;sudo pacman -S nautilus
+: 1779482003:0;/home/shin/Downloads/discord-1.0.139/Discord/discord
+: 1779482168:0;journalctl --user -u xdg-desktop-portal-hyprland -f
+: 1779485881:0;fastfetch
+: 1779485903:0;python /home/shin/Downloads/gemini-code-1777488406138.py
+: 1779573509:0;micro ~/.zshrc
+: 1779715597:0;sudo pacman -S wine
+: 1779716292:0;sudo pacman -S fancontrol-gui
+: 1779716302:0;sudo pacman -Sy fancontrol-gui
+: 1779716336:0;sudo paru -Sy fancontrol-gui
+: 1779716363:0;paru -Sy fancontrol-gui
+: 1779716400:0;fancontrol-gui
+: 1779716405:0;fancontrol
+: 1779716452:0;sensors-detect
+: 1779716469:0;fancontrol sensors-detect
+: 1779716717:0;sudo sensors-detect --auto\
+sensors
+: 1779716735:0;sudo pwmconfig
+: 1779716739:0;sudo systemctl enable --now fancontrol
+: 1779716755:0;fancontrol
+: 1779716812:0;sudo modprobe it87 force_id=0x8688\
+sensors
+: 1779716825:0;sensors | grep -E "fan|pwm|Fan"\
+ls /sys/class/hwmon/
+: 1779716854:0;yay -S it87-dkms-git
+: 1779716986:0;sudo modprobe it87 force_id=0x8688\
+sensors
+: 1779717017:0;sudo pwmconfig
+: 1779717150:0;yay -S nbfc-linux
+: 1779717207:0;btop
+: 1779717234:0;ls /sys/bus/platform/drivers/gigabyte-wmi/\
+find /sys -name "*fan*" 2>/dev/null | grep -v proc
+: 1779717311:0;nbfc config --list | grep -i gigabyte
+: 1779717329:0;ls /sys/devices/platform/it87.2624/hwmon/hwmon4/pwm*
+: 1779717334:0;cat /sys/devices/platform/it87.2624/hwmon/hwmon4/pwm1_enable\
+cat /sys/devices/platform/it87.2624/hwmon/hwmon4/pwm2_enable
+: 1779717344:0;echo 1 | sudo tee /sys/devices/platform/it87.2624/hwmon/hwmon4/pwm1_enable\
+echo 128 | sudo tee /sys/devices/platform/it87.2624/hwmon/hwmon4/pwm1
+: 1779717366:0;sensors | grep fan
+: 1779717388:0;PWM=/sys/devices/platform/it87.2624/hwmon/hwmon4\
+\
+#\
+echo 4 | sudo tee $PWM/pwm1_auto_channels_temp\
+echo 40000 | sudo tee $PWM/pwm1_auto_point1_temp\
+echo 60000 | sudo tee $PWM/pwm1_auto_point2_temp\
+echo 80000 | sudo tee $PWM/pwm1_auto_point3_temp\
+echo 30 | sudo tee $PWM/pwm1_auto_start\
+echo 4 | sudo tee $PWM/pwm1_enable\
+\
+#\
+echo 4 | sudo tee $PWM/pwm2_auto_channels_temp\
+echo 40000 | sudo tee $PWM/pwm2_auto_point1_temp\
+echo 60000 | sudo tee $PWM/pwm2_auto_point2_temp\
+echo 80000 | sudo tee $PWM/pwm2_auto_point3_temp\
+echo 30 | sudo tee $PWM/pwm2_auto_start\
+echo 4 | sudo tee $PWM/pwm2_enable\
+\
+#\
+echo 4 | sudo tee $PWM/pwm3_auto_channels_temp\
+echo 40000 | sudo tee $PWM/pwm3_auto_point1_temp\
+echo 60000 | sudo tee $PWM/pwm3_auto_point2_temp\
+echo 80000 | sudo tee $PWM/pwm3_auto_point3_temp\
+echo 30 | sudo tee $PWM/pwm3_auto_start\
+echo 4 | sudo tee $PWM/pwm3_enable
+: 1779717406:0;sudo tee /etc/udev/rules.d/99-fancontrol.rules << 'EOF'\
+SUBSYSTEM=="hwmon", ATTR{name}=="it8688", \\
+  ATTR{pwm1_auto_channels_temp}="4", \\
+  ATTR{pwm1_auto_point1_temp}="40000", \\
+  ATTR{pwm1_auto_point2_temp}="60000", \\
+  ATTR{pwm1_auto_point3_temp}="80000", \\
+  ATTR{pwm1_auto_start}="30", \\
+  ATTR{pwm1_enable}="4", \\
+  ATTR{pwm2_auto_channels_temp}="4", \\
+  ATTR{pwm2_auto_point1_temp}="40000", \\
+  ATTR{pwm2_auto_point2_temp}="60000", \\
+  ATTR{pwm2_auto_point3_temp}="80000", \\
+  ATTR{pwm2_auto_start}="30", \\
+  ATTR{pwm2_enable}="4", \\
+  ATTR{pwm3_auto_channels_temp}="4", \\
+  ATTR{pwm3_auto_point1_temp}="40000", \\
+  ATTR{pwm3_auto_point2_temp}="60000", \\
+  ATTR{pwm3_auto_point3_temp}="80000", \\
+  ATTR{pwm3_auto_start}="30", \\
+  ATTR{pwm3_enable}="4"\
+EOF
+: 1779717475:0;steam
+: 1779717537:0;\
+whoami
+: 1779717542:0;echo $DISPLAY\
+# Powinno byÄƒ§ np. :0 lub :1
+: 1779717547:0;export DISPLAY=:0\
+steam
+: 1779717600:0;echo $DISPLAY\
+echo $WAYLAND_DISPLAY\
+xdpyinfo 2>&1 | head -5
+: 1779717614:0;STEAM_USE_WAYLAND=1 steam
+: 1779717624:0;SDL_VIDEODRIVER=wayland steam
+: 1779717695:0;echo $XAUTHORITY\
+ls /run/user/1000/
+: 1779717717:0;xauth add :0 . $(xxd -l 16 -p /dev/urandom)
+: 1779717733:0;ss -x | grep X0\
+#\
+ls /tmp/.X11-unix/
+: 1779717755:0;xauth add :0 . $(od -An -N16 -tx1 /dev/urandom | tr -d ' \n')\
+export XAUTHORITY=~/.Xauthority\
+export DISPLAY=:0\
+steam
+: 1779717791:0;ls /tmp/xauth* /tmp/.Xauth* 2>/dev/null\
+cat /proc/$(pgrep Xwayland)/cmdline | tr '\0' '\n'
+: 1779726024:0;steam
+: 1779726104:0;sudo pacman -S xorg-xwayland
+: 1779726116:0;echo $DISPLAY
+: 1779726125:0;DISPLAY=:0 steam
+: 1779726153:0;xhost +si:localuser:$USER
+: 1779726168:0;ls /tmp/.X11-unix/
+: 1779726192:0;DISPLAY:0 steam
+: 1779726213:0;DISPLAY=:0 steam
+: 1779726234:0;sudo pacman -S xorg-xhost
+: 1779726243:0;xhost +si:localuser:$USER\
+DISPLAY=:0 steam
+: 1779726260:0;SDL_VIDEODRIVER=wayland steam
+: 1779726281:0;sudo pacman -S flatpak\
+flatpak install flathub com.valvesoftware.Steam
+: 1779811098:0;com.valvesoftware.Steam
+: 1779811319:0;cat ~/.config/xdg-desktop-portal/niri-portals.conf
+: 1779811345:0;sudo pacman -Qs | grep portal
+: 1779811363:0;systemctl --user stop xdg-desktop-portal-wlr
+: 1779811373:0;systemctl --user start xdg-desktop-portal-wlr
+: 1779811382:0;systemctl --user status xdg-desktop-portal-wlr
+: 1779811418:0;cat > ~/.config/xdg-desktop-portal/portals.conf << 'EOF'
+: 1779811453:0;cat > ~/.config/xdg-desktop-portal/portals.conf
+: 1779811465:0;cat ~/.config/xdg-desktop-portal/portals.conf
+: 1779811571:0;micro ~/.config/xdg-desktop-portal/portals.conf
+: 1779811588:0;micro ~/.config/niri/config.kdl
+: 1779811612:0;reboot
+: 1779811698:0;history 200
+: 1779811801:0;micro ~/.config/niri/config.kdl
+: 1779811871:0;steam -nosanbox
+: 1779811890:0;history 200
+: 1779812003:0;echo $DISPLAY\
+echo $WAYLAND_DISPLAY\
+ls /tmp/.X11-unix/
+: 1779812016:0;export DISPLAY=:0\
+steam
+: 1779812044:0;xhost +si:localuser:$USER\
+steam
+: 1779812057:0;xauth generate :0 . trusted\
+steam
+: 1779812064:0;xhost +local:\
+steam
+: 1779812098:0;ls -la /tmp/.X11-unix/X0\
+cat /proc/$(pidof Xwayland)/environ 2>/dev/null | tr '\0' '\n' | grep -E "DISPLAY|XAUTHORITY|WAYLAND"
+: 1779812107:0;echo $XAUTHORITY\
+ls ~/.Xauthority
+: 1779812123:0;export XAUTHORITY=~/.Xauthority\
+export DISPLAY=:0\
+xauth list
+: 1779812137:0;DISPLAY=cachyos-x8664:0 steam
+: 1779812166:0;COOKIE=$(xauth list cachyos-x8664/unix:0 | awk '{print $3}')\
+xauth add :0 . $COOKIE\
+xauth add unix:0 . $COOKIE\
+xauth list
+: 1779812172:0;DISPLAY=:0 XAUTHORITY=~/.Xauthority steam
+: 1779812200:0;STEAM_USE_WAYLAND=1 SDL_VIDEODRIVER=wayland GDK_BACKEND=wayland steam
+: 1779812219:0;file ~/.local/share/Steam/ubuntu12_32/steam\
+ldd ~/.local/share/Steam/ubuntu12_32/steam | grep "not found"
+: 1779812224:0;STEAM_USE_WAYLAND=1 SDL_VIDEODRIVER=wayland steam -noreactlogin -nobootstrapupdate -skipinitialbootstrap
+: 1779812233:0;STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0 STEAM_USE_WAYLAND=1 SDL_VIDEODRIVER=wayland ~/.local/share/Steam/ubuntu12_64/steam-runtime-heavy/run --\
+~/.local/share/Steam/ubuntu12_64/steam
+: 1779812248:0;flatpak run com.valvesoftware.Steam
+: 1779812286:0;dbus-update-activation-environment --systemd DISPLAY XAUTHORITY WAYLAND_DISPLAY
+: 1779812293:0;flatpak run com.valvesoftware.Steam
+: 1779812299:0;echo $DISPLAY
+: 1779812317:0;export DISPLAY=:0\
+export XAUTHORITY=~/.Xauthority\
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY WAYLAND_DISPLAY\
+systemctl --user import-environment DISPLAY XAUTHORITY\
+flatpak run com.valvesoftware.Steam
+: 1779821786:0;micro /home/shin/qmk_firmware/keyboards/crkbd/keymaps/cornemykeyboard/keymap.c
+: 1779909760:0;sudo paru -S xdotool wmctrl fonts-dejavu
+: 1779909801:0;git clone https://github.com/HelpFreedom/youthub.git\
+cd youthub
+: 1779910272:0;sudo pacman -Syu\
+sudo pacman -S --needed git kitty nodejs npm python python-pip python-virtualenv ffmpeg sdl2 dav1d opus base-devel nasm xdotool wmctrl ttf-dejavu libdecor

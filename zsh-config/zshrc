@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+# ┬ ┬┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐  ┌─┐┌─┐┬ ┬
+# │││├┤ │  │  │ ││││├┤    │ │ │  ┌─┘└─┐├─┤
+# └┴┘└─┘┴─┘└─┘└─┘┴ ┴└─┘   ┴ └─┘  └─┘└─┘┴ ┴
+#---------------------------------------------------------------------
+# Copyright (c) 2025 maarutan \ Marat Arzymatov. All Rights Reserved.
+# https://github.com/maarutan
+
+# -- Welcome to Zsh! --
+
+# zmodload zsh/zprof
+
+export ZSH_CONFIG="$HOME/.config/zsh"  # Config directory
+export ZSH_PLUGINS_MANAGER="zinit"     # Plugin manager
+eval "$(atuin init zsh)"
+source "$ZSH_CONFIG/init.zsh"          # Load main config
+
+# zprof
+alias dc="/home/shin/Downloads/discord-canary-0.0.930/DiscordCanary/DiscordCanary"
+function dc() { $(ls -d ~/Downloads/discord-canary-*/DiscordCanary/DiscordCanary 2>/dev/null | sort -V | tail -1) "$@" }
