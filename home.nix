@@ -1,5 +1,3 @@
-{ pkgs, inputs, ... }:
-
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -23,4 +21,4 @@
   xdg.configFile."niri/config.kdl".source = ./niri-config.kdl;
   xdg.configFile."niri/cfg".source = ./niri-cfg;
   xdg.configFile."niri/noctalia.kdl".source = ./niri-noctalia.kdl;
-}  
+}
