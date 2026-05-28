@@ -1,0 +1,31 @@
+// 1. Podstawowe zasady wyglądu (zaokrąglenia)
+window-rule {
+    geometry-corner-radius 20
+    clip-to-geometry true
+}
+
+// 2. Domyślna przezroczystość dla wszystkich okien
+window-rule {
+    opacity 1.0
+}
+
+// 4. Nautilus focused - wymuś 0.95
+window-rule {
+    match is-focused=true
+    opacity 1.0
+}
+window-rule {
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="niri-bg-box"
+    focus-ring { off; }
+}
+window-rule {
+    match app-id="filmik-tlo"
+    open-floating true
+    focus-ring { off; }
+    draw-border-with-background false
+}
+
