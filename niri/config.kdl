@@ -13,5 +13,3 @@ environment {
     XDG_SESSION_TYPE "wayland"
     DESKTOP_SESSION "niri"
 }
-
-spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "DISPLAY"
