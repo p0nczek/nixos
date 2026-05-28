@@ -6,9 +6,11 @@
   ];
 
   home.stateVersion = "25.11"; 
-  home.file.".zshrc".source = ./zshrc;
-  home.file.".config/zsh".source = ./zsh-config;
-  programs.zsh.enable = true;
+
+  home.file.".zshrc" = {
+    source = ./zshrc;
+    force = true;
+  };
   
 
   programs.noctalia-shell = {

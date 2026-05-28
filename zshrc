@@ -10,6 +10,7 @@
 
 # zmodload zsh/zprof
 
+zsh-newuser-install() { :; }
 export ZSH_CONFIG="$HOME/.config/zsh"  # Config directory
 export ZSH_PLUGINS_MANAGER="zinit"     # Plugin manager
 eval "$(atuin init zsh)"
