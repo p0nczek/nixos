@@ -122,6 +122,8 @@
     ripgrep
     fzf
     zoxide
+    zsh
+    libnotify
       
       # Reszta
     kitty

@@ -6,6 +6,10 @@
   ];
 
   home.stateVersion = "25.11"; 
+  home.file.".zshrc".source = ./zshrc;
+  home.file.".config/zsh".source = ./zsh-config;
+  programs.zsh.enable = true;
+  
 
   programs.noctalia-shell = {
     enable = true;
@@ -18,6 +22,10 @@
       };
     };
   };
+
+
+
+  
 
   # Poprawne ścieżki – wszystko w folderze niri/
   xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
