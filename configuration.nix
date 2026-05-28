@@ -10,6 +10,10 @@
       ./hardware-configuration.nix
     ];
 
+
+home-manager.useGlobalPkgs = true;
+home-manager.useUserPackages = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -108,6 +112,9 @@
 
   
   environment.systemPackages = with pkgs; [
+   home-manager
+
+  
     atuin          # historia shella (widzę w .zshrc)
       
      # Fonty - konkretne, nie cała paczka nerdfonts

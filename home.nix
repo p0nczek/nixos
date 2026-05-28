@@ -7,8 +7,6 @@
 
   home.stateVersion = "25.11"; 
 
-home.file.".config/zsh/init.zsh".source = ./zsh-config/init.zsh;
-home.file.".config/zsh/aliases.zsh".source = ./zsh-config/aliases.zsh;
   
 
   programs.noctalia-shell = {
