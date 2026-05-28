@@ -1,0 +1,10 @@
+# Nie śledź tymczasowych plików
+result
+*.swp
+*.swo
+*~
+
+# Nie śledź sekretów (jeśli będziesz dodawać)
+secrets/
+*.key
+*.pem
