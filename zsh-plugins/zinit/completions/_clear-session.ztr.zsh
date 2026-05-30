@@ -1,0 +1,1 @@
+/home/shin/.local/share/zinit/plugins/olets---zsh-abbr/tests/_clear-session.ztr.zsh
