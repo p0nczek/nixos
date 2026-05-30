@@ -6,14 +6,15 @@ window-rule {
 
 // 2. Domyślna przezroczystość dla wszystkich okien
 window-rule {
-    opacity 1.0
+    opacity 0.85
 }
 
-// 4. Nautilus focused - wymuś 0.95
 window-rule {
+    opacity 0.95
     match is-focused=true
-    opacity 1.0
 }
+
+
 window-rule {
     draw-border-with-background false
 }
