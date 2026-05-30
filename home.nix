@@ -26,7 +26,8 @@
   
 
   # Poprawne ścieżki – wszystko w folderze niri/
-  xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
-  xdg.configFile."niri/cfg".source = ./niri/cfg;
-  xdg.configFile."niri/noctalia.kdl".source = ./niri/noctalia.kdl;
+  xdg.configFile."niri".source = ./niri;
+  xdg.configFile."noctalia".source = ./noctalia;
+  home.file.".zshrc".source = ./zshrc;
+  home.file.".config/zsh".source = ./zsh-config;
 }
