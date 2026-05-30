@@ -30,4 +30,5 @@ home.file.".local/share/zinit" = {
   # Niri
   xdg.configFile."niri".source = ./niri;
   xdg.configFile."noctalia".source = ./noctalia;
+  xdg.configFile."kitty".source = ./kitty-config;
 }
