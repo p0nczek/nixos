@@ -7,17 +7,20 @@ binds {
 		Alt+U { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ü" "u"; }
 		Alt+Shift+U { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "Ü" "u" "shift"; }
 		Alt+S { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ß" "s"; }
+	//	Alt+E { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ë" "e"; }
 		Alt+Shift+E { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "Ë" "e" "shift"; }
 
     // ─── Applications ───
     Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
     Mod+O                     		hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
+    Mod+F                           hotkey-overlay-title="Open Browser: zen-browser" { spawn "zen-browser"; }
     Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
     Mod+D { spawn "vesktop"; } 
+    Mod+shift+D 					{ spawn "/home/shin/bin/launch-discord.sh"; }   
+	Mod+P 							{ spawn "sh" "-c" "~/.config/niri/toggle_border.sh"; }
 	Mod+Period						{ spawn "~/polacz_tablet.sh"; }
 
-    Mod+Y { spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/tlo"; }
+	Mod+Y 								{ spawn "/home/shin/tlo"; }
 	Mod+Shift+Y 						{ spawn "pkill" "-f" "tlo-layer"; }
 
 
@@ -34,19 +37,18 @@ binds {
 	Mod+C                               { center-column; }
 	Mod+Shift+T                         { toggle-window-floating; }
 	Mod+Shift+F                         { fullscreen-window; }
-    Mod+P                     { toggle-window-rule-opacity; }
 	//Mod+Backspace                       repeat=false { toggle-overview; }
 	CTRL+Shift+S                    	{ screenshot; }
 
     // ─── Media Controls ───
-    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
-    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
-    //XF86AudioMute                     allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
-    F1                     				allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
-    XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
-    XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }
-    XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
-    XF86AudioPause                      allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
+    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call volume increase"; }
+    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call volume decrease"; }
+    //XF86AudioMute                     allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call volume muteInput"; }
+    F1                     				allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call volume muteInput"; }
+    XF86AudioNext                       allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call media next"; }
+    XF86AudioPrev                       allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call media previous"; }
+    XF86AudioPlay                       allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call media playPause"; }
+    XF86AudioPause                      allow-when-locked=true { spawn-sh "qs -c noctalia-shell ipc call media playPause"; }
 
    
     Mod+Q                               { close-window; }

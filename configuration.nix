@@ -96,8 +96,7 @@ xdg.portal = {
     };
   };
 };
-
-  programs.nix-ld.enable = true;
+  
   programs.xwayland.enable = true;
 
   # Wsparcie dla kalendarza i wydarzeń w Noctalia
@@ -175,10 +174,7 @@ programs.zsh.enable = true;
     zoxide
     zsh
     libnotify
-    nix-ld
-    wayland
-    libxkbcommon
-    libGL      
+      
       # Reszta
     kitty
     micro
@@ -208,8 +204,6 @@ programs.zsh.enable = true;
     
     # Python dla trackera
     python3
-    slurp
-    
     
     # Inne
     wtype
