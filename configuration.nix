@@ -100,6 +100,8 @@ home-manager.useUserPackages = true;
 users.defaultUserShell = pkgs.zsh;
 programs.zsh.enable = true;
   
+  users.users.root.initialPassword = "nixos";
+
   users.users.shin = {
     isNormalUser = true;
     description = "shin";
