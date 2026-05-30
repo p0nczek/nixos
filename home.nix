@@ -15,6 +15,13 @@ home.file.".local/share/zinit" = {
   force = true;
 };
 
+
+home.file.".config/zsh" = {
+  source = ./zsh-config;
+  recursive = true;
+  force = true;
+};
+
   # Noctalia
   programs.noctalia-shell = {
     enable = true;
