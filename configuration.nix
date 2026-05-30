@@ -148,6 +148,7 @@ programs.zsh.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.steam.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -156,7 +157,7 @@ programs.zsh.enable = true;
   environment.systemPackages = with pkgs; [
    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
    home-manager
-
+   xwayland-satellite
   
     atuin          # historia shella (widzę w .zshrc)
       
@@ -165,7 +166,7 @@ programs.zsh.enable = true;
      # lub jeśli powyższe nie działa:
      # jetbrains-mono
 
-     timeshift 
+     
      # Nowoczesne CLI
     eza
     bat
@@ -185,7 +186,7 @@ programs.zsh.enable = true;
     fastfetch
     btop     
       
-    
+    steam
     git            # lokalny git
     
     # Komunikacja
