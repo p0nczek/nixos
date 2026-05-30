@@ -1,0 +1,264 @@
+{
+  "cheatsheetData": [
+    {
+      "title": "Noctalia",
+      "binds": [
+        {
+          "keys": "Super + O",
+          "desc": "Open App Launcher: noctalia launcher"
+        },
+        {
+          "keys": "Vol Up",
+          "desc": "Volume Up"
+        },
+        {
+          "keys": "Vol Down",
+          "desc": "Volume Down"
+        },
+        {
+          "keys": "F1",
+          "desc": "Mute Input"
+        },
+        {
+          "keys": "Next",
+          "desc": "Next Track"
+        },
+        {
+          "keys": "Prev",
+          "desc": "Previous Track"
+        },
+        {
+          "keys": "Play",
+          "desc": "Play / Pause"
+        },
+        {
+          "keys": "Pause",
+          "desc": "Play / Pause"
+        }
+      ]
+    },
+    {
+      "title": "Applications",
+      "binds": [
+        {
+          "keys": "Alt + A",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + O",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + U",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + S",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + E",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Super + Comma",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + Shift + E",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + Shift + A",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + Shift + O",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Alt + Shift + U",
+          "desc": "Run: wtype"
+        },
+        {
+          "keys": "Super + Tab",
+          "desc": "Open Terminal: kitty"
+        },
+        {
+          "keys": "Super + F",
+          "desc": "Open Browser: zen-browser"
+        },
+        {
+          "keys": "Super + T",
+          "desc": "Open Telegram"
+        },
+        {
+          "keys": "Super + D",
+          "desc": "Open Vesktop (Sandboxed)"
+        },
+        {
+          "keys": "Super + shift + D",
+          "desc": "Run: /home/shin/bin/launch-discord.sh"
+        },
+        {
+          "keys": "Super + P",
+          "desc": "Run: sh"
+        },
+        {
+          "keys": "Super + Period",
+          "desc": "Run: ~/polacz_tablet.sh"
+        },
+        {
+          "keys": "Super + Y",
+          "desc": "Run: /home/shin/tlo"
+        },
+        {
+          "keys": "Super + Shift + Y",
+          "desc": "Run: pkill"
+        },
+        {
+          "keys": "Super + V",
+          "desc": "Run: cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
+        },
+        {
+          "keys": "Super + E",
+          "desc": "File Manager: Nautilus"
+        }
+      ]
+    },
+    {
+      "title": "Window Management",
+      "binds": [
+        {
+          "keys": "Super + Shift + F",
+          "desc": "Fullscreen Window"
+        },
+        {
+          "keys": "Super + Q",
+          "desc": "Close Window"
+        }
+      ]
+    },
+    {
+      "title": "Column Navigation",
+      "binds": [
+        {
+          "keys": "Super + N",
+          "desc": "Focus Column Right"
+        },
+        {
+          "keys": "Super + A",
+          "desc": "Focus Column Left"
+        },
+        {
+          "keys": "Super + WheelScrollRight",
+          "desc": "Focus Column Right"
+        },
+        {
+          "keys": "Super + WheelScrollLeft",
+          "desc": "Focus Column Left"
+        }
+      ]
+    },
+    {
+      "title": "Workspace Navigation",
+      "binds": [
+        {
+          "keys": "Super + WheelScrollDown",
+          "desc": "Focus Workspace Down"
+        },
+        {
+          "keys": "Super + WheelScrollUp",
+          "desc": "Focus Workspace Up"
+        },
+        {
+          "keys": "Super + 1",
+          "desc": "Focus Workspace 1"
+        },
+        {
+          "keys": "Super + 2",
+          "desc": "Focus Workspace 2"
+        },
+        {
+          "keys": "Super + 3",
+          "desc": "Focus Workspace 3"
+        },
+        {
+          "keys": "Super + 4",
+          "desc": "Focus Workspace 4"
+        },
+        {
+          "keys": "Super + 5",
+          "desc": "Focus Workspace 5"
+        },
+        {
+          "keys": "Super + 6",
+          "desc": "Focus Workspace 6"
+        },
+        {
+          "keys": "Super + 7",
+          "desc": "Focus Workspace 7"
+        },
+        {
+          "keys": "Super + 8",
+          "desc": "Focus Workspace 8"
+        },
+        {
+          "keys": "Super + 9",
+          "desc": "Focus Workspace 9"
+        }
+      ]
+    },
+    {
+      "title": "Column Width",
+      "binds": [
+        {
+          "keys": "Super + K",
+          "desc": "Switch Preset Column Width"
+        }
+      ]
+    },
+    {
+      "title": "Screenshots",
+      "binds": [
+        {
+          "keys": "CTRL + Shift + S",
+          "desc": "Screenshot"
+        }
+      ]
+    },
+    {
+      "title": "Other",
+      "binds": [
+        {
+          "keys": "Super + Shift + ESCAPE",
+          "desc": "Show Hotkey Overlay"
+        },
+        {
+          "keys": "Super + CTRL + F",
+          "desc": "Expand Column To Available Width"
+        },
+        {
+          "keys": "Super + C",
+          "desc": "Center Column"
+        },
+        {
+          "keys": "Super + Shift + T",
+          "desc": "Toggle Window Floating"
+        },
+        {
+          "keys": "Super + Backspace",
+          "desc": "Toggle Overview"
+        }
+      ]
+    }
+  ],
+  "detectedCompositor": "niri",
+  "windowWidth": 1500,
+  "windowHeight": 850,
+  "autoHeight": true,
+  "columnCount": 2,
+  "modKeyVariable": "$mod",
+  "hyprlandConfigPath": "~/.config/hypr/hyprland.conf",
+  "niriConfigPath": "~/.config/niri/config.kdl"
+}
