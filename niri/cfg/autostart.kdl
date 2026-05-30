@@ -1,3 +1,5 @@
-
     spawn-sh-at-startup "noctalia-shell"
-
+    spawn-at-startup "Telegram" "-startintray"
+    spawn-sh-at-startup "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+    spawn-sh-at-startup "systemctl --user restart xdg-desktop-portal.service"
+    spawn-sh-at-startup "systemctl --user start niri-session.target"

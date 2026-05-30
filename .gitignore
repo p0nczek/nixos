@@ -8,3 +8,6 @@ result
 secrets/
 *.key
 *.pem
+.history
+.zsh_history
+**/zsh/.history

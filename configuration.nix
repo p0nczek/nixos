@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs,lib, inputs, ... }:
 
 {
   imports =
@@ -11,8 +11,26 @@
     ];
 
 
-home-manager.useGlobalPkgs = true;
-home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  # Auto-login i start Niri przez greetd
+         services.greetd = {
+           enable = true;
+           settings = {
+            initial_session = {
+               command = "niri";
+               user = "shin";
+             };
+             default_session = {
+              command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri";
+             user = "greeter";
+            };
+         };
+        };
+     
+     # Opcjonalne: Odblokowanie keyringu przy auto-loginie
+      security.pam.services.greetd.enableGnomeKeyring = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -60,6 +78,25 @@ home-manager.useUserPackages = true;
 
   # Włączenie kompozytora Niri na poziomie systemu
   programs.niri.enable = true;
+
+  # Konfiguracja XDG Portals dla Screen Sharing (Wayland/Niri)
+xdg.portal = {
+  enable = true;
+  extraPortals = [
+    pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gtk
+  ];
+  config = {
+    niri = {
+      default = lib.mkForce [ "wlr" "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+      "org.freedesktop.impl.portal.Access" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
+    };
+  };
+};
+  
   programs.xwayland.enable = true;
 
   # Wsparcie dla kalendarza i wydarzeń w Noctalia
@@ -117,6 +154,7 @@ programs.zsh.enable = true;
 
   
   environment.systemPackages = with pkgs; [
+   inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
    home-manager
 
   
@@ -174,6 +212,10 @@ programs.zsh.enable = true;
     playerctl
     pavucontrol
     networkmanagerapplet
+
+
+
+    lmstudio
   ];
 
 fileSystems."/mnt/dane" = {

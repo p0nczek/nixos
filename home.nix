@@ -5,7 +5,7 @@
     inputs.noctalia.homeModules.default
   ];
 
-  home.stateVersion = "25.11"; 
+home.stateVersion = "25.11"; 
 
 home.file.".zshrc".source = ./zshrc;
 home.file.".p10k.zsh".source = ./zsh/.p10k.zsh;
@@ -23,7 +23,7 @@ home.file.".config/zsh" = {
 };
 
   # Noctalia
-  programs.noctalia-shell = {
+programs.noctalia-shell = {
     enable = true;
     package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override { calendarSupport = true; };
     settings = {
@@ -33,6 +33,25 @@ home.file.".config/zsh" = {
       };
     };
   };
+
+
+# w home.nix lub configuration.nix
+home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+};
+
+
+ systemd.user.targets.niri-session = {
+    Unit = {
+      Description = "niri compositor session";
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+  }; 
 
   # Niri
   xdg.configFile."niri".source = ./niri;
