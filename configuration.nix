@@ -187,7 +187,8 @@ programs.zsh.enable = true;
     nix-ld
     wayland
     libxkbcommon
-    libGL      
+    libGL
+      
       # Reszta
     kitty
     micro
@@ -216,7 +217,11 @@ programs.zsh.enable = true;
  	qjackctl          # GUI do patchbay JACK/PipeWire
  	yabridge          # bridge VST Windows → Linux
  	yabridgectl       # CLI do zarządzania yabridge
- 	wine              # yabridge wymaga Wine            # lepszy patchbay niż qjackctl, routing audio/MIDI
+ 	wine 
+    wineWowPackages.stable
+    wineWow64Packages.stable
+    winetricks
+ 	             
  	pavucontrol       # kontrola głośności PipeWire
  	qpwgraph
  	libjack2
@@ -250,6 +255,7 @@ programs.zsh.enable = true;
     playerctl
     networkmanagerapplet
     unrar
+    p7zip
 
 
 
