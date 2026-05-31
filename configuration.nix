@@ -4,11 +4,19 @@
 
 { config, pkgs,lib, inputs, ... }:
 
+
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+
+
+  system.nixos.label = "reaper";
+
+
+
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -35,12 +43,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -79,31 +84,29 @@
   programs.niri.enable = true;
 
   # Konfiguracja XDG Portals dla Screen Sharing (Wayland/Niri)
-xdg.portal = {
-  enable = true;
-  extraPortals = [
-    pkgs.xdg-desktop-portal-wlr
-    pkgs.xdg-desktop-portal-gtk
-  ];
-  config = {
-    niri = {
-      default = lib.mkForce [ "wlr" "gtk" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-      "org.freedesktop.impl.portal.Access" = [ "gtk" ];
-      "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
-    };
+  xdg.portal = {
+   	enable = true;
+   	extraPortals = [
+     		 pkgs.xdg-desktop-portal-wlr
+     		 pkgs.xdg-desktop-portal-gtk
+ 	];
+ 		 
+	config = {
+    	niri = {
+    		default = lib.mkForce [ "wlr" "gtk" ];
+      		"org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      		"org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+      		"org.freedesktop.impl.portal.Access" = [ "gtk" ];
+      		"org.freedesktop.impl.portal.Notification" = [ "gtk" ];
+   	 	};
+  	};
   };
-};
 
   programs.nix-ld.enable = true;
   programs.xwayland.enable = true;
 
   # Wsparcie dla kalendarza i wydarzeń w Noctalia
   services.gnome.evolution-data-server.enable = true;
-
-  # ... Reszta Twojej domyślnej konfiguracji (bootloader, strefa czasowa, użytkownicy itp.)
-  # Upewnij się, że Twój użytkownik należy do grupy "networkmanager"
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -118,20 +121,23 @@ xdg.portal = {
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+    
+    # Realtime audio
+    security.pam.loginLimits = [
+      { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
+      { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
+      { domain = "@audio"; item = "nice"; type = "-"; value = "-19"; }
+    ];
+  
+  
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 users.defaultUserShell = pkgs.zsh;
@@ -142,7 +148,7 @@ programs.zsh.enable = true;
   users.users.shin = {
     isNormalUser = true;
     description = "shin";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [];
   };
 
@@ -155,7 +161,9 @@ programs.zsh.enable = true;
 
   
   environment.systemPackages = with pkgs; [
+  
    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+   
    home-manager
    xwayland-satellite
   
@@ -202,6 +210,29 @@ programs.zsh.enable = true;
     
     # Launcher
     fuzzel
+
+
+    reaper
+ 	qjackctl          # GUI do patchbay JACK/PipeWire
+ 	yabridge          # bridge VST Windows → Linux
+ 	yabridgectl       # CLI do zarządzania yabridge
+ 	wine              # yabridge wymaga Wine            # lepszy patchbay niż qjackctl, routing audio/MIDI
+ 	pavucontrol       # kontrola głośności PipeWire
+ 	qpwgraph
+ 	libjack2
+ 	pipewire
+ 	pipewire.jack
+
+	lsp-plugins           # EQ, kompresor, reverb, delay, gate, limiter
+    calf                  # Calf Studio Gear (LV2)
+    x42-plugins           # x42 collection (meter, tuner, oscilloscope)
+    eq10q                 # parametric EQ
+    dragonfly-reverb      # darmowy reverb
+    guitarix              # amp simulator + efekty
+    distrho-ports         # ports różnych pluginów
+
+
+
     
     
     # Streaming
@@ -217,8 +248,8 @@ programs.zsh.enable = true;
     brightnessctl
     pamixer
     playerctl
-    pavucontrol
     networkmanagerapplet
+    unrar
 
 
 

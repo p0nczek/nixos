@@ -15,6 +15,8 @@ home.file.".local/share/zinit" = {
   force = true;
 };
 
+# home.nix
+home.file.".vst/yabridge".source = "${pkgs.yabridge}/lib/yabridge";
 
 home.file.".config/zsh" = {
   source = ./zsh-config;
