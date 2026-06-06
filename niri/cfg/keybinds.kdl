@@ -21,7 +21,7 @@ binds {
 	Mod+Shift+Y 						{ spawn "pkill" "-f" "tlo-layer"; }
 
 
-	Mod+V 								{ spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+//	Mod+V 								{ spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
 
 	
     Mod+Backspace                       hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
@@ -42,6 +42,10 @@ binds {
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
     XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
     //XF86AudioMute                     allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+
+
+    F3	                             	{ spawn "sh" "-c" "$HOME/.local/bin/brightness.sh down"; }
+    F2									{ spawn "sh" "-c" "$HOME/.local/bin/brightness.sh up"; }
     F1                     				allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }

@@ -5,6 +5,7 @@
 { config, pkgs,lib, inputs, ... }:
 
 
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,13 +14,17 @@
 
 
 
-  system.nixos.label = "reaper";
+
+
+  system.nixos.label = "llm_and_obsidian";
 
 
 
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+
+  
 
   # Auto-login i start Niri przez greetd
          services.greetd = {
@@ -42,6 +47,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "fuse" ];
+  programs.fuse.userAllowOther = true;
 
   
 
@@ -141,14 +148,14 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 users.defaultUserShell = pkgs.zsh;
-programs.zsh.enable = true;
+
   
   users.users.root.initialPassword = "nixos";
 
   users.users.shin = {
     isNormalUser = true;
     description = "shin";
-    extraGroups = [ "networkmanager" "wheel" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "i2c" ];
     packages = with pkgs; [];
   };
 
@@ -159,6 +166,25 @@ programs.zsh.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  hardware.i2c.enable = true;
+
+  services.flatpak.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    histFile = "$HOME/.zsh_history";
+    histSize = 100000;
+    setOptions = [ "append_history" "share_history" "extended_history" "inc_append_history" "hist_ignore_dups" ];
+  };
+
+
+systemd.services.flatpak-repo = {
+  wantedBy = [ "multi-user.target" ];
+  path = [ pkgs.flatpak ];
+  script = ''
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  '';
+};
   
   environment.systemPackages = with pkgs; [
   
@@ -166,13 +192,18 @@ programs.zsh.enable = true;
    
    home-manager
    xwayland-satellite
-  
+
+  mpv
     atuin          # historia shella (widzę w .zshrc)
       
      # Fonty - konkretne, nie cała paczka nerdfonts
     nerd-fonts.jetbrains-mono
      # lub jeśli powyższe nie działa:
      # jetbrains-mono
+    flatpak
+    appimage-run
+    fuse
+    fuse3
 
      
      # Nowoczesne CLI
@@ -188,12 +219,22 @@ programs.zsh.enable = true;
     wayland
     libxkbcommon
     libGL
+
+
+    gpu-screen-recorder-gtk
+    renoise
+    
+
+    ddcutil        # sterowanie DDC/CI
+    ddcui          # GUI do ddcutil (opcjonalnie)
+    brightnessctl
       
       # Reszta
     kitty
     micro
     fastfetch
-    btop     
+    (btop.override { cudaSupport = true;   })     
+    nvtopPackages.nvidia
       
     steam
     git            # lokalny git
@@ -229,19 +270,13 @@ programs.zsh.enable = true;
  	pipewire.jack
 
 	lsp-plugins           # EQ, kompresor, reverb, delay, gate, limiter
-    calf                  # Calf Studio Gear (LV2)
-    x42-plugins           # x42 collection (meter, tuner, oscilloscope)
-    eq10q                 # parametric EQ
-    dragonfly-reverb      # darmowy reverb
-    guitarix              # amp simulator + efekty
-    distrho-ports         # ports różnych pluginów
 
 
 
+
+    obsidian    
     
-    
-    # Streaming
-    sunshine
+    # Streaming sunshine
     
     # Python dla trackera
     python3
@@ -257,16 +292,35 @@ programs.zsh.enable = true;
     unrar
     p7zip
 
+   (llama-cpp.override { cudaSupport = true; })
+   lmstudio
 
 
-    lmstudio
+	obs-studio
+	obs-studio-plugins.wlrobs
+	losslesscut-bin
+
   ];
 
-fileSystems."/mnt/dane" = {
-  device = "/dev/disk/by-uuid/03c63f99-9000-4dee-b104-5cc796e23ffa";
-  fsType = "btrfs";
-  options = [ "defaults" "noatime" "compress=zstd" ];
+#fileSystems."/mnt/dane" = {
+ # device = "/dev/disk/by-uuid/03c63f99-9000-4dee-b104-5cc796e23ffa";
+  #fsType = "btrfs";
+ # options = [ "defaults" "noatime" "compress=zstd" ];
+#};
+
+
+
+
+systemd.services.nvidia-power-limit = {
+  description = "Set NVIDIA GPU power limit";
+  serviceConfig = {
+    Type = "oneshot";
+    ExecStart = "${config.boot.kernelPackages.nvidia_x11.bin}/bin/nvidia-smi -pl 203";
+  };
+  wantedBy = [ "multi-user.target" ];
+  after = [ "systemd-modules-load.service" ];
 };
+
 
 # Zamknięty sterownik NVIDIA (wymagany dla Discord, gier, GPU acceleration)
 services.xserver.videoDrivers = [ "nvidia" ];
