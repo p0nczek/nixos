@@ -104,7 +104,7 @@
     pamixer
     playerctl
 
-    wine
+    
     wineWow64Packages.stable
     yabridge
     yabridgectl
