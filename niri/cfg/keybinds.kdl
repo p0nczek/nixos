@@ -1,42 +1,46 @@
 binds {
 
-		Alt+A { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ä" "a"; }
-		Alt+Shift+A { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "Ä" "a" "shift"; }
-		Alt+O { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ö" "o"; }
-		Alt+Shift+O { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "Ö" "o" "shift"; }
-		Alt+U { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ü" "u"; }
-		Alt+Shift+U { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "Ü" "u" "shift"; }
-		Alt+S { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "ß" "s"; }
-		Alt+Shift+E { spawn "/home/shin/.config/niri/wtype-if-not-obsidian" "Ë" "e" "shift"; }
+                Alt+A { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ä" "a"; }
+                Alt+Shift+A { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ä" "a" "shift"; }
+                Alt+O { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ö" "o"; }
+                Alt+Shift+O { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ö" "o" "shift"; }
+                Alt+U { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ü" "u"; }
+                Alt+Shift+U { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ü" "u" "shift"; }
+                Alt+S { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ß" "s"; }
+                Alt+Shift+E { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ë" "e" "shift"; }
 
     // ─── Applications ───
+    Alt+Y                           hotkey-overlay-title="Open YouTube Music" { spawn "zen" "--new-instance" "https://music.youtube.com/"; }
     Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
-    Mod+O                     		hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+O                               hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
     Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
     Mod+D { spawn "vesktop"; } 
-	Mod+Period						{ spawn "~/polacz_tablet.sh"; }
+        Mod+Period                                              { spawn "/etc/nixos/scripts/polacz_tablet.sh"; }
 
-    Mod+Y { spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/tlo"; }
-	Mod+Shift+Y 						{ spawn "pkill" "-f" "tlo-layer"; }
+        Mod+Escape { spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
 
 
-//	Mod+V 								{ spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+    Mod+Y { spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/scripts/tlo"; }
+        Mod+Shift+Y                                             { spawn "pkill" "-f" "tlo-layer"; }
 
-	
+
+//      Mod+V                                                           { spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+
+
     Mod+Backspace                       hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
 
 
-	Mod+N         						{ focus-column-right; }
-    Mod+A            					{ focus-column-left; }
-	Mod+K 								{ switch-preset-column-width; }
-	Mod+CTRL+F                          { expand-column-to-available-width; }
-	Mod+C                               { center-column; }
-	Mod+Shift+T                         { toggle-window-floating; }
-	Mod+Shift+F                         { fullscreen-window; }
+        Mod+N                                                   { focus-column-right; }
+    Mod+A                                               { focus-column-left; }
+        Mod+K                                                           { switch-preset-column-width; }
+        Mod+CTRL+F                          { expand-column-to-available-width; }
+        Mod+C                               { center-column; }
+        Mod+Shift+T                         { toggle-window-floating; }
+        Mod+Shift+F                         { fullscreen-window; }
     Mod+P                     { toggle-window-rule-opacity; }
-	//Mod+Backspace                       repeat=false { toggle-overview; }
-	CTRL+Shift+S                    	{ screenshot; }
+        //Mod+Backspace                       repeat=false { toggle-overview; }
+        CTRL+Shift+S                            { screenshot; }
 
     // ─── Media Controls ───
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
@@ -44,9 +48,9 @@ binds {
     //XF86AudioMute                     allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
 
-    F3	                             	{ spawn "sh" "-c" "$HOME/.local/bin/brightness.sh down"; }
-    F2									{ spawn "sh" "-c" "$HOME/.local/bin/brightness.sh up"; }
-    F1                     				allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    F3                                  { spawn "sh" "-c" "/etc/nixos/scripts/brightness.sh down"; }
+    F2                                                                  { spawn "sh" "-c" "/etc/nixos/scripts/brightness.sh up"; }
+    F1                                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }
     XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
@@ -76,7 +80,7 @@ binds {
     Mod+8                               { focus-workspace 8; }
     Mod+9                               { focus-workspace 9; }
 
-    Mod+I								{ focus-workspace-down; }
-    Mod+E								{ focus-workspace-up; }
+    Mod+I                                                               { focus-workspace-down; }
+    Mod+E                                                               { focus-workspace-up; }
   
 }

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RECORD_DIR="$HOME/VoiceNotes"
+TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+FILENAME="$RECORD_DIR/${TIMESTAMP}.mp3"
+PIDFILE="/tmp/voice_note_pid"
+
+mkdir -p "$RECORD_DIR"
+
+if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    kill "$(cat "$PIDFILE")" 2>/dev/null || true
+    rm -f "$PIDFILE"
+    sleep 0.3
+    
+    echo -n "$FILENAME" | wl-copy 2>/dev/null || true
+    notify-send "◼ Stopped" "$TIMESTAMP.mp3"
+else
+    notify-send "● Recording" "$TIMESTAMP.mp3"
+    
+    ffmpeg -y -f alsa -i default -ar 48000 -ac 1 -c:a libmp3lame -q:a 2 "$FILENAME" >/dev/null 2>&1 &
+    echo $! > "$PIDFILE"
+fi
