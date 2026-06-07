@@ -16,7 +16,7 @@
 
 
 
-  system.nixos.label = "llm_and_obsidian";
+  system.nixos.label = "montowanie_dysku";
 
 
 
@@ -204,6 +204,7 @@ systemd.services.flatpak-repo = {
     appimage-run
     fuse
     fuse3
+    ffmpeg
 
      
      # Nowoczesne CLI
@@ -302,11 +303,11 @@ systemd.services.flatpak-repo = {
 
   ];
 
-#fileSystems."/mnt/dane" = {
- # device = "/dev/disk/by-uuid/03c63f99-9000-4dee-b104-5cc796e23ffa";
-  #fsType = "btrfs";
- # options = [ "defaults" "noatime" "compress=zstd" ];
-#};
+fileSystems."/mnt/dane" = {
+  device = "/dev/disk/by-uuid/b8b5b9bb-0e35-4bb5-b9e0-4a306f2fb1ec";
+  fsType = "ext4";
+  options = [ "defaults" "noatime" ];
+};
 
 
 
