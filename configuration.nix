@@ -16,7 +16,7 @@
 
 
 
-  system.nixos.label = "montowanie_dysku";
+  system.nixos.label = "scriptsMove";
 
 
 
