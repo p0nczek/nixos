@@ -9,7 +9,7 @@
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "cleanupNixosConfig";
+  system.nixos.label = "poprawkiPoAi";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -210,14 +210,19 @@
   services.flatpak.enable = true;
 
   systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
+  description = "Add Flathub remote";
+  serviceConfig = {
+    Type = "oneshot";
+    RemainAfterExit = true;
   };
-
+  wants  = [ "network-online.target" ];
+  after  = [ "network-online.target" ];
+  wantedBy = [ "multi-user.target" ];
+  path = [ pkgs.flatpak ];
+  script = ''
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  '';
+};
   # ============================================================================
   #  SYSTEM-WIDE APPLICATIONS
   # ============================================================================
@@ -236,7 +241,7 @@
     isNormalUser = true;
     description = "shin";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "audio" "i2c" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "i2c""video" ];
     packages = with pkgs; [];
   };
 

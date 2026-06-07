@@ -61,15 +61,6 @@
   };
 
   # ============================================================================
-  #  SHELL (Zsh via Home Manager)
-  # ============================================================================
-  programs.zsh = {
-    enable = true;
-    history.size = 100000;
-    history.path = "$HOME/.zsh_history";
-  };
-
-  # ============================================================================
   #  NOCTALIA SHELL
   # ============================================================================
   programs.noctalia-shell = {
@@ -97,6 +88,8 @@
     };
   };
 
+
+
   # ============================================================================
   #  USER PACKAGES
   # ============================================================================
@@ -110,6 +103,13 @@
     lsp-plugins
     pamixer
     playerctl
+
+    wine
+    wineWow64Packages.stable
+    yabridge
+    yabridgectl
+    winetricks
+    qjackctl
 
     # --- Video / Streaming ---
     mpv
@@ -135,6 +135,16 @@
     p7zip
     unrar
     python3
+    eza
+    bat
+    fd
+    ripgrep
+    fzf
+    zoxide
+    btop
+    nvtop
+    fastfetch
+    ffmpeg
 
   ] ++ [
     # --- External flakes (not in nixpkgs) ---
