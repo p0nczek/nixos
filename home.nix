@@ -61,6 +61,8 @@ home.pointerCursor = {
   xdg.configFile."kitty".source = ./kitty-config;
 
   home.packages = with pkgs; [
+    inputs.kimi-cli.packages.${pkgs.system}.default
+    
     mpv
     obsidian
     renoise

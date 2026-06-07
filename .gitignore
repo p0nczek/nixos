@@ -11,3 +11,4 @@ secrets/
 .history
 .zsh_history
 **/zsh/.history
+.history
