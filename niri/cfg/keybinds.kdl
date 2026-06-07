@@ -10,7 +10,7 @@ binds {
                 Alt+Shift+E { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ë" "e" "shift"; }
 
     // ─── Applications ───
-    Alt+Y 							hotkey-overlay-title="Open YouTube Music" { spawn "/etc/nixos/scripts/zen-music"; }
+    Alt+Y 							hotkey-overlay-title="Open YouTube Music" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://music.youtube.com/"; }
     Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
     Mod+O                           hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
