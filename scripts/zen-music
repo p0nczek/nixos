@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /home/shin/.nix-profile/bin/zen --new-instance "https://music.youtube.com/"

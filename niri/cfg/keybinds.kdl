@@ -10,9 +10,9 @@ binds {
                 Alt+Shift+E { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ë" "e" "shift"; }
 
     // ─── Applications ───
-    Alt+Y                           hotkey-overlay-title="Open YouTube Music" { spawn "zen" "--new-instance" "https://music.youtube.com/"; }
+    Alt+Y 							hotkey-overlay-title="Open YouTube Music" { spawn "/etc/nixos/scripts/zen-music"; }
     Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
-    Mod+O                               hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+O                           hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
     Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
     Mod+D { spawn "vesktop"; } 
@@ -31,16 +31,16 @@ binds {
     Mod+Backspace                       hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
 
 
-        Mod+N                                                   { focus-column-right; }
-    Mod+A                                               { focus-column-left; }
-        Mod+K                                                           { switch-preset-column-width; }
+     	Mod+N                               { focus-column-right; }
+  		Mod+A                               { focus-column-left; }
+        Mod+K                               { switch-preset-column-width; }
         Mod+CTRL+F                          { expand-column-to-available-width; }
         Mod+C                               { center-column; }
         Mod+Shift+T                         { toggle-window-floating; }
         Mod+Shift+F                         { fullscreen-window; }
-    Mod+P                     { toggle-window-rule-opacity; }
+   		 Mod+P                  		    { toggle-window-rule-opacity; }
         //Mod+Backspace                       repeat=false { toggle-overview; }
-        CTRL+Shift+S                            { screenshot; }
+        CTRL+Shift+S                        { screenshot; }
 
     // ─── Media Controls ───
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
