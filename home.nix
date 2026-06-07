@@ -142,7 +142,6 @@
     fzf
     zoxide
     btop
-    nvtopPackages.full
     fastfetch
     ffmpeg
 

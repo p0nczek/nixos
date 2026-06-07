@@ -9,7 +9,7 @@
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "fixNvtopAndNh";
+  system.nixos.label = "removeNvtop";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
