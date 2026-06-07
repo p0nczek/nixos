@@ -59,4 +59,36 @@ home.pointerCursor = {
   xdg.configFile."niri".source = ./niri;
   xdg.configFile."noctalia".source = ./noctalia;
   xdg.configFile."kitty".source = ./kitty-config;
+
+  home.packages = with pkgs; [
+    mpv
+    obsidian
+    renoise
+    telegram-desktop
+    vesktop
+    discord
+    reaper
+    pavucontrol
+    qpwgraph
+    lsp-plugins
+    llama-cpp
+    lmstudio
+    obs-studio
+    obs-studio-plugins.wlrobs
+    losslesscut-bin
+    p7zip
+    unrar
+    pamixer
+    playerctl
+    python3
+    slurp
+    gpu-screen-recorder-gtk
+  ];
+
+  programs.zsh = {
+    enable = true;
+    history.size = 100000;
+    history.path = "$HOME/.zsh_history";
+  };
+
 }

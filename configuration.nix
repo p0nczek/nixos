@@ -4,27 +4,16 @@
 
 { config, pkgs,lib, inputs, ... }:
 
-
-
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
-
-
-
-
-  system.nixos.label = "scriptsMove";
-
-
-
+  system.nixos.label = "migracja pakietow do home-manager";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-
-  
 
   # Auto-login i start Niri przez greetd
          services.greetd = {
@@ -40,7 +29,7 @@
             };
          };
         };
-     
+
      # Opcjonalne: Odblokowanie keyringu przy auto-loginie
       security.pam.services.greetd.enableGnomeKeyring = true;
 
@@ -49,8 +38,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "fuse" ];
   programs.fuse.userAllowOther = true;
-
-  
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -75,9 +62,6 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
- 
-
-
   # Włączenie obsługi Flakes i komend nix
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -97,7 +81,7 @@
      		 pkgs.xdg-desktop-portal-wlr
      		 pkgs.xdg-desktop-portal-gtk
  	];
- 		 
+
 	config = {
     	niri = {
     		default = lib.mkForce [ "wlr" "gtk" ];
@@ -134,22 +118,17 @@
       pulse.enable = true;
       jack.enable = true;
     };
-    
+
     # Realtime audio
     security.pam.loginLimits = [
       { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
       { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
       { domain = "@audio"; item = "nice"; type = "-"; value = "-19"; }
     ];
-  
-  
-
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 users.defaultUserShell = pkgs.zsh;
 
-  
   users.users.root.initialPassword = "nixos";
 
   users.users.shin = {
@@ -170,14 +149,6 @@ users.defaultUserShell = pkgs.zsh;
 
   services.flatpak.enable = true;
 
-  programs.zsh = {
-    enable = true;
-    histFile = "$HOME/.zsh_history";
-    histSize = 100000;
-    setOptions = [ "append_history" "share_history" "extended_history" "inc_append_history" "hist_ignore_dups" ];
-  };
-
-
 systemd.services.flatpak-repo = {
   wantedBy = [ "multi-user.target" ];
   path = [ pkgs.flatpak ];
@@ -185,17 +156,11 @@ systemd.services.flatpak-repo = {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   '';
 };
-  
-  environment.systemPackages = with pkgs; [
-  
-   inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-   
+
+  environment.systemPackages = with pkgs; [   inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
    home-manager
    xwayland-satellite
-
-  mpv
     atuin          # historia shella (widzę w .zshrc)
-      
      # Fonty - konkretne, nie cała paczka nerdfonts
     nerd-fonts.jetbrains-mono
      # lub jeśli powyższe nie działa:
@@ -205,8 +170,6 @@ systemd.services.flatpak-repo = {
     fuse
     fuse3
     ffmpeg
-
-     
      # Nowoczesne CLI
     eza
     bat
@@ -220,42 +183,25 @@ systemd.services.flatpak-repo = {
     wayland
     libxkbcommon
     libGL
-
-
-    gpu-screen-recorder-gtk
-    renoise
-    
-
     ddcutil        # sterowanie DDC/CI
     ddcui          # GUI do ddcutil (opcjonalnie)
     brightnessctl
-      
       # Reszta
     kitty
     micro
     fastfetch
     (btop.override { cudaSupport = true;   })     
     nvtopPackages.nvidia
-      
     steam
     git            # lokalny git
-    
     # Komunikacja
-    telegram-desktop
-    vesktop
-    discord    
     # File manager
     nautilus
-    
     # Clipboard
     cliphist
     wl-clipboard
-    
     # Launcher
     fuzzel
-
-
-    reaper
  	qjackctl          # GUI do patchbay JACK/PipeWire
  	yabridge          # bridge VST Windows → Linux
  	yabridgectl       # CLI do zarządzania yabridge
@@ -263,54 +209,23 @@ systemd.services.flatpak-repo = {
     wineWowPackages.stable
     wineWow64Packages.stable
     winetricks
- 	             
- 	pavucontrol       # kontrola głośności PipeWire
- 	qpwgraph
+ 	       # kontrola głośności PipeWire
  	libjack2
  	pipewire
  	pipewire.jack
-
-	lsp-plugins           # EQ, kompresor, reverb, delay, gate, limiter
-
-
-
-
-    obsidian    
-    
+	           # EQ, kompresor, reverb, delay, gate, limiter
     # Streaming sunshine
-    
     # Python dla trackera
-    python3
-    slurp
-    
-    
     # Inne
     wtype
     brightnessctl
-    pamixer
-    playerctl
-    networkmanagerapplet
-    unrar
-    p7zip
-
-   (llama-cpp.override { cudaSupport = true; })
-   lmstudio
-
-
-	obs-studio
-	obs-studio-plugins.wlrobs
-	losslesscut-bin
-
-  ];
+    networkmanagerapplet];
 
 fileSystems."/mnt/dane" = {
   device = "/dev/disk/by-uuid/b8b5b9bb-0e35-4bb5-b9e0-4a306f2fb1ec";
   fsType = "ext4";
   options = [ "defaults" "noatime" ];
 };
-
-
-
 
 systemd.services.nvidia-power-limit = {
   description = "Set NVIDIA GPU power limit";
@@ -321,7 +236,6 @@ systemd.services.nvidia-power-limit = {
   wantedBy = [ "multi-user.target" ];
   after = [ "systemd-modules-load.service" ];
 };
-
 
 # Zamknięty sterownik NVIDIA (wymagany dla Discord, gier, GPU acceleration)
 services.xserver.videoDrivers = [ "nvidia" ];
@@ -338,7 +252,7 @@ hardware.graphics = {
   enable = true;
   enable32Bit = true;  # dla Steam, gier 32-bit
 };
- 
+
   system.stateVersion = "25.11"; # Did you read the comment?
 
 }
