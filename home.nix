@@ -133,7 +133,12 @@
     # --- Productivity ---
     obsidian
 
+    # --- External flakes ---
+    inputs.zen-browser.packages.${pkgs.system}.default
+    inputs.kimi-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     # --- System / Utilities ---
+    nautilus
     p7zip
     unrar
     python3
