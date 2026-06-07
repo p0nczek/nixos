@@ -29,7 +29,7 @@ ncom() {
 }
 
 # NixOS Helpers
-alias ns="sudo nixos-rebuild switch --flake /etc/nixos#nixos"
+# alias ns="sudo nixos-rebuild switch --flake /etc/nixos#nixos"
 alias nstat="git -C /etc/nixos status"
 alias nlog="git -C /etc/nixos log --oneline -n 10"
 alias ndiff="git -C /etc/nixos diff"
@@ -37,3 +37,9 @@ alias ndiff="git -C /etc/nixos diff"
 # Wyłączenie irytujących sugestii (autokorekty)
 unsetopt CORRECT
 unsetopt CORRECT_ALL
+
+# Nix Helper (nh) aliases
+alias nos="nh os switch"
+alias nhs="nh home switch"
+alias ncu="nh os switch --update"
+alias nclean="nh clean all"

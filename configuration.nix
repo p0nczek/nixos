@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  system.nixos.label = "testNazwy";
+  system.nixos.label = "nhTest";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -158,7 +158,8 @@ systemd.services.flatpak-repo = {
   '';
 };
 
-  environment.systemPackages = with pkgs; [   inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+  environment.systemPackages = with pkgs; [
+   nh   inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
    home-manager
    xwayland-satellite
     atuin          # historia shella (widzę w .zshrc)
@@ -254,6 +255,7 @@ hardware.graphics = {
   enable32Bit = true;  # dla Steam, gier 32-bit
 };
 
+  environment.variables.FLAKE = "/etc/nixos";
   system.stateVersion = "25.11"; # Did you read the comment?
 
 }
