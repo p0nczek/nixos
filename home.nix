@@ -44,7 +44,7 @@
   # ============================================================================
   # Make flake path available to nh / nix commands without typing it every time.
   home.sessionVariables = {
-    FLAKE = "/etc/nixos";
+    NH_FLAKE = "/etc/nixos";
   };
 
   # Ensure ~/.local/bin is on PATH (for uv/pip --user installs, etc.)
@@ -142,7 +142,7 @@
     fzf
     zoxide
     btop
-    nvtop
+    nvtopPackages.full
     fastfetch
     ffmpeg
 

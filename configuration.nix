@@ -9,7 +9,7 @@
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "poprawkiPoAi";
+  system.nixos.label = "fixNvtopAndNh";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -241,7 +241,7 @@
     isNormalUser = true;
     description = "shin";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "audio" "i2c""video" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "i2c" "video" ];
     packages = with pkgs; [];
   };
 
