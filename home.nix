@@ -5,29 +5,78 @@
     inputs.noctalia.homeModules.default
   ];
 
-home.stateVersion = "25.11"; 
+  # ============================================================================
+  #  HOME STATE VERSION
+  # ============================================================================
+  # Keep this equal to the NixOS stateVersion from configuration.nix.
+  home.stateVersion = "25.11";
 
-home.file.".zshrc".source = ./zshrc;
-home.file.".p10k.zsh".source = ./zsh/.p10k.zsh;
-home.file.".local/share/zinit" = {
-  source = ./zsh-plugins/zinit;
-  recursive = true;
-  force = true;
-};
+  # ============================================================================
+  #  DOTFILES (managed by Home Manager)
+  # ============================================================================
+  home.file.".zshrc".source = ./zshrc;
+  home.file.".p10k.zsh".source = ./zsh/.p10k.zsh;
 
-# home.nix
-home.file.".vst/yabridge".source = "${pkgs.yabridge}/lib/yabridge";
+  home.file.".local/share/zinit" = {
+    source = ./zsh-plugins/zinit;
+    recursive = true;
+    force = true;
+  };
 
-home.file.".config/zsh" = {
-  source = ./zsh-config;
-  recursive = true;
-  force = true;
-};
+  home.file.".config/zsh" = {
+    source = ./zsh-config;
+    recursive = true;
+    force = true;
+  };
 
-  # Noctalia
-programs.noctalia-shell = {
+  # VST bridge for Windows plugins (Yabridge)
+  home.file.".vst/yabridge".source = "${pkgs.yabridge}/lib/yabridge";
+
+  # ============================================================================
+  #  XDG CONFIG (symlinked into ~/.config)
+  # ============================================================================
+  xdg.configFile."niri".source = ./niri;
+  xdg.configFile."noctalia".source = ./noctalia;
+  xdg.configFile."kitty".source = ./kitty-config;
+
+  # ============================================================================
+  #  ENVIRONMENT
+  # ============================================================================
+  # Make flake path available to nh / nix commands without typing it every time.
+  home.sessionVariables = {
+    FLAKE = "/etc/nixos";
+  };
+
+  # Ensure ~/.local/bin is on PATH (for uv/pip --user installs, etc.)
+  home.sessionPath = [ "$HOME/.local/bin" ];
+
+  # ============================================================================
+  #  CURSOR THEME
+  # ============================================================================
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
+
+  # ============================================================================
+  #  SHELL (Zsh via Home Manager)
+  # ============================================================================
+  programs.zsh = {
     enable = true;
-    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override { calendarSupport = true; };
+    history.size = 100000;
+    history.path = "$HOME/.zsh_history";
+  };
+
+  # ============================================================================
+  #  NOCTALIA SHELL
+  # ============================================================================
+  programs.noctalia-shell = {
+    enable = true;
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      calendarSupport = true;
+    };
     settings = {
       bar = {
         position = "top";
@@ -36,61 +85,60 @@ programs.noctalia-shell = {
     };
   };
 
-
-# w home.nix lub configuration.nix
-home.pointerCursor = {
-    name = "Bibata-Modern-Classic";
-    package = pkgs.bibata-cursors;
-    size = 24;
-    gtk.enable = true;
-};
-
-
- systemd.user.targets.niri-session = {
+  # ============================================================================
+  #  SYSTEMD USER TARGET (Niri session)
+  # ============================================================================
+  systemd.user.targets.niri-session = {
     Unit = {
       Description = "niri compositor session";
       BindsTo = [ "graphical-session.target" ];
       Wants = [ "graphical-session-pre.target" ];
       After = [ "graphical-session-pre.target" ];
     };
-  }; 
+  };
 
-  # Niri
-  xdg.configFile."niri".source = ./niri;
-  xdg.configFile."noctalia".source = ./noctalia;
-  xdg.configFile."kitty".source = ./kitty-config;
-
+  # ============================================================================
+  #  USER PACKAGES
+  # ============================================================================
   home.packages = with pkgs; [
-    inputs.kimi-cli.packages.${pkgs.system}.default
-    
-    mpv
-    obsidian
-    renoise
-    telegram-desktop
-    vesktop
-    discord
+
+    # --- Audio / Music Production ---
     reaper
+    renoise
     pavucontrol
     qpwgraph
     lsp-plugins
-    llama-cpp
-    lmstudio
-    obs-studio
-    obs-studio-plugins.wlrobs
-    losslesscut-bin
-    p7zip
-    unrar
     pamixer
     playerctl
-    python3
-    slurp
-    gpu-screen-recorder-gtk
-  ];
 
-  programs.zsh = {
-    enable = true;
-    history.size = 100000;
-    history.path = "$HOME/.zsh_history";
-  };
+    # --- Video / Streaming ---
+    mpv
+    obs-studio
+    obs-studio-plugins.wlrobs
+    gpu-screen-recorder-gtk
+    losslesscut-bin
+    slurp
+
+    # --- Communication ---
+    telegram-desktop
+    vesktop
+    discord
+
+    # --- AI / ML ---
+    llama-cpp
+    lmstudio
+
+    # --- Productivity ---
+    obsidian
+
+    # --- System / Utilities ---
+    p7zip
+    unrar
+    python3
+
+  ] ++ [
+    # --- External flakes (not in nixpkgs) ---
+    inputs.kimi-cli.packages.${pkgs.system}.default
+  ];
 
 }
