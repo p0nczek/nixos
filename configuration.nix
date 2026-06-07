@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  system.nixos.label = "migracja pakietow do home-manager";
+  system.nixos.label = "moja nowa zmiana";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -128,6 +128,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   users.users.root.initialPassword = "nixos";
 
