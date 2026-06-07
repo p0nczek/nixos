@@ -144,6 +144,8 @@
     btop
     fastfetch
     ffmpeg
+    atuin
+    libnotify
 
   ] ++ [
     # --- External flakes (not in nixpkgs) ---
