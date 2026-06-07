@@ -29,6 +29,8 @@
     force = true;
   };
 
+  # Btop
+  home.file.".config/btop/themes/noctalia.theme".source = ./btop-noctalia.theme;
   # VST bridge for Windows plugins (Yabridge)
   home.file.".vst/yabridge".source = "${pkgs.yabridge}/lib/yabridge";
 
