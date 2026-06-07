@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  system.nixos.label = "moja nowa zmiana";
+  system.nixos.label = "testNazwy";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
