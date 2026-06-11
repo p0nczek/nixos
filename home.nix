@@ -151,12 +151,6 @@
     atuin
     libnotify
 
-
-
-
-    qmk
-    dfu-programmer 
-    avrdude
   ] ++ [
     # --- External flakes (not in nixpkgs) ---
     inputs.zen-browser.packages.${pkgs.system}.default

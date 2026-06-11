@@ -9,7 +9,7 @@
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "PlDe";
+  system.nixos.label = "qmk";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -248,6 +248,54 @@
   # Zsh must be enabled at system level because it is used as a login shell.
   programs.zsh.enable = true;
 
+
+
+
+
+  let
+    qmk-cornemykeyboard = pkgs.stdenv.mkDerivation {
+      pname = "qmk-cornemykeyboard";
+      version = "0.22.14";
+  
+      src = inputs.qmk_firmware;
+  
+      nativeBuildInputs = with pkgs; [
+        pkgsCross.avr.buildPackages.gcc
+        pkgsCross.avr.buildPackages.binutils
+        gnumake
+        python3
+      ];
+  
+      preBuild = ''
+        mkdir -p keyboards/crkbd/keymaps/cornemykeyboard
+        cp ${../qmk/keymap.c} keyboards/crkbd/keymaps/cornemykeyboard/keymap.c
+        ${pkgs.lib.optionalString (pkgs.lib.pathExists ../qmk/config.h) 
+          "cp ${../qmk/config.h} keyboards/crkbd/keymaps/cornemykeyboard/config.h"}
+        ${pkgs.lib.optionalString (pkgs.lib.pathExists ../qmk/rules.mk) 
+          "cp ${../qmk/rules.mk} keyboards/crkbd/keymaps/cornemykeyboard/rules.mk"}
+      '';
+  
+      buildPhase = ''
+        runHook preBuild
+        make crkbd/rev1:cornemykeyboard
+      '';
+  
+      installPhase = ''
+        mkdir -p $out/share/qmk-firmware
+        cp .build/crkbd_rev1_cornemykeyboard.hex $out/share/qmk-firmware/
+      '';
+    };
+  in
+  {
+    # ... reszta twojej konfiguracji ...
+  
+    # Uprawnienia USB do flashowania bez sudo
+    services.udev.packages = [ pkgs.qmk-udev-rules ];
+  
+    # Narzędzia + gotowy firmware w systemie
+   
+  }
+
   # ============================================================================
   #  SYSTEM PACKAGES (bare minimum — rescue & hardware only)
   # ============================================================================
@@ -284,6 +332,16 @@
     wayland
     libxkbcommon
     libGL
+
+    qmk
+    pkgsCross.avr.buildPackages.gcc
+    pkgsCross.avr.buildPackages.binutils
+    pkgsCross.avr.avrlibc
+    dfu-programmer
+    avrdude
+    gnumake
+    
+    
   ];
 
   # ============================================================================

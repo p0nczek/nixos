@@ -31,12 +31,18 @@
       url = "github:MoonshotAI/kimi-cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    qmk_firmware = {
+      url = "github:qmk/qmk_firmware/0.22.14";
+      flake = false;
+    };
+    
   };
 
   # ============================================================================
   #  OUTPUTS
   # ============================================================================
-  outputs = inputs@{ nixpkgs, home-manager, noctalia, zen-browser, kimi-cli, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, noctalia, zen-browser, kimi-cli, qmk_firmware, ... }:
     let
       system = "x86_64-linux";
     in
