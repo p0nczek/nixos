@@ -154,12 +154,30 @@
         "type": "github"
       }
     },
+    "qmk_firmware": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1698102016,
+        "narHash": "sha256-IHHRiXHjU6s+h+m8DMz3ACqgLJzRO0Q0X8KvGQTNNZM=",
+        "owner": "qmk",
+        "repo": "qmk_firmware",
+        "rev": "ca4541699915b37cd1f253bbed51854627efd2ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qmk",
+        "ref": "0.22.14",
+        "repo": "qmk_firmware",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "kimi-cli": "kimi-cli",
         "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
+        "qmk_firmware": "qmk_firmware",
         "zen-browser": "zen-browser"
       }
     },
