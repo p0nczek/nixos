@@ -153,13 +153,10 @@
 
 
 
-    qmk
-    avr-binutils
-    avr-gcc
-    avr-libc
-    dfu-programmer
-    avrdude
 
+    qmk
+    dfu-programmer 
+    avrdude
   ] ++ [
     # --- External flakes (not in nixpkgs) ---
     inputs.zen-browser.packages.${pkgs.system}.default
