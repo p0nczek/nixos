@@ -33,7 +33,7 @@
     };
 
     qmk_firmware = {
-      url = "github:qmk/qmk_firmware/0.22.14";
+      url = "github:qmk/qmk_firmware/0.18.17";
       flake = false;
     };
     

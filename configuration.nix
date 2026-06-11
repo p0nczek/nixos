@@ -14,14 +14,18 @@ let
       python3
     ];
 
-    preBuild = ''
-      mkdir -p keyboards/crkbd/keymaps/cornemykeyboard
-      cp ${../qmk/keymap.c} keyboards/crkbd/keymaps/cornemykeyboard/keymap.c
-      ${lib.optionalString (lib.pathExists ../qmk/config.h) 
-        "cp ${../qmk/config.h} keyboards/crkbd/keymaps/cornemykeyboard/config.h"}
-      ${lib.optionalString (lib.pathExists ../qmk/rules.mk) 
-        "cp ${../qmk/rules.mk} keyboards/crkbd/keymaps/cornemykeyboard/rules.mk"}
-    '';
+preBuild = ''
+  python3 -m venv .qmk-venv
+  source .qmk-venv/bin/activate
+  pip install qmk
+  
+  mkdir -p keyboards/crkbd/keymaps/cornemykeyboard
+  cp ${./qmk/keymap.c} keyboards/crkbd/keymaps/cornemykeyboard/keymap.c
+  ${lib.optionalString (lib.pathExists ./qmk/config.h) 
+    "cp ${./qmk/config.h} keyboards/crkbd/keymaps/cornemykeyboard/config.h"}
+  ${lib.optionalString (lib.pathExists ./qmk/rules.mk) 
+    "cp ${./qmk/rules.mk} keyboards/crkbd/keymaps/cornemykeyboard/rules.mk"}
+'';
 
     buildPhase = ''
       runHook preBuild
@@ -333,7 +337,7 @@ in
     avrdude
     gnumake
     
-    
+    qmk-cornemykeyboard
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
 
