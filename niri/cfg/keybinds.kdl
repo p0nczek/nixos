@@ -38,7 +38,7 @@ binds {
         Mod+C                               { center-column; }
         Mod+Shift+T                         { toggle-window-floating; }
         Mod+Shift+F                         { fullscreen-window; }
-   		 Mod+P                  		    { toggle-window-rule-opacity; }
+   		Mod+P                	  		    { toggle-window-rule-opacity; }
         //Mod+Backspace                       repeat=false { toggle-overview; }
         CTRL+Shift+S                        { screenshot; }
 

@@ -9,7 +9,7 @@
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "altYfix";
+  system.nixos.label = "PlDe";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
