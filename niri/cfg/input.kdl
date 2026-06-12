@@ -4,19 +4,11 @@
 input {
     keyboard {
         xkb {
-            layout "pl,ru"
-            variant ",phonetic"
-            options "grp:caps_toggle"
+            file "/etc/nixos/niri/keymap.xkb"
         }
         numlock // Enable numlock on startup
     }
 
-    touchpad {
-        tap // Enable tap-to-click
-        natural-scroll // Enable natural (macOS-style) scrolling
-    }
-
-   // focus-follows-mouse // Automatically focus windows under the mouse pointer
     workspace-auto-back-and-forth // Enable workspace back & forth switching
     focus-follows-mouse max-scroll-amount="0%"
 }

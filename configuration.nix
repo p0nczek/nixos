@@ -1,53 +1,42 @@
 { config, pkgs, lib, inputs, ... }:
 
-let
-  qmk-cornemykeyboard = pkgs.stdenv.mkDerivation {
-    pname = "qmk-cornemykeyboard";
-    version = "0.22.14";
-
-    src = inputs.qmk_firmware;
-
-    nativeBuildInputs = with pkgs; [
-      pkgsCross.avr.buildPackages.gcc
-      pkgsCross.avr.buildPackages.binutils
-      gnumake
-      python3
-    ];
-
-preBuild = ''
-  python3 -m venv .qmk-venv
-  source .qmk-venv/bin/activate
-  pip install qmk
-  
-  mkdir -p keyboards/crkbd/keymaps/cornemykeyboard
-  cp ${./qmk/keymap.c} keyboards/crkbd/keymaps/cornemykeyboard/keymap.c
-  ${lib.optionalString (lib.pathExists ./qmk/config.h) 
-    "cp ${./qmk/config.h} keyboards/crkbd/keymaps/cornemykeyboard/config.h"}
-  ${lib.optionalString (lib.pathExists ./qmk/rules.mk) 
-    "cp ${./qmk/rules.mk} keyboards/crkbd/keymaps/cornemykeyboard/rules.mk"}
-'';
-
-    buildPhase = ''
-      runHook preBuild
-      make crkbd/rev1:cornemykeyboard
-    '';
-
-    installPhase = ''
-      mkdir -p $out/share/qmk-firmware
-      cp .build/crkbd_rev1_cornemykeyboard.hex $out/share/qmk-firmware/
-    '';
-  };
-in
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
+environment.etc."xkb/symbols/plde".text = ''
+    xkb_symbols "plde" {
+      include "us(basic)"
+      name[Group1] = "PL+DE via F13-F24 + ScrollLock";
+
+      replace key <FK13> { [ aogonek,    Aogonek    ] };
+      replace key <FK14> { [ cacute,     Cacute     ] };
+      replace key <FK15> { [ eogonek,    Eogonek    ] };
+      replace key <FK16> { [ lstroke,    Lstroke    ] };
+      replace key <FK17> { [ nacute,     Nacute     ] };
+      replace key <FK18> { [ oacute,     Oacute     ] };
+      replace key <FK19> { [ sacute,     Sacute     ] };
+      replace key <FK20> { [ zacute,     Zacute     ] };
+      replace key <FK21> { [ zabovedot,  Zabovedot  ] };
+
+      replace key <FK22> { [ adiaeresis, Adiaeresis ] };
+      replace key <FK23> { [ odiaeresis, Odiaeresis ] };
+      replace key <FK24> { [ udiaeresis, Udiaeresis ] };
+
+      replace key <SCLK> { [ ssharp,     U1E9E      ] };
+    };
+  '';
+
+
+environment.sessionVariables = {
+  XKB_CONFIG_EXTRA_PATH = "/etc/xkb";
+};
   # ============================================================================
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "qmk";
+  system.nixos.label = "qmkWork";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -98,10 +87,10 @@ in
     LC_TIME           = "de_DE.UTF-8";
   };
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+ # services.xserver.xkb = {
+ #   layout = "us";
+#    variant = "";
+ # };
 
   # ============================================================================
   #  NIX SETTINGS
@@ -194,15 +183,15 @@ in
   programs.xwayland.enable = true;
 
   # Auto-login via greetd -> Niri
-  services.greetd = {
+ services.greetd = {
     enable = true;
     settings = {
       initial_session = {
-        command = "niri";
+        command = "sh -c 'export XKB_CONFIG_EXTRA_PATH=/etc/xkb; exec niri'";
         user = "shin";
       };
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd \"sh -c 'export XKB_CONFIG_EXTRA_PATH=/etc/xkb; exec niri'\"";
         user = "greeter";
       };
     };
@@ -337,7 +326,7 @@ in
     avrdude
     gnumake
     
-    qmk-cornemykeyboard
+    #qmk-cornemykeyboard
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
 

@@ -12,4 +12,5 @@ environment {
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
     DESKTOP_SESSION "niri"
+    XKB_CONFIG_EXTRA_PATH "/home/shin/.config/xkb"
 }

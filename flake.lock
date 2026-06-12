@@ -157,16 +157,16 @@
     "qmk_firmware": {
       "flake": false,
       "locked": {
-        "lastModified": 1698102016,
-        "narHash": "sha256-IHHRiXHjU6s+h+m8DMz3ACqgLJzRO0Q0X8KvGQTNNZM=",
+        "lastModified": 1668355628,
+        "narHash": "sha256-YEKqqCLJQvFD3OaJvgD+OEDxXgPcjnaNpNtSPaDUS+M=",
         "owner": "qmk",
         "repo": "qmk_firmware",
-        "rev": "ca4541699915b37cd1f253bbed51854627efd2ce",
+        "rev": "133fe1c013d712522fc8ae159567629ef7760ed6",
         "type": "github"
       },
       "original": {
         "owner": "qmk",
-        "ref": "0.22.14",
+        "ref": "0.18.17",
         "repo": "qmk_firmware",
         "type": "github"
       }
