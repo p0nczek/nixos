@@ -132,6 +132,8 @@
 
     # --- Productivity ---
     obsidian
+    anki-bin
+
 
 
     # --- System / Utilities ---
