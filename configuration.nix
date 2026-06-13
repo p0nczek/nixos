@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "qmkWork";
+  system.nixos.label = "pomodoro";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
