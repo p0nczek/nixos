@@ -1,31 +1,24 @@
 binds {
 
-                Alt+A { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ä" "a"; }
-                Alt+Shift+A { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ä" "a" "shift"; }
-                Alt+O { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ö" "o"; }
-                Alt+Shift+O { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ö" "o" "shift"; }
-                Alt+U { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ü" "u"; }
-                Alt+Shift+U { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ü" "u" "shift"; }
-                Alt+S { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "ß" "s"; }
-                Alt+Shift+E { spawn "/etc/nixos/scripts/wtype-if-not-obsidian" "Ë" "e" "shift"; }
+      
 
     // ─── Applications ───
     Alt+Y 							hotkey-overlay-title="Open YouTube Music" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://music.youtube.com/"; }
+	Alt+Z							{ spawn "appimage-run" "~/Downloads/ZenNotes-2.3.0-linux-x86_64.AppImage"}
     Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
     Mod+O                           hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
     Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
-    Mod+D { spawn "vesktop"; } 
-        Mod+Period                                              { spawn "/etc/nixos/scripts/polacz_tablet.sh"; }
-
-        Mod+Escape { spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
+    Mod+D 							{ spawn "discord"; } 
 
 
-    Mod+Y { spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/scripts/tlo"; }
-        Mod+Shift+Y                                             { spawn "pkill" "-f" "tlo-layer"; }
+    Mod+Escape 						{ spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
 
 
-//      Mod+V                                                           { spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+    Mod+Y 							{ spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/scripts/tlo"; }
+    Mod+Shift+Y                     { spawn "pkill" "-f" "tlo-layer"; }
+
+
 
 
     Mod+Backspace                       hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
@@ -39,7 +32,6 @@ binds {
         Mod+Shift+T                         { toggle-window-floating; }
         Mod+Shift+F                         { fullscreen-window; }
    		Mod+P                	  		    { toggle-window-rule-opacity; }
-        //Mod+Backspace                       repeat=false { toggle-overview; }
         CTRL+Shift+S                        { screenshot; }
 
     // ─── Media Controls ───
@@ -70,15 +62,6 @@ binds {
     Mod+WheelScrollRight                { focus-column-right; }
     Mod+WheelScrollLeft                 { focus-column-left; }   
 
-    Mod+1                               { focus-workspace 1; }
-    Mod+2                               { focus-workspace 2; }
-    Mod+3                               { focus-workspace 3; }
-    Mod+4                               { focus-workspace 4; }
-    Mod+5                               { focus-workspace 5; }
-    Mod+6                               { focus-workspace 6; }
-    Mod+7                               { focus-workspace 7; }
-    Mod+8                               { focus-workspace 8; }
-    Mod+9                               { focus-workspace 9; }
 
     Mod+I                                                               { focus-workspace-down; }
     Mod+E                                                               { focus-workspace-up; }

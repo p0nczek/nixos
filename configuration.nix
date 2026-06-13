@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "doTTS";
+  system.nixos.label = "TTsWorkaltZ";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -327,6 +327,8 @@ environment.sessionVariables = {
     gnumake
     
     #qmk-cornemykeyboard
+
+    espeak-ng
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
 
