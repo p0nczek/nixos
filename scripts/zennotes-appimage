@@ -1,0 +1,4 @@
+#!/bin/sh
+export APPIMAGE_EXTRACT_AND_RUN=1
+export PATH="/run/current-system/sw/bin:$PATH"
+exec appimage-run /home/shin/Downloads/ZenNotes-2.3.0-linux-x86_64.AppImage
