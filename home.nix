@@ -29,6 +29,18 @@
     force = true;
   };
 
+
+# w home.nix, np. obok programs.noctalia-shell
+programs.navi = {
+  enable = true;
+  settings = {
+    style = {
+      tag = { color = "magenta"; };
+      comment = { color = "blue"; };
+      snippet = { color = "white"; };
+    };
+  };
+};
   # Btop
   home.file.".config/btop/themes/noctalia.theme".source = ./btop-noctalia.theme;
   # VST bridge for Windows plugins (Yabridge)
@@ -52,6 +64,8 @@
   # Ensure ~/.local/bin is on PATH (for uv/pip --user installs, etc.)
   home.sessionPath = [ "$HOME/.local/bin" ];
 
+  #navi
+  home.file.".local/share/navi/cheats/moje".source = ./cheats;
   # ============================================================================
   #  CURSOR THEME
   # ============================================================================

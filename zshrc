@@ -15,6 +15,8 @@ export ZSH_CONFIG="$HOME/.config/zsh"  # Config directory
 export ZSH_PLUGINS_MANAGER="zinit"     # Plugin manager
 eval "$(atuin init zsh)"
 source "$ZSH_CONFIG/init.zsh"          # Load main config
+# Navi widget (Ctrl+G)
+source <(navi widget zsh)
 
 
 

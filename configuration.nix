@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "navi";
+  system.nixos.label = "naviCheatsInRepo";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -137,6 +137,7 @@ environment.sessionVariables = {
 
   # FUSE (AppImage, Flatpak, user mounts)
   programs.fuse.userAllowOther = true;
+
 
   # ============================================================================
   #  POWER & THERMAL

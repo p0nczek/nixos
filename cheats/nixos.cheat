@@ -1,0 +1,23 @@
+% nixos, system
+
+# Rebuild system
+sudo nixos-rebuild switch --flake /etc/nixos#nixos
+
+# Update and rebuild
+nix flake update /etc/nixos && nos
+
+# Clean old generations
+nix-collect-garbage -d && nh clean all
+
+% audio, reaper
+
+# Reaper via PipeWire JACK
+PIPEWIRE_LATENCY=128/48000 pw-jack reaper
+
+# Reaper via JACK (direct)
+pw-jack reaper
+
+% navi, cheats
+
+# Edit nixos cheats
+micro ~/.local/share/navi/cheats/moje/nixos.cheat
