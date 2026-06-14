@@ -1,23 +1,322 @@
 % nixos, system
 
-# Rebuild system
-sudo nixos-rebuild switch --flake /etc/nixos#nixos
+# Rebuild system (flake)
+sudo nixos-rebuild switch --flake /etc/nixos#<host>
 
-# Update and rebuild
-nix flake update /etc/nixos && nos
+# Home Manager switch
+home-manager switch --flake /etc/nixos
 
-# Clean old generations
-nix-collect-garbage -d && nh clean all
+# NH home switch (szybsze)
+nh home switch /etc/nixos
 
-% audio, reaper
+# Lista generacji systemu
+sudo nixos-rebuild list-generations
 
-# Reaper via PipeWire JACK
+# Usuń stare generacje (+5 ostatnich)
+sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
+
+# Czyszczenie garbage + optymalizacja
+sudo nix-collect-garbage -d && sudo nix-store --optimise
+
+# Expire home-manager generations
+home-manager expire-generations "-5 days"
+
+# Edycja configuration.nix
+sudo micro /etc/nixos/configuration.nix
+
+# Edycja home.nix
+sudo micro /etc/nixos/home.nix
+
+# Edycja flake.nix
+sudo micro /etc/nixos/flake.nix
+
+# Git commit w /etc/nixos
+cd /etc/nixos && sudo git add . && sudo git commit -m "<msg>"
+
+% nix, packages
+
+# Tymczasowy shell z pakietem
+nix-shell -p <pakiet>
+
+# Dodaj do profilu nix
+nix profile add nixpkgs#<pakiet>
+
+# Dodaj unfree do profilu
+NIXPKGS_ALLOW_UNFREE=1 nix profile add --impure nixpkgs#<pakiet>
+
+# Szukaj w nix store
+find /nix/store -maxdepth 3 -name "<pattern>" 2>/dev/null
+
+# Szukaj pliku wykonywalnego w store
+find /nix/store -name "<bin>" -type f -executable 2>/dev/null
+
+# Log z budowania derivacji
+nix log /nix/store/<hash>-<name>.drv
+
+# Override z CUDA (przykład btop)
+nix-shell -p '(btop.override { cudaSupport = true; })'
+
+% git, nixos
+
+# Log --oneline z filtrem pliku
+git log --oneline -- <plik>
+
+# Diff między commitami dla pliku
+git diff HEAD~<n> HEAD -- <plik>
+
+# Checkout pliku ze starego commitu
+git checkout <hash> -- <plik>
+
+# Status z sudo w /etc/nixos
+sudo git status
+
+% llm, local
+
+# OmniCoder 9B (port 1234) — pełna komenda
+export LD_LIBRARY_PATH="/run/opengl-driver/lib:$HOME/.lmstudio/extensions/backends/vendor/linux-llama-cuda12-vendor-v1:$LD_LIBRARY_PATH"
+~/.lmstudio/extensions/backends/llama.cpp-linux-x86_64-nvidia-cuda12-avx2-2.20.1/llama-server -m ~/models/OmniCoder-9B-GGUF/omnicoder-9b-q6_k.gguf --port 1234 -c 8192 -ngl 999 --reasoning off
+
+# Llama 3.1 8B (port 1235)
+llama-server -m ~/.lmstudio/models/YorkieOH10/Meta-Llama-3.1-8B-Instruct-Q8_0-GGUF/meta-llama-3.1-8b-instruct-q8_0.gguf --port 1235 -c 32768 -ngl 999 --flash-attn --cache-type-k q8_0 --cache-type-v q8_0
+
+# Aider z OmniCoder (lokalny)
+aider --model openai/omnicoder-9b --openai-api-base http://localhost:1234/v1 --openai-api-key fake --no-show-model-warnings --no-auto-commits --chat-language Polish
+
+# Aider z Llama 3.1 (lokalny)
+aider --model openai/llama-3.1-8b-instruct --openai-api-base http://localhost:1235/v1 --openai-api-key dummy --no-auto-commits --no-show-model-warnings --chat-language Polish --edit-format diff
+
+# Test API lokalnego serwera
+curl -s http://localhost:<port>/v1/chat/completions -H "Content-Type: application/json" -d '{"model":"<model>","messages":[{"role":"user","content":"ping"}]}'
+
+# Sprawdź czy serwer LLM działa
+curl -s http://localhost:<port>/health
+
+# Watch GPU podczas inferencji
+watch -n 2 nvidia-smi
+
+% audio, pipewire
+
+# Reaper via PipeWire JACK (niskie latency)
 PIPEWIRE_LATENCY=128/48000 pw-jack reaper
 
 # Reaper via JACK (direct)
 pw-jack reaper
 
-% navi, cheats
+# Carla z latency
+PIPEWIRE_LATENCY=256/48000 carla
 
-# Edit nixos cheats
-micro ~/.local/share/navi/cheats/moje/nixos.cheat
+# List JACK clients
+pw-jack jack_lsp
+
+# PipeWire metadata — ustaw quantum
+pw-metadata -n settings 0 clock.quantum <128|256|512>
+
+# PipeWire metadata — force quantum
+pw-metadata -n settings 0 clock.force-quantum <0|128>
+
+# pw-top (status PipeWire)
+pw-top
+
+# Cava (wizualizator)
+cava
+
+% ddc, monitor
+
+# Jasność monitora — ustaw
+~/.local/bin/brightness.sh set <0-100>
+
+# Jasność monitora — w górę/dół
+~/.local/bin/brightness.sh up
+~/.local/bin/brightness.sh down
+
+# DDC direct — get VCP
+ddcutil --bus <bus> getvcp 10 --brief
+
+# DDC direct — set VCP (szybko, bez verify)
+ddcutil --bus <bus> --noverify setvcp 10 <wartosc>
+
+# DDC detect verbose
+ddcutil detect --verbose
+
+% niri, wayland
+
+# Reload config niri
+niri msg action reload-config
+
+# Validate config niri
+niri --validate /home/shin/.config/niri/config.kdl
+
+# Sprawdź xwayland
+ps aux | grep -i xwayland
+
+# Status portali
+systemctl --user status xdg-desktop-portal-wlr
+systemctl --user status xdg-desktop-portal-gnome
+
+# Journal niri (ostatnie 50 linii)
+journalctl --user -u niri -n 50
+
+# Monitor Wayland display
+echo $WAYLAND_DISPLAY
+
+% system, debug
+
+# Journalctl — follow user
+journalctl --user -f
+
+# Journalctl — błędy niri
+journalctl --user -u niri --no-pager | tail -n 20
+
+# Status usługi user
+systemctl --user status <usluga>
+
+# Procesy po CPU
+ps aux | grep <pattern>
+
+# Zabij proces po nazwie
+kill $(pgrep -x <nazwa>)
+
+# Zabij po PID
+kill <pid>
+
+# Sprawdź otwarte porty
+ss -tlnp | grep -E '<port1|port2>'
+
+# Zajętość dysków
+df -h
+
+# Montowanie / partycje
+lsblk -o NAME,SIZE,MODEL,MOUNTPOINT,TYPE
+
+# Mount ext4
+sudo mount /dev/sd<X><N> /mnt/<target>
+
+% qmk, keyboard
+
+# Kompilacja QMK (make)
+cd ~/qmk_firmware && make crkbd/rev1:<keymap>
+
+# Kompilacja QMK (qmk CLI)
+qmk compile -kb crkbd/rev1 -km <keymap>
+
+# Flash QMK
+qmk flash -kb crkbd/rev1 -km <keymap>
+
+# QMK setup (venv)
+cd ~/qmk_firmware && qmk setup
+
+% recording, video
+
+# WF recorder (Wayland)
+nix-shell -p wf-recorder --run "wf-recorder -o <output> -f ~/nagranie.mp4"
+
+# GPU screen recorder
+gpu-screen-recorder
+
+# GPU screen recorder GTK
+gpu-screen-recorder-gtk
+
+# Kooha (screen recorder)
+nix-shell -p kooha --run kooha
+
+% tts, voice
+
+# Voice note — nagrywanie
+/home/shin/voice-note
+
+# TTS via API lokalnego serwera
+curl -X POST http://localhost:5002/tts -H "Content-Type: application/json" -d '{"text": "<tekst>", "language": "<de|ru|pl>", "speaker_wav": "<sciezka_do_wav>"}'
+
+# Odtwórz ostatni TTS
+pw-play /tmp/tts_output_<id>.wav
+
+# Nagrywanie głosu przez ffmpeg
+FILENAME="$HOME/moj_glos_$(date +%Y%m%d_%H%M%S).wav"
+ffmpeg -y -f alsa -i default -ar 22050 -ac 1 -t 10 -c:a pcm_s16le "$FILENAME"
+
+% xkb, input
+
+# Compile keymap (custom plde)
+XKB_CONFIG_EXTRA_PATH=/etc/xkb xkbcli compile-keymap --layout plde --options grp:caps_toggle > /etc/nixos/niri/keymap.xkb
+
+# Test keymap
+xkbcli compile-keymap --layout plde > /dev/null && echo "OK"
+
+# Wev — debug klawiszy (Wayland)
+wev
+
+# Lista układów xkb
+xkbcli list | grep <layout>
+
+% wine, appimage
+
+# AppImage run
+appimage-run ~/Downloads/<app>.AppImage
+
+# AppImage extract
+~/Downloads/<app>.AppImage --appimage-extract
+
+# Yabridgectl — dodaj VST
+yabridgectl add "$HOME/.wine/drive_c/Program Files/VstPlugins"
+
+# Yabridgectl sync
+yabridgectl sync
+
+# Yabridgectl status
+yabridgectl status
+
+# Wine — uruchom EXE
+wine ~/Downloads/<plik>.exe
+
+% files, search
+
+# Szukaj tekstu w /etc/nixos
+grep -r "<pattern>" /etc/nixos/
+
+# Szukaj tekstu w home
+grep -r "<pattern>" ~/
+
+# Szukaj pliku po nazwie
+find ~ -maxdepth 2 -name "<pattern>" 2>/dev/null
+
+# Edytuj w micro
+micro <plik>
+
+# Szybki cat z grep
+cat <plik> | grep -A<n> -B<n> <pattern>
+
+# Tail -f logu
+tail -f <plik>
+
+% obsidian, wiki
+
+# Generuj notatkę przez lokalny LLM
+python3 ~/obsidianAi/notatka.py "<prompt>" "Wiedza/<Kategoria>/<Nazwa>.md"
+
+# Pipeline wiki — full run
+cd ~/obsidianAi/wiki-pipeline && ./run_pipeline.sh
+
+# Linkowanie notatek
+python3 ~/obsidianAi/wiki-pipeline/link_notes.py
+
+% kimi, cli
+
+# Kimi auth
+kimi auth login
+
+# Kimi interaktywnie
+kimi
+
+# Kimi --version
+kimi --version
+
+% nix-shell, dev
+
+# Python venv + pip
+python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+
+# Nix shell z wieloma pakietami
+nix-shell -p python3 python3Packages.pip git gnumake gcc
+
+# Nix shell z CUDA
+nix-shell -p 'llama-cpp.override { cudaSupport = true; }' --impure
