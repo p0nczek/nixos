@@ -123,7 +123,6 @@
 
     # --- Communication ---
     telegram-desktop
-    vesktop
     discord
 
     # --- AI / ML ---
@@ -147,7 +146,7 @@
     ripgrep
     fzf
     zoxide
-    btop
+    (btop.override { cudaSupport = true;   }) 
     fastfetch
     ffmpeg
     atuin
