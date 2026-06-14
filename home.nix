@@ -146,6 +146,7 @@
     ripgrep
     fzf
     zoxide
+    navi
     (btop.override { cudaSupport = true;   }) 
     fastfetch
     ffmpeg
