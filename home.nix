@@ -1,9 +1,59 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
+
+
   imports = [
     inputs.noctalia.homeModules.default
   ];
+
+
+  home.activation.syncAllConfigs = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # 1. Dereference: zamień symlinki na kopie + daj write
+    for dir in "$HOME/.config/noctalia" "$HOME/.config/kitty" "$HOME/.config/btop" "$HOME/.config/niri" "$HOME/.config/zsh" "$HOME/.local/share/zinit" "$HOME/.local/share/navi/cheats/moje"; do
+      [ -d "$dir" ] && find "$dir" -type l -exec sh -c 'for f; do t=$(readlink -f "$f"); rm -f "$f"; cp -f "$t" "$f"; chmod +w "$f"; done' _ {} + 2>/dev/null
+    done
+    for f in "$HOME/.zshrc" "$HOME/.p10k.zsh"; do
+      [ -L "$f" ] && t=$(readlink -f "$f") && rm -f "$f" && cp -f "$t" "$f" && chmod +w "$f"
+    done
+
+    # 2. Sync z /etc/nixos/ (nadpisz jeśli się różni, ZAWSZE writable)
+    sync_config() {
+      local src="$1"
+      local dst="$2"
+      if [ -d "$src" ]; then
+        mkdir -p "$dst"
+        while IFS= read -r -d ''' file; do
+          local rel="''${file#$src/}"
+          local dstfile="$dst/$rel"
+          mkdir -p "$(dirname "$dstfile")"
+          if [ ! -e "$dstfile" ] || ! ${pkgs.diffutils}/bin/diff -q "$file" "$dstfile" >/dev/null 2>&1; then
+            cp -f "$file" "$dstfile"
+            chmod +w "$dstfile"
+            echo "[sync] $rel"
+          fi
+        done < <(${pkgs.findutils}/bin/find "$src" -type f -print0)
+      else
+        mkdir -p "$(dirname "$dst")"
+        if [ ! -e "$dst" ] || ! ${pkgs.diffutils}/bin/diff -q "$src" "$dst" >/dev/null 2>&1; then
+          cp -f "$src" "$dst"
+          chmod +w "$dst"
+          echo "[sync] $(basename "$dst")"
+        fi
+      fi
+    }
+
+    sync_config "${toString ./zshrc}" "$HOME/.zshrc"
+    sync_config "${toString ./zsh/.p10k.zsh}" "$HOME/.p10k.zsh"
+    sync_config "${toString ./zsh-plugins/zinit}" "$HOME/.local/share/zinit"
+    sync_config "${toString ./zsh-config}" "$HOME/.config/zsh"
+    sync_config "${toString ./niri}" "$HOME/.config/niri"
+    sync_config "${toString ./kitty-config}" "$HOME/.config/kitty"
+    sync_config "${toString ./noctalia}" "$HOME/.config/noctalia"
+    sync_config "${toString ./btop-noctalia.theme}" "$HOME/.config/btop/themes/noctalia.theme"
+    sync_config "${toString ./cheats}" "$HOME/.local/share/navi/cheats/moje"
+  '';
+
 
   # ============================================================================
   #  HOME STATE VERSION
@@ -11,61 +61,34 @@
   # Keep this equal to the NixOS stateVersion from configuration.nix.
   home.stateVersion = "25.11";
 
-  # ============================================================================
-  #  DOTFILES (managed by Home Manager)
-  # ============================================================================
-  home.file.".zshrc".source = ./zshrc;
-  home.file.".p10k.zsh".source = ./zsh/.p10k.zsh;
-
-  home.file.".local/share/zinit" = {
-    source = ./zsh-plugins/zinit;
-    recursive = true;
-    force = true;
-  };
-
-  home.file.".config/zsh" = {
-    source = ./zsh-config;
-    recursive = true;
-    force = true;
-  };
-
-
 # w home.nix, np. obok programs.noctalia-shell
-programs.navi = {
-  enable = true;
-  settings = {
-    style = {
-      tag = { color = "magenta"; };
-      comment = { color = "blue"; };
-      snippet = { color = "white"; };
+  programs.navi = {
+    enable = true;
+    settings = {
+      style = {
+        tag = { color = "magenta"; };
+        comment = { color = "blue"; };
+        snippet = { color = "white"; };
+      };
     };
   };
-};
-  # Btop
-  home.file.".config/btop/themes/noctalia.theme".source = ./btop-noctalia.theme;
+
   # VST bridge for Windows plugins (Yabridge)
   home.file.".vst/yabridge".source = "${pkgs.yabridge}/lib/yabridge";
 
-  # ============================================================================
-  #  XDG CONFIG (symlinked into ~/.config)
-  # ============================================================================
-  xdg.configFile."niri".source = ./niri;
-  xdg.configFile."noctalia".source = ./noctalia;
-  xdg.configFile."kitty".source = ./kitty-config;
-
-  # ============================================================================
-  #  ENVIRONMENT
-  # ============================================================================
-  # Make flake path available to nh / nix commands without typing it every time.
-  home.sessionVariables = {
-    NH_FLAKE = "/etc/nixos";
+  programs.noctalia-shell = {
+    enable = true;
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      calendarSupport = true;
+    };
+    # settings usunięte — zarządzamy przez /etc/nixos/noctalia/*.json
   };
 
+  
   # Ensure ~/.local/bin is on PATH (for uv/pip --user installs, etc.)
   home.sessionPath = [ "$HOME/.local/bin" ];
 
-  #navi
-  home.file.".local/share/navi/cheats/moje".source = ./cheats;
+
   # ============================================================================
   #  CURSOR THEME
   # ============================================================================
@@ -79,18 +102,6 @@ programs.navi = {
   # ============================================================================
   #  NOCTALIA SHELL
   # ============================================================================
-  programs.noctalia-shell = {
-    enable = true;
-    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      calendarSupport = true;
-    };
-    settings = {
-      bar = {
-        position = "top";
-        density = "default";
-      };
-    };
-  };
 
   # ============================================================================
   #  SYSTEMD USER TARGET (Niri session)
@@ -172,5 +183,9 @@ programs.navi = {
     inputs.zen-browser.packages.${pkgs.system}.default
     inputs.kimi-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
+
+
+
+
 
 }
