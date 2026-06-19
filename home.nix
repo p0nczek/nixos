@@ -160,7 +160,7 @@
     obsidian
     anki-bin
 
-
+    croc
 
     # --- System / Utilities ---
     nautilus
