@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "crack";
+  system.nixos.label = "monitor";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
