@@ -6,7 +6,7 @@ output "DP-1" {
     
 output "DP-2" {
         mode "1920x1080@143.980"
-        position x=2560 y=0
+        position x=-2560 y=0
         transform "90"
     }
 
