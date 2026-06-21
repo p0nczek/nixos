@@ -180,6 +180,14 @@
     atuin
     libnotify
 
+    
+    python3Packages.faster-whisper
+    python3Packages.sounddevice
+    python3Packages.numpy
+
+    xdotool
+    ydotool
+
   ] ++ [
     # --- External flakes (not in nixpkgs) ---
     inputs.zen-browser.packages.${pkgs.system}.default

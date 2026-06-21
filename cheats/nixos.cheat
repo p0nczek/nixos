@@ -1,13 +1,5 @@
 % nixos, system
 
-# Rebuild system (flake)
-sudo nixos-rebuild switch --flake /etc/nixos#<host>
-
-# Home Manager switch
-home-manager switch --flake /etc/nixos
-
-# NH home switch (szybsze)
-nh home switch /etc/nixos
 
 # Lista generacji systemu
 sudo nixos-rebuild list-generations
@@ -30,9 +22,6 @@ sudo micro /etc/nixos/home.nix
 # Edycja flake.nix
 sudo micro /etc/nixos/flake.nix
 
-# Git commit w /etc/nixos
-cd /etc/nixos && sudo git add . && sudo git commit -m "<msg>"
-
 % nix, packages
 
 # Tymczasowy shell z pakietem
@@ -44,14 +33,6 @@ nix profile add nixpkgs#<pakiet>
 # Dodaj unfree do profilu
 NIXPKGS_ALLOW_UNFREE=1 nix profile add --impure nixpkgs#<pakiet>
 
-# Szukaj w nix store
-find /nix/store -maxdepth 3 -name "<pattern>" 2>/dev/null
-
-# Szukaj pliku wykonywalnego w store
-find /nix/store -name "<bin>" -type f -executable 2>/dev/null
-
-# Log z budowania derivacji
-nix log /nix/store/<hash>-<name>.drv
 
 # Override z CUDA (przykład btop)
 nix-shell -p '(btop.override { cudaSupport = true; })'
@@ -99,85 +80,23 @@ watch -n 2 nvidia-smi
 # Reaper via PipeWire JACK (niskie latency)
 PIPEWIRE_LATENCY=128/48000 pw-jack reaper
 
-# Reaper via JACK (direct)
-pw-jack reaper
-
-# Carla z latency
-PIPEWIRE_LATENCY=256/48000 carla
-
-# List JACK clients
-pw-jack jack_lsp
-
-# PipeWire metadata — ustaw quantum
-pw-metadata -n settings 0 clock.quantum <128|256|512>
-
-# PipeWire metadata — force quantum
-pw-metadata -n settings 0 clock.force-quantum <0|128>
 
 # pw-top (status PipeWire)
 pw-top
 
-# Cava (wizualizator)
-cava
-
-% ddc, monitor
-
-# Jasność monitora — ustaw
-~/.local/bin/brightness.sh set <0-100>
-
-# Jasność monitora — w górę/dół
-~/.local/bin/brightness.sh up
-~/.local/bin/brightness.sh down
-
-# DDC direct — get VCP
-ddcutil --bus <bus> getvcp 10 --brief
-
-# DDC direct — set VCP (szybko, bez verify)
-ddcutil --bus <bus> --noverify setvcp 10 <wartosc>
-
-# DDC detect verbose
-ddcutil detect --verbose
 
 % niri, wayland
 
-# Reload config niri
-niri msg action reload-config
-
-# Validate config niri
-niri --validate /home/shin/.config/niri/config.kdl
-
-# Sprawdź xwayland
-ps aux | grep -i xwayland
-
-# Status portali
-systemctl --user status xdg-desktop-portal-wlr
-systemctl --user status xdg-desktop-portal-gnome
-
 # Journal niri (ostatnie 50 linii)
 journalctl --user -u niri -n 50
-
-# Monitor Wayland display
-echo $WAYLAND_DISPLAY
 
 % system, debug
 
 # Journalctl — follow user
 journalctl --user -f
 
-# Journalctl — błędy niri
-journalctl --user -u niri --no-pager | tail -n 20
-
-# Status usługi user
-systemctl --user status <usluga>
-
 # Procesy po CPU
 ps aux | grep <pattern>
-
-# Zabij proces po nazwie
-kill $(pgrep -x <nazwa>)
-
-# Zabij po PID
-kill <pid>
 
 # Sprawdź otwarte porty
 ss -tlnp | grep -E '<port1|port2>'
@@ -207,22 +126,12 @@ cd ~/qmk_firmware && qmk setup
 
 % recording, video
 
-# WF recorder (Wayland)
-nix-shell -p wf-recorder --run "wf-recorder -o <output> -f ~/nagranie.mp4"
-
-# GPU screen recorder
-gpu-screen-recorder
 
 # GPU screen recorder GTK
 gpu-screen-recorder-gtk
 
-# Kooha (screen recorder)
-nix-shell -p kooha --run kooha
-
 % tts, voice
 
-# Voice note — nagrywanie
-/home/shin/voice-note
 
 # TTS via API lokalnego serwera
 curl -X POST http://localhost:5002/tts -H "Content-Type: application/json" -d '{"text": "<tekst>", "language": "<de|ru|pl>", "speaker_wav": "<sciezka_do_wav>"}'
@@ -234,27 +143,9 @@ pw-play /tmp/tts_output_<id>.wav
 FILENAME="$HOME/moj_glos_$(date +%Y%m%d_%H%M%S).wav"
 ffmpeg -y -f alsa -i default -ar 22050 -ac 1 -t 10 -c:a pcm_s16le "$FILENAME"
 
-% xkb, input
 
-# Compile keymap (custom plde)
-XKB_CONFIG_EXTRA_PATH=/etc/xkb xkbcli compile-keymap --layout plde --options grp:caps_toggle > /etc/nixos/niri/keymap.xkb
 
-# Test keymap
-xkbcli compile-keymap --layout plde > /dev/null && echo "OK"
-
-# Wev — debug klawiszy (Wayland)
-wev
-
-# Lista układów xkb
-xkbcli list | grep <layout>
-
-% wine, appimage
-
-# AppImage run
-appimage-run ~/Downloads/<app>.AppImage
-
-# AppImage extract
-~/Downloads/<app>.AppImage --appimage-extract
+% vst
 
 # Yabridgectl — dodaj VST
 yabridgectl add "$HOME/.wine/drive_c/Program Files/VstPlugins"
@@ -265,28 +156,12 @@ yabridgectl sync
 # Yabridgectl status
 yabridgectl status
 
-# Wine — uruchom EXE
-wine ~/Downloads/<plik>.exe
 
 % files, search
 
 # Szukaj tekstu w /etc/nixos
 grep -r "<pattern>" /etc/nixos/
 
-# Szukaj tekstu w home
-grep -r "<pattern>" ~/
-
-# Szukaj pliku po nazwie
-find ~ -maxdepth 2 -name "<pattern>" 2>/dev/null
-
-# Edytuj w micro
-micro <plik>
-
-# Szybki cat z grep
-cat <plik> | grep -A<n> -B<n> <pattern>
-
-# Tail -f logu
-tail -f <plik>
 
 % obsidian, wiki
 
@@ -299,24 +174,17 @@ cd ~/obsidianAi/wiki-pipeline && ./run_pipeline.sh
 # Linkowanie notatek
 python3 ~/obsidianAi/wiki-pipeline/link_notes.py
 
-% kimi, cli
+% Godot
 
-# Kimi auth
-kimi auth login
+# run Godot
+nix-shell -p dotnet-sdk_8 --run "steam-run /home/shin/Downloads/Godot_v4.7-stable_mono_linux_x86_64/Godot_v4.7-stable_mono_linux.x86_64"
 
-# Kimi interaktywnie
-kimi
+# Godot git download
+cd /home/shin/gd/justGame           
+git pull origin main
 
-# Kimi --version
-kimi --version
-
-% nix-shell, dev
-
-# Python venv + pip
-python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
-
-# Nix shell z wieloma pakietami
-nix-shell -p python3 python3Packages.pip git gnumake gcc
-
-# Nix shell z CUDA
-nix-shell -p 'llama-cpp.override { cudaSupport = true; }' --impure
+#Godot git add
+cd /home/shin/gd/justGame
+git add .
+git commit -m "shin"
+git push origin main
