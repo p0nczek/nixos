@@ -30,13 +30,4 @@ window-rule {
     draw-border-with-background false
 }
 
-// Reguła naprawiająca przezroczystość na pełnym ekranie
-window-rule {
-    match is-fullscreen=true is-focused=true
-    
-    // 1. Ustawiasz taką przezroczystość, jaką chcesz mieć na fullscreenie (np. 0.85)
-    opacity 0.85
-    
-    // 2. Blokujesz direct-scanout, aby Niri w ogóle renderowało przezroczystość pod spodem
-    block-out-from "direct-scanout"
-}
+
