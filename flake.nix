@@ -1,67 +1,82 @@
+# /etc/nixos/flake.nix
 {
-  description = "Czysty NixOS z Niri, Noctalia Shell i Kimi CLI";
+  description = "NixOS - shin + mikuri12 modules";
 
-  # ============================================================================
-  #  INPUTS
-  # ============================================================================
   inputs = {
-    # Core
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Home Manager (follows nixpkgs to avoid duplicate evals)
+    # --- Home Manager ---
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Noctalia desktop shell & widgets
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+    # === MIKURI12 INPUTS ===
+    mikuboot = {
+      url = "gitlab:evysgarden/mikuboot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Zen Browser
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+    noctalia-shell = {
+      url = "github:Noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Kimi CLI (official MoonshotAI flake)
-    kimi-cli = {
-      url = "github:MoonshotAI/kimi-cli";
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    qmk_firmware = {
-      url = "github:qmk/qmk_firmware/0.18.17";
-      flake = false;
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
+    elyprismlauncher.url = "github:ElyPrismLauncher/ElyPrismLauncher/10.0.2";
+    # =======================
   };
 
-  # ============================================================================
-  #  OUTPUTS
-  # ============================================================================
-  outputs = inputs@{ nixpkgs, home-manager, noctalia, zen-browser, kimi-cli, qmk_firmware, ... }:
-    let
-      system = "x86_64-linux";
-    in
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
+  outputs = { self, nixpkgs, home-manager, mikuboot, noctalia-shell, quickshell, mango, elyprismlauncher, ... }@inputs:
+  let
+    system = "x86_64-linux";
+  in {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit inputs; };
 
-          # Home Manager as a NixOS module
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.shin = import ./home.nix;
-          }
-        ];
-      };
+      modules = [
+        # --- Home Manager jako NixOS module ---
+        home-manager.nixosModules.home-manager
+
+        # --- Mikuboot Plymouth theme ---
+        mikuboot.nixosModules.default
+
+        # --- Mango (jego overlay) ---
+        mango.nixosModules.mango
+
+        # --- Mikuri config ---
+        ./mikuri.nix
+
+        # --- Twój główny config ---
+        ./configuration.nix
+
+        {
+          # Home Manager integration
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+
+          # Mango enable
+          programs.mango.enable = true;
+
+          # Jego pakiety z flake inputs
+          environment.systemPackages = with nixpkgs.legacyPackages.${system}; [
+            noctalia-shell.packages.${system}.default
+            elyprismlauncher.packages.${system}.default
+            quickshell.packages.${system}.default
+          ];
+        }
+      ];
     };
+  };
 }
