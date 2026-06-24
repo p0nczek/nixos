@@ -7,22 +7,21 @@
 
 # ---- Options ----
 #- set
-setopt INTERACTIVE_COMMENTS     # Enables support for comments with ': #' in Zsh
-setopt AUTO_CD                  # Automatically changes to a directory if you type its name (without using 'cd')
-setopt HIST_FCNTL_LOCK          # Locks history file with fcntl to prevent concurrent write issues
-setopt HIST_IGNORE_ALL_DUPS     # Ignores all duplicate commands in history (won't record repeated commands)
-setopt SHARE_HISTORY            # Enables shared history across multiple Zsh sessions
-setopt HIST_IGNORE_DUPS         # Ignores duplicate commands in history if they are consecutive
-setopt INC_APPEND_HISTORY       # Immediately writes commands to history as they are executed
-setopt HIST_REDUCE_BLANKS       # Removes unnecessary spaces before saving commands in history
-setopt hist_ignore_all_dups     # Duplicate of HIST_IGNORE_ALL_DUPS: Ignores duplicates in history
-setopt hist_save_no_dups        # Removes duplicates from history file when saving at session end
-setopt CORRECT                  # Auto Correct command
-setopt CORRECT_ALL              # Auto Correct command All
+setopt INTERACTIVE_COMMENTS
+setopt AUTO_CD
+setopt HIST_FCNTL_LOCK
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt INC_APPEND_HISTORY
+setopt HIST_REDUCE_BLANKS
+setopt hist_save_no_dups
+setopt CORRECT
+setopt CORRECT_ALL
 #- unset
-unsetopt AUTO_REMOVE_SLASH      # Disables automatic removal of trailing slashes in directory paths
-unsetopt HIST_EXPIRE_DUPS_FIRST # Disables removing older duplicates first during history cleanup
-unsetopt EXTENDED_HISTORY       # Disables saving timestamps in history
+unsetopt AUTO_REMOVE_SLASH
+unsetopt HIST_EXPIRE_DUPS_FIRST
+unsetopt EXTENDED_HISTORY
 
 # ---- Path ----
 export GOPATH="$HOME/.config/go"
@@ -41,16 +40,14 @@ zmodload zsh/complist
 autoload -Uz edit-command-line; zle -N edit-command-line
 
 # ---- Software specific ----
-export EDITOR="nvim"                # default EDITOR = nvim
-export VISUAL="nvim"                # devault VISUAL EDITOR = nvim
-export QT_QPA_PLATFORMTHEME=qt5ct   # support qt5 theme
-export HISTORY="$ZSH_CONFIG"/.history # where your history ???
-
+export EDITOR="nvim"
+export VISUAL="nvim"
+export QT_QPA_PLATFORMTHEME=qt5ct
 
 # History settings
-HISTFILE="$HISTORY"                 # where your history ???
-HISTSIZE=100000                     # history size
-SAVEHIST=100000                     # max history save
+HISTFILE="$HOME/.config/zsh/.history"
+HISTSIZE=100000
+SAVEHIST=100000
 
 # ---- Initialize tools ----
 eval "$(zoxide init zsh)"           # Initialize zoxide
