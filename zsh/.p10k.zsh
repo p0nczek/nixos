@@ -45,6 +45,7 @@
   local magenta='5'
   local cyan='6'
   local white='7'
+  typeset -g NOCTALIA_PRIMARY='#ffb3ae'
 
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
@@ -82,9 +83,9 @@
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 
   # Magenta prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS}_FOREGROUND=$magenta
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS}_FOREGROUND=$NOCTALIA_PRIMARY
   # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS}_FOREGROUND=$red
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS}_FOREGROUND=$NOCTALIA_PRIMARY
   # Default prompt symbol.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
   # Prompt symbol in command vi mode.
@@ -95,13 +96,13 @@
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=false
 
   # Grey Python Virtual Environment.
-  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=$grey
+  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=$NOCTALIA_PRIMARY
   # Don't show Python version.
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
   typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
 
   # Blue current directory.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$blue
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$NOCTALIA_PRIMARY
 
   # Context format when root: user@host. The first part white, the rest grey.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%F{$white}%n%f%F{$grey}@%m%f"
@@ -120,7 +121,7 @@
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=$yellow
 
   # Grey Git prompt. This makes stale prompts indistinguishable from up-to-date ones.
-  typeset -g POWERLEVEL9K_VCS_FOREGROUND=$grey
+  typeset -g POWERLEVEL9K_VCS_FOREGROUND=$NOCTALIA_PRIMARY
 
   # Disable async loading indicator to make directories that aren't Git repositories
   # indistinguishable from large Git repositories without known state.
@@ -131,7 +132,7 @@
   typeset -g POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS=0
 
   # Cyan ahead/behind arrows.
-  typeset -g POWERLEVEL9K_VCS_{INCOMING,OUTGOING}_CHANGESFORMAT_FOREGROUND=$cyan
+  typeset -g POWERLEVEL9K_VCS_{INCOMING,OUTGOING}_CHANGESFORMAT_FOREGROUND=$NOCTALIA_PRIMARY
   # Don't show remote branch, current tag or stashes.
   typeset -g POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind)
   # Don't show the branch icon.
@@ -152,7 +153,7 @@
   typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='${${${P9K_CONTENT/⇣* :⇡/⇣⇡}// }//:/ }'
 
   # Grey current time.
-  typeset -g POWERLEVEL9K_TIME_FOREGROUND=$grey
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND=$NOCTALIA_PRIMARY
   # Format for the current time: 09:51:02. See `man 3 strftime`.
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
   # If set to true, time will update when you hit enter. This way prompts for the past

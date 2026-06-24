@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+# Sync p10k colors with Noctalia accent
+
+COLORS_FILE="$HOME/.config/noctalia/colors.json"
+P10K_FILE="$HOME/.p10k.zsh"
+
+[ -f "$COLORS_FILE" ] || exit 0
+
+PRIMARY=$(jq -r '.mPrimary // "#ffb3ae"' "$COLORS_FILE")
+
+# Zamień placeholder lub stary kolor na nowy
+sed -i "s/NOCTALIA_PRIMARY=.*/NOCTALIA_PRIMARY='$PRIMARY'/g" "$P10K_FILE"
