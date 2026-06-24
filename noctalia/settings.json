@@ -439,7 +439,7 @@
         "screenUnlock": "",
         "session": "",
         "startup": "",
-        "wallpaperChange": ""
+        "wallpaperChange": "/etc/nixos/scripts/sync-niri-colors"
     },
     "idle": {
         "customCommands": "[]",

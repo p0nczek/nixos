@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Sync Niri border colors with Noctalia accent color
+
+COLORS_FILE="$HOME/.config/noctalia/colors.json"
+OUTPUT_FILE="$HOME/.config/niri/noctalia-generated.kdl"
+
+[ -f "$COLORS_FILE" ] || exit 0
+
+PRIMARY=$(jq -r '.mPrimary // "#c7a1d8"' "$COLORS_FILE")
+ERROR=$(jq -r '.mError // "#e9899d"' "$COLORS_FILE")
+SURFACE=$(jq -r '.mSurface // "#1c1822"' "$COLORS_FILE")
+SECONDARY=$(jq -r '.mSecondary // "#792b9b"' "$COLORS_FILE")
+SHADOW=$(jq -r '.mShadow // "#000000"' "$COLORS_FILE")
+
+cat > "$OUTPUT_FILE" << EOF
+layout {
+    focus-ring {
+        active-color   "$PRIMARY"
+        inactive-color "$SURFACE"
+        urgent-color   "$ERROR"
+    }
+    border {
+        active-color   "$PRIMARY"
+        inactive-color "$SURFACE"
+        urgent-color   "$ERROR"
+    }
+    shadow {
+        color "${SHADOW}70"
+    }
+    tab-indicator {
+        active-color   "$PRIMARY"
+        inactive-color "$SECONDARY"
+        urgent-color   "$ERROR"
+    }
+    insert-hint {
+        color "${PRIMARY}80"
+    }
+}
+recent-windows {
+    highlight {
+        active-color "$PRIMARY"
+        urgent-color "$ERROR"
+    }
+}
+EOF
+
+niri msg action reload-config 2>/dev/null || true

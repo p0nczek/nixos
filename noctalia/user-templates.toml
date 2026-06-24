@@ -1,17 +1,47 @@
-[config]
+[[template]]
+id = "niri"
+name = "Niri Border Colors"
+description = "Sync Niri borders with Noctalia accent color"
+author = "shin"
+version = "1.0.0"
+enabled = true
 
-[templates]
+[[template.files]]
+path = "/etc/nixos/niri/noctalia.kdl"
+template = """
+layout {
 
-# User-defined templates
-# Add your custom templates below
-# Example:
-# [templates.myapp]
-# input_path = "~/.config/noctalia/templates/myapp.css"
-# output_path = "~/.config/myapp/theme.css"
-# post_hook = "myapp --reload-theme"
+    focus-ring {
+        active-color   "{{accent}}"
+        inactive-color "{{surfaceContainerLowest}}"
+        urgent-color   "{{error}}"
+    }
 
-# Remove this section and add your own templates
-#[templates.placeholder]
-#input_path = "/etc/xdg/quickshell/noctalia-shell/Assets/Templates/noctalia.json"
-#output_path = "/home/shin/.cache/noctalia/placeholder.json"
+    border {
+        active-color   "{{accent}}"
+        inactive-color "{{surfaceContainerLowest}}"
+        urgent-color   "{{error}}"
+    }
 
+    shadow {
+        color "{{shadow}}70"
+    }
+
+    tab-indicator {
+        active-color   "{{accent}}"
+        inactive-color "{{secondaryContainer}}"
+        urgent-color   "{{error}}"
+    }
+
+    insert-hint {
+        color "{{accent}}80"
+    }
+}
+
+recent-windows {
+    highlight {
+        active-color "{{accent}}"
+        urgent-color "{{error}}"
+    }
+}
+"""
