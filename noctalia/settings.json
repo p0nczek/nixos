@@ -430,7 +430,7 @@
         "telemetryEnabled": false
     },
     "hooks": {
-        "colorGeneration": "",
+        "colorGeneration": "/etc/nixos/scripts/sync-all-colors",
         "darkModeChange": "",
         "enabled": true,
         "performanceModeDisabled": "",
@@ -439,7 +439,7 @@
         "screenUnlock": "",
         "session": "",
         "startup": "",
-        "wallpaperChange": "/etc/nixos/scripts/sync-niri-colors"
+        "wallpaperChange": ""
     },
     "idle": {
         "customCommands": "[]",
