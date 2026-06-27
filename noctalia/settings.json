@@ -237,7 +237,7 @@
     },
     "colorSchemes": {
         "darkMode": true,
-        "generationMethod": "muted",
+        "generationMethod": "content",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "DP-1",
@@ -634,10 +634,6 @@
             },
             {
                 "enabled": true,
-                "id": "telegram"
-            },
-            {
-                "enabled": true,
                 "id": "steam"
             },
             {
@@ -717,9 +713,9 @@
                 "darkMode": true,
                 "generationMethod": "content",
                 "paletteColors": [
-                    "#c2c4e5",
-                    "#c6c5d4",
-                    "#e2bbd4",
+                    "#bfc1ff",
+                    "#bfc1ff",
+                    "#f6adff",
                     "#ffb4ab"
                 ],
                 "path": "/home/shin/Pictures/Wallpapers/photo_2026-04-12_15-47-38.jpg",
@@ -731,9 +727,9 @@
                 "darkMode": true,
                 "generationMethod": "content",
                 "paletteColors": [
-                    "#ffb2bd",
-                    "#ffb2bd",
-                    "#ffb68c",
+                    "#a5cfca",
+                    "#b9cac7",
+                    "#cec0e5",
                     "#ffb4ab"
                 ],
                 "path": "/home/shin/Pictures/Wallpapers/photo_2026-01-21_17-28-30.jpg",
