@@ -6,7 +6,7 @@ include "./cfg/layout.kdl"
 include "./cfg/rules.kdl"
 include "./cfg/misc.kdl"
 
-include "./noctalia-generated.kdl"
+include "./noctalia.kdl"
 
 environment {
     XDG_CURRENT_DESKTOP "niri"
