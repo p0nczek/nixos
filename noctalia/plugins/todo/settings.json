@@ -1,0 +1,43 @@
+{
+  "todos": [
+    {
+      "id": 1782572437606,
+      "text": "dodać timer do baru który będzie pokazywał ile mi jeszcze czasu zostało do snu",
+      "completed": false,
+      "createdAt": "2026-06-27T15:00:37.606Z",
+      "pageId": 0,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1782572412526,
+      "text": "skrypt - full koncentracja, vibe, włącza muzyke, zmienia tapete, najlepiej blokuje apki i stronki wszystkie oprocz tych do nauki, zamyka tg i discord,",
+      "completed": false,
+      "createdAt": "2026-06-27T15:00:12.526Z",
+      "pageId": 0,
+      "priority": "low",
+      "details": ""
+    }
+  ],
+  "pages": [
+    {
+      "id": 0,
+      "name": "General"
+    }
+  ],
+  "current_page_id": 0,
+  "count": 2,
+  "completedCount": 0,
+  "showCompleted": true,
+  "showBackground": true,
+  "isExpanded": false,
+  "useCustomColors": false,
+  "priorityColors": {
+    "high": "#f44336",
+    "medium": "#2196f3",
+    "low": "#9e9e9e"
+  },
+  "exportPath": "~/Documents",
+  "exportFormat": "markdown",
+  "exportEmptySections": false
+}

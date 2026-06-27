@@ -192,21 +192,6 @@
                     "textColor": "none"
                 },
                 {
-                    "defaultSettings": {
-                        "autoHeight": true,
-                        "cheatsheetData": [
-                        ],
-                        "columnCount": 3,
-                        "detectedCompositor": "",
-                        "hyprlandConfigPath": "~/.config/hypr/hyprland.conf",
-                        "modKeyVariable": "$mod",
-                        "niriConfigPath": "~/.config/niri/config.kdl",
-                        "windowHeight": 0,
-                        "windowWidth": 1400
-                    },
-                    "id": "plugin:keybind-cheatsheet"
-                },
-                {
                     "displayMode": "onhover",
                     "iconColor": "none",
                     "id": "Bluetooth",
@@ -219,12 +204,10 @@
                     "textColor": "none"
                 },
                 {
-                    "defaultSettings": {
-                        "notes": [
-                        ],
-                        "showCountInBar": true
-                    },
-                    "id": "plugin:simple-notes"
+                    "id": "plugin:pomodoro"
+                },
+                {
+                    "id": "plugin:todo"
                 }
             ]
         }
@@ -336,9 +319,9 @@
         "backgroundOpacity": 1,
         "colorizeIcons": false,
         "deadOpacity": 0.6,
-        "displayMode": "auto_hide",
+        "displayMode": "always_visible",
         "dockType": "floating",
-        "enabled": true,
+        "enabled": false,
         "floatingRatio": 1,
         "groupApps": false,
         "groupClickAction": "cycle",

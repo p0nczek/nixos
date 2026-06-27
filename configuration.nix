@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "Biblia-2.1";
+  system.nixos.label = "noctaliaPlugins";
 
   # ============================================================================
   #  HOME MANAGER (module integration)

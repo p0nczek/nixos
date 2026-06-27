@@ -12,7 +12,11 @@
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         },
         "keybind-cheatsheet": {
-            "enabled": true,
+            "enabled": false,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        },
+        "noctalia-calculator": {
+            "enabled": false,
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         },
         "plugin-manager": {
@@ -20,7 +24,7 @@
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         },
         "polkit-agent": {
-            "enabled": true,
+            "enabled": false,
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         },
         "pomodoro": {
@@ -32,6 +36,10 @@
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         },
         "simple-notes": {
+            "enabled": false,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        },
+        "todo": {
             "enabled": true,
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         }
