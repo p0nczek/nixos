@@ -34,7 +34,7 @@
         "showCategories": true,
         "showIconBackground": false,
         "sortByMostUsed": true,
-        "terminalCommand": "alacritty -e",
+        "terminalCommand": "kitty -e",
         "viewMode": "grid"
     },
     "audio": {
@@ -237,10 +237,10 @@
     },
     "colorSchemes": {
         "darkMode": true,
-        "generationMethod": "content",
+        "generationMethod": "muted",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "monitorForColors": "",
+        "monitorForColors": "DP-1",
         "predefinedScheme": "Noctalia (default)",
         "schedulingMode": "off",
         "syncGsettings": true,
@@ -635,9 +635,33 @@
             {
                 "enabled": true,
                 "id": "telegram"
+            },
+            {
+                "enabled": true,
+                "id": "steam"
+            },
+            {
+                "enabled": true,
+                "id": "gtk"
+            },
+            {
+                "enabled": true,
+                "id": "yazi"
+            },
+            {
+                "enabled": true,
+                "id": "niri"
+            },
+            {
+                "enabled": true,
+                "id": "qt"
+            },
+            {
+                "enabled": true,
+                "id": "discord"
             }
         ],
-        "enableUserTheming": false
+        "enableUserTheming": true
     },
     "ui": {
         "boxBorderEnabled": false,
@@ -665,9 +689,9 @@
                 "darkMode": true,
                 "generationMethod": "content",
                 "paletteColors": [
-                    "#ffb3ae",
-                    "#ffb3ae",
-                    "#ffb871",
+                    "#bfc1ff",
+                    "#bfc1ff",
+                    "#f6adff",
                     "#ffb4ab"
                 ],
                 "path": "/home/shin/Pictures/Wallpapers/wallhaven-0jw9lp.jpg",
@@ -685,6 +709,34 @@
                     "#a06542"
                 ],
                 "path": "/home/shin/Pictures/Wallpapers/Angel1.png",
+                "useWallpaperColors": true
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Noctalia (default)",
+                "darkMode": true,
+                "generationMethod": "content",
+                "paletteColors": [
+                    "#c2c4e5",
+                    "#c6c5d4",
+                    "#e2bbd4",
+                    "#ffb4ab"
+                ],
+                "path": "/home/shin/Pictures/Wallpapers/photo_2026-04-12_15-47-38.jpg",
+                "useWallpaperColors": true
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Noctalia (default)",
+                "darkMode": true,
+                "generationMethod": "content",
+                "paletteColors": [
+                    "#ffb2bd",
+                    "#ffb2bd",
+                    "#ffb68c",
+                    "#ffb4ab"
+                ],
+                "path": "/home/shin/Pictures/Wallpapers/photo_2026-01-21_17-28-30.jpg",
                 "useWallpaperColors": true
             }
         ],
@@ -709,7 +761,7 @@
         "overviewTint": 0.6,
         "panelPosition": "follow_bar",
         "randomIntervalSec": 300,
-        "setWallpaperOnAllMonitors": true,
+        "setWallpaperOnAllMonitors": false,
         "showHiddenFiles": false,
         "skipStartupTransition": false,
         "solidColor": "#1a1a2e",
