@@ -37,4 +37,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 [[ -f "$THEME_PATH/$THEME_TYPE.zsh" ]] && source "$THEME_PATH/$THEME_TYPE.zsh"
+# ── Noctalia color reload ──
+# Wymagane przez sync-all-colors (Noctalia post-hook)
+trap 'source ~/.zshrc 2>/dev/null; p10k reload 2>/dev/null' USR1
 

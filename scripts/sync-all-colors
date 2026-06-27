@@ -1,53 +1,16 @@
 #!/usr/bin/env bash
-# Sync ALL colors with Noctalia accent
+# sync-all-colors — Noctalia post-hook
+# Noctalia generuje: Niri, btop, kitty, telegram, steam, gtk
+# Ten skrypt robi: p10k (generowanie + reload) + Niri reload
+
+set -euo pipefail
 
 COLORS_FILE="$HOME/.config/noctalia/colors.json"
 [ -f "$COLORS_FILE" ] || exit 0
 
 PRIMARY=$(jq -r '.mPrimary // "#ffb3ae"' "$COLORS_FILE")
 
-# ── NIRI ──
-OUTPUT_FILE="$HOME/.config/niri/noctalia-generated.kdl"
-ERROR=$(jq -r '.mError // "#e9899d"' "$COLORS_FILE")
-SURFACE=$(jq -r '.mSurface // "#1c1822"' "$COLORS_FILE")
-SECONDARY=$(jq -r '.mSecondary // "#792b9b"' "$COLORS_FILE")
-SHADOW=$(jq -r '.mShadow // "#000000"' "$COLORS_FILE")
-
-cat > "$OUTPUT_FILE" << EOF
-layout {
-    focus-ring {
-        active-color   "$PRIMARY"
-        inactive-color "$SURFACE"
-        urgent-color   "$ERROR"
-    }
-    border {
-        active-color   "$PRIMARY"
-        inactive-color "$SURFACE"
-        urgent-color   "$ERROR"
-    }
-    shadow {
-        color "${SHADOW}70"
-    }
-    tab-indicator {
-        active-color   "$PRIMARY"
-        inactive-color "$SECONDARY"
-        urgent-color   "$ERROR"
-    }
-    insert-hint {
-        color "${PRIMARY}80"
-    }
-}
-recent-windows {
-    highlight {
-        active-color "$PRIMARY"
-        urgent-color "$ERROR"
-    }
-}
-EOF
-
-niri msg action reload-config 2>/dev/null || true
-
-# ── ZSH / P10K ──
+# ── P10K (prompt Zsh ❯) ──
 P10K_FILES=(
     "$HOME/.config/zsh/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh"
     "/home/shin/shell/_plugin_managers_/_zinit_/plugins_config/powerlevel10k/prompts/minimal.zsh"
@@ -55,8 +18,6 @@ P10K_FILES=(
 
 for p10k in "${P10K_FILES[@]}"; do
     [ -f "$p10k" ] || continue
-    
-    # Zamień wszystkie kolory promptu na aktualny primary
     sed -i "s/POWERLEVEL9K_DIR_FOREGROUND=.*/POWERLEVEL9K_DIR_FOREGROUND='$PRIMARY'/g" "$p10k"
     sed -i "s/POWERLEVEL9K_DIR_HOME_FOREGROUND=.*/POWERLEVEL9K_DIR_HOME_FOREGROUND='$PRIMARY'/g" "$p10k"
     sed -i "s/POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=.*/POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='$PRIMARY'/g" "$p10k"
@@ -67,5 +28,11 @@ for p10k in "${P10K_FILES[@]}"; do
     sed -i "s/POWERLEVEL9K_PROMPT_CHAR_OK_VIOWR_FOREGROUND=.*/POWERLEVEL9K_PROMPT_CHAR_OK_VIOWR_FOREGROUND='$PRIMARY'/g" "$p10k"
 done
 
-# Wyczyść cache p10k i przeładuj
-rm -f ~/.cache/p10k-*.zsh 2>/dev/null
+# Wyczyść cache p10k
+rm -f ~/.cache/p10k-*.zsh 2>/dev/null || true
+
+# Przeładuj wszystkie aktywne shell-e Zsh (wymaga trap USR1 w init.zsh p10k)
+pkill -USR1 -x zsh 2>/dev/null || true
+
+# ── Niri reload (Noctalia wygenerowała plik) ──
+niri msg action reload-config 2>/dev/null || true
