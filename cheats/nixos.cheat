@@ -8,13 +8,16 @@ sudo nixos-rebuild list-generations
 sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
 
 # Czyszczenie garbage + optymalizacja
-sudo nix-collect-garbage -d && sudo nix-store --optimise
+sudo nix-env --delete-generations +10 --profile /nix/var/nix/profiles/system
+sudo nix-collect-garbage
+sudo nix-store --optimise
 
-# Expire home-manager generations
-home-manager expire-generations "-5 days"
 
 # Edycja configuration.nix
 sudo micro /etc/nixos/configuration.nix
+
+# Edycja navi
+sudo micro /etc/nixos/cheats/nixos.cheat
 
 # Edycja home.nix
 sudo micro /etc/nixos/home.nix

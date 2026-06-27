@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
 export LD_LIBRARY_PATH=/run/current-system/sw/lib:$LD_LIBRARY_PATH
-
-TLO_BIN="/etc/nixos/tlo-layer"
+TLO_BIN="/etc/nixos/scripts/tlo-layer"
 COLOR="000000"
-OFFSET_Y=-32
-DP1_Y_MAX=1080
-HDMI_Y_OFFSET=1080
 
 read -r X Y W H <<< $(slurp -f "%x %y %w %h")
 [ -z "$X" ] && exit 1
 
-CORRECTED_Y=$((Y + OFFSET_Y))
-
-if [ "$Y" -lt "$DP1_Y_MAX" ]; then
-    "$TLO_BIN" "$X" "$CORRECTED_Y" "$W" "$H" "DP-1" "$COLOR" &
+if [ "$Y" -ge 1920 ]; then
+    # HDMI-A-2 (dolny)
+    OUTPUT="HDMI-A-2"
+    LOCAL_Y=$((Y - 1920))
+    "$TLO_BIN" "$X" "$LOCAL_Y" "$W" "$H" "$OUTPUT" "$COLOR" &
+elif [ "$X" -lt 1080 ]; then
+    # DP-2 (pionowy, x=0..1079)
+    OUTPUT="DP-2"
+    "$TLO_BIN" "$X" "$Y" "$W" "$H" "$OUTPUT" "$COLOR" &
 else
-    LOCAL_Y=$((Y - HDMI_Y_OFFSET + OFFSET_Y))
-    "$TLO_BIN" "$X" "$LOCAL_Y" "$W" "$H" "HDMI-A-2" "$COLOR" &
+    # DP-1 (główny, x>=1080)
+    OUTPUT="DP-1"
+    LOCAL_X=$((X - 1080))
+    CORRECTED_Y=$((Y - 32))
+    "$TLO_BIN" "$LOCAL_X" "$CORRECTED_Y" "$W" "$H" "$OUTPUT" "$COLOR" &
 fi

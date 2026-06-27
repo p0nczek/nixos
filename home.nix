@@ -86,6 +86,8 @@
     # settings usunięte — zarządzamy przez /etc/nixos/noctalia/*.json
   };
 
+
+
   
   # Ensure ~/.local/bin is on PATH (for uv/pip --user installs, etc.)
   home.sessionPath = [ "$HOME/.local/bin" ];
@@ -144,7 +146,6 @@
     mpv
     obs-studio
     obs-studio-plugins.wlrobs
-    gpu-screen-recorder-gtk
     losslesscut-bin
     slurp
 

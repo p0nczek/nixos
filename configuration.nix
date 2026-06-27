@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "telegramColors";
+  system.nixos.label = "altYfix";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -336,7 +336,8 @@ boot.extraModprobeConfig = ''
     dfu-programmer
     avrdude
     gnumake
-    
+
+    gpu-screen-recorder-gtk
     #qmk-cornemykeyboard
 
     espeak-ng
@@ -344,6 +345,13 @@ boot.extraModprobeConfig = ''
     pipewire.jack
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
+
+  security.wrappers.gsr-kms-server = {
+    source = "${pkgs.gpu-screen-recorder}/bin/gsr-kms-server";
+    capabilities = "cap_sys_admin+ep";
+    owner = "root";
+    group = "root";
+  };
 
   # ============================================================================
   #  MISC
