@@ -179,6 +179,7 @@
     ffmpeg
     atuin
     libnotify
+    yazi
 
     
     python3Packages.faster-whisper
