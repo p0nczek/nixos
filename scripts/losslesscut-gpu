@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export NIXOS_OZONE_WL=0
+exec losslesscut --disable-gpu --no-sandbox "$@"

@@ -5,13 +5,14 @@ pkgs.mkShell {
     python311
     libsndfile
     ffmpeg
+    gcc.cc.lib          # <-- DODAJ TO
   ];
 
   shellHook = ''
     echo "=== XTTS v2 Shell ==="
     
-    # Twoje działające CUDA z llama.cpp
-    export LD_LIBRARY_PATH="/run/opengl-driver/lib:$HOME/.lmstudio/extensions/backends/vendor/linux-llama-cuda12-vendor-v1:$LD_LIBRARY_PATH"
+    # CUDA + libstdc++ (gcc.cc.lib)
+    export LD_LIBRARY_PATH="${pkgs.gcc.cc.lib}/lib:/run/opengl-driver/lib:$HOME/.lmstudio/extensions/backends/vendor/linux-llama-cuda12-vendor-v1:$LD_LIBRARY_PATH"
     
     # Venv w Twoim home, nie w /root
     export VENV_DIR="$HOME/.venv-tts-xtts"

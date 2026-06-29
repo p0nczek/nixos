@@ -43,3 +43,4 @@ alias nos="nh os switch"
 alias nhs="nh home switch"
 alias ncu="nh os switch --update"
 alias nclean="nh clean all"
+alias losslesscut='NIXOS_OZONE_WL=0 losslesscut --disable-gpu --no-sandbox'

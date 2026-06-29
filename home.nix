@@ -77,6 +77,19 @@
 
   # VST bridge for Windows plugins (Yabridge)
   home.file.".vst/yabridge".source = "${pkgs.yabridge}/lib/yabridge";
+  home.file.".local/share/applications/losslesscut-gpu.desktop" = {
+    text = ''
+      [Desktop Entry]
+      Name=LosslessCut (No GPU)
+      Comment=Audio/video cutter — NVIDIA/Wayland safe mode
+      Exec=/etc/nixos/scripts/losslesscut-gpu %F
+      Type=Application
+      Categories=AudioVideo;Audio;Video;AudioVideoEditing;
+      MimeType=audio/wav;audio/x-wav;audio/mpeg;audio/mp3;audio/flac;audio/ogg;video/mp4;video/x-matroska;video/webm;
+      Icon=losslesscut
+      Terminal=false
+    '';
+  };
 
   programs.noctalia-shell = {
     enable = true;
