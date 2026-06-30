@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "nnAutoPush";
+  system.nixos.label = "Droidcam";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -102,7 +102,7 @@ boot.extraModprobeConfig = ''
   #  NIX SETTINGS
   # ============================================================================
   nixpkgs.config.allowUnfree = true;
-  programs.obs-studio.enableVirtualCamera = true;
+
   
 
   nix.settings = {
@@ -286,8 +286,11 @@ boot.extraModprobeConfig = ''
 
 
 
-
-
+programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true; 
+    plugins = [ pkgs.obs-studio-plugins.droidcam-obs ];
+ };
   
 
   # ============================================================================
@@ -328,6 +331,12 @@ boot.extraModprobeConfig = ''
     libGL
 
 	jq
+
+	android-tools
+	adb-sync
+	v4l-utils
+
+	
 
     qmk
     pkgsCross.avr.buildPackages.gcc

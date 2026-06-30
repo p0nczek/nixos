@@ -157,7 +157,6 @@
 
     # --- Video / Streaming ---
     mpv
-    obs-studio
     obs-studio-plugins.wlrobs
     losslesscut-bin
     slurp
