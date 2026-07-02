@@ -137,10 +137,10 @@ gpu-screen-recorder-gtk
 
 
 # TTS via API lokalnego serwera
-curl -X POST http://localhost:5002/tts -H "Content-Type: application/json" -d '{"text": "<tekst>", "language": "<de|ru|pl>", "speaker_wav": "<sciezka_do_wav>"}'
+curl -X POST http://localhost:5002/tts -H "Content-Type: application/json" -d '{"text": "<tekst>", "language": "<language>", "speaker_wav": "/home/shin/moj_glos.wav"}'
 
-# Odtwórz ostatni TTS
-pw-play /tmp/tts_output_<id>.wav
+# Odpal serwer TTS
+nix-shell /etc/nixos/tts-shell.nix --run "python /home/shin/tts-server.py"
 
 # Nagrywanie głosu przez ffmpeg
 FILENAME="$HOME/moj_glos_$(date +%Y%m%d_%H%M%S).wav"
@@ -191,3 +191,5 @@ cd /home/shin/gd/justGame
 git add .
 git commit -m "shin"
 git push origin main
+
+
