@@ -140,7 +140,7 @@ gpu-screen-recorder-gtk
 curl -X POST http://localhost:5002/tts -H "Content-Type: application/json" -d '{"text": "<tekst>", "language": "<language>", "speaker_wav": "/home/shin/moj_glos.wav"}'
 
 # Odpal serwer TTS
-nix-shell /etc/nixos/tts-shell.nix --run "python /home/shin/tts-server.py"
+nix-shell /etc/nixos/tts-shell.nix --run "python /etc/nixos/scripts/tts-server.py"
 
 # Nagrywanie głosu przez ffmpeg
 FILENAME="$HOME/moj_glos_$(date +%Y%m%d_%H%M%S).wav"
