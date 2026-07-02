@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+STATE=$(niri msg outputs | grep -A3 "(DP-2)" | grep -o "Disabled")
+if [ -z "$STATE" ]; then
+    niri msg output DP-2 off
+else
+    niri msg output DP-2 on
+fi

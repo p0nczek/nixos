@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+python3 << 'EOF'
+import socket
+
+def wake_on_lan(mac):
+    mac = mac.replace(":", "")
+    magic = bytes.fromhex("F" * 12 + mac * 16)
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        s.sendto(magic, ("<broadcast>", 9))
+    print("TV włączony")
+
+wake_on_lan("D4:9D:C0:45:15:76")
+EOF

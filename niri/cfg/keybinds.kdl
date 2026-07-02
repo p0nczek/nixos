@@ -12,6 +12,10 @@ binds {
     Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
     Mod+D 							{ spawn "discord"; } 
 
+    ALT+F3 { spawn "/etc/nixos/scripts/monitor1-toggle"; }
+    ALT+F2 { spawn "/etc/nixos/scripts/monitor2-toggle"; }
+    ALT+F1 { spawn "/etc/nixos/scripts/tv-on"; }
+
 
     Mod+Escape 						{ spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
 
