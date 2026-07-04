@@ -39,7 +39,7 @@ unsetopt CORRECT
 unsetopt CORRECT_ALL
 
 # Nix Helper (nh) aliases
-alias nos="nh os switch"
+alias nos="nh os switch /etc/nixos#nixos"
 alias nhs="nh home switch"
 alias ncu="nh os switch --update"
 alias nclean="nh clean all"
