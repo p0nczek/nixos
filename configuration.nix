@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "monitors";
+  system.nixos.label = "zenBrowserNvidiaWaylandFix";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -63,11 +63,24 @@ environment.sessionVariables = {
     options = [ "defaults" "noatime" ];
   };
 
+  fonts = {
+    enableDefaultPackages = true;
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "DejaVu Serif" ];
+        sansSerif = [ "DejaVu Sans" ];
+        monospace = [ "DejaVu Sans Mono" ];
+      };
+    };
+  };
+
   # ============================================================================
   #  NETWORKING
   # ============================================================================
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  networking.enableIPv6 = false;
 
   # ============================================================================
   #  LOCALE & TIME

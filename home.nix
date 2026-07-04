@@ -101,9 +101,18 @@
 
 
 
+
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = "0";
+    NIXOS_OZONE_WL = "0";
+    FLAKE = "/etc/nixos";
+    MOZ_WEBRENDER = "0";
+    
+  };
   
   # Ensure ~/.local/bin is on PATH (for uv/pip --user installs, etc.)
   home.sessionPath = [ "$HOME/.local/bin" ];
+  
 
 
   # ============================================================================
