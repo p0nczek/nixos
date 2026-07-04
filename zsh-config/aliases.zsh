@@ -42,3 +42,4 @@ unsetopt CORRECT_ALL
 alias nos="nh os switch /etc/nixos#nixos"
 alias losslesscut='NIXOS_OZONE_WL=0 losslesscut --disable-gpu --no-sandbox'
 alias nc='echo "=== Twoje generacje ===" && nh os generations && echo "" && read -q "REPLY?Enter, żeby kontynuować..." && nh clean all --keep 5'
+alias nclean-tui="/etc/nixos/scripts/nclean-tui"
