@@ -4,26 +4,19 @@
 # Lista generacji systemu
 sudo nixos-rebuild list-generations
 
-# Usuń stare generacje (+5 ostatnich)
-sudo nix-env --delete-generations +5 --profile /nix/var/nix/profiles/system
-
-# Czyszczenie garbage + optymalizacja
-sudo nix-env --delete-generations +10 --profile /nix/var/nix/profiles/system
-sudo nix-collect-garbage
-sudo nix-store --optimise
 
 
 # Edycja configuration.nix
-sudo micro /etc/nixos/configuration.nix
+micro /etc/nixos/configuration.nix
 
 # Edycja navi
-sudo micro /etc/nixos/cheats/nixos.cheat
+micro /etc/nixos/cheats/nixos.cheat
 
 # Edycja home.nix
-sudo micro /etc/nixos/home.nix
+micro /etc/nixos/home.nix
 
 # Edycja flake.nix
-sudo micro /etc/nixos/flake.nix
+micro /etc/nixos/flake.nix
 
 % nix, packages
 
@@ -51,8 +44,6 @@ git diff HEAD~<n> HEAD -- <plik>
 # Checkout pliku ze starego commitu
 git checkout <hash> -- <plik>
 
-# Status z sudo w /etc/nixos
-sudo git status
 
 % llm, local
 
