@@ -213,7 +213,7 @@
 
   ] ++ [
     # --- External flakes (not in nixpkgs) ---
-    inputs.zen-browser.packages.${pkgs.system}.default
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.kimi-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
