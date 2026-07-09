@@ -41,5 +41,4 @@ unsetopt CORRECT_ALL
 # Nix Helper (nh) aliases
 alias nos="nh os switch /etc/nixos#nixos"
 alias losslesscut='NIXOS_OZONE_WL=0 losslesscut --disable-gpu --no-sandbox'
-alias nc='echo "=== Twoje generacje ===" && nh os info && echo "" && read -q "REPLY?Enter, żeby kontynuować..." && nh clean all --keep 5'
-alias nclean-tui="/etc/nixos/scripts/nclean-tui"
+alias nclean="python /etc/nixos/scripts/nclean"
