@@ -99,7 +99,10 @@
     # settings usunięte — zarządzamy przez /etc/nixos/noctalia/*.json
   };
 
-
+programs.vicinae = {
+  enable = true;
+  systemd.enable = true;  # autostart serwera przy logowaniu do Niri
+};
 
 
   home.sessionVariables = {
@@ -183,6 +186,8 @@
     anki-bin
 
     croc
+
+    comma
 
     # --- System / Utilities ---
     nautilus
