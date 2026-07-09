@@ -178,6 +178,7 @@
         "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
         "qmk_firmware": "qmk_firmware",
+        "vicinae": "vicinae",
         "zen-browser": "zen-browser"
       }
     },
@@ -208,6 +209,21 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
         "type": "github"
       }
     },
@@ -255,6 +271,27 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
+        "type": "github"
+      }
+    },
+    "vicinae": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1783604233,
+        "narHash": "sha256-YrxKW9xmEhxN7qSlrhbAdRyzygjR7OtfFXIVABQjRCA=",
+        "owner": "vicinaehq",
+        "repo": "vicinae",
+        "rev": "0f439e139c53a96fe15f3a7286e7fe054e25ae1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vicinaehq",
+        "repo": "vicinae",
         "type": "github"
       }
     },

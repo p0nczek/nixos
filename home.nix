@@ -1,13 +1,11 @@
 { pkgs, lib, inputs, ... }:
 
-let
-  vicinaePkg = inputs.vicinae.packages.${pkgs.system}.vicinae;
-in
 {
 
 
   imports = [
     inputs.noctalia.homeModules.default
+    inputs.vicinae.homeManagerModules.default
   ];
 
 
@@ -107,33 +105,15 @@ programs.vicinae = {
   systemd.enable = true;  # autostart serwera przy logowaniu do Niri
 };
 
-systemd.user.services.vicinae = {
-    Unit = {
-      Description = "Vicinae launcher daemon";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${vicinaePkg}/bin/vicinae server";
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
 home.file.".mozilla/native-messaging-hosts/com.vicinae.vicinae.json" = {
-    text = builtins.toJSON {
-      name = "com.vicinae.vicinae";
-      description = "Vicinae browser integration";
-      path = "${vicinaePkg}/bin/vicinae-browser-link";
-      type = "stdio";
-      allowed_extensions = [ 
-        "firefox@vicinae.com"  # ⬅️ ZAMIEŃ to na prawdziwe ID z about:debugging
-      ];
-    };
+  text = builtins.toJSON {
+    name = "com.vicinae.vicinae";
+    description = "Vicinae browser integration";
+    path = "/nix/store/lr8l5h6fg1zq2wcpz9ww28dsfgxyhybx-vicinae-0.23.0/libexec/vicinae/vicinae-browser-link";
+    type = "stdio";
+    allowed_extensions = [ "firefox@vicinae.com" ];
   };
-
+};
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "0";
@@ -218,7 +198,6 @@ home.file.".mozilla/native-messaging-hosts/com.vicinae.vicinae.json" = {
     croc
 
     comma
-    vicinaePkg
 
     # --- System / Utilities ---
     nautilus
