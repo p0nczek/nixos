@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "test2";
+  system.nixos.label = "unstable";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
