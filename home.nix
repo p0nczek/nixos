@@ -1,5 +1,8 @@
 { pkgs, lib, inputs, ... }:
 
+let
+  vicinaePkg = inputs.vicinae.packages.${pkgs.system}.vicinae;
+in
 {
 
 
@@ -104,6 +107,33 @@ programs.vicinae = {
   systemd.enable = true;  # autostart serwera przy logowaniu do Niri
 };
 
+systemd.user.services.vicinae = {
+    Unit = {
+      Description = "Vicinae launcher daemon";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${vicinaePkg}/bin/vicinae server";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+home.file.".mozilla/native-messaging-hosts/com.vicinae.vicinae.json" = {
+    text = builtins.toJSON {
+      name = "com.vicinae.vicinae";
+      description = "Vicinae browser integration";
+      path = "${vicinaePkg}/bin/vicinae-browser-link";
+      type = "stdio";
+      allowed_extensions = [ 
+        "firefox@vicinae.com"  # ⬅️ ZAMIEŃ to na prawdziwe ID z about:debugging
+      ];
+    };
+  };
+
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "0";
@@ -188,6 +218,7 @@ programs.vicinae = {
     croc
 
     comma
+    vicinaePkg
 
     # --- System / Utilities ---
     nautilus

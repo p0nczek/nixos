@@ -36,6 +36,12 @@
       url = "github:qmk/qmk_firmware/0.18.17";
       flake = false;
     };
+
+    vicinae = {
+        url = "github:vicinaehq/vicinae";
+        inputs.nixpkgs.follows = "nixpkgs";  # nie duplikuj nixpkgs
+      };
+    
     
   };
 

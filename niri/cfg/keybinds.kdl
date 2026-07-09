@@ -7,7 +7,7 @@ binds {
     Alt+K 							hotkey-overlay-title="Open Kimi" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://www.kimi.com/?chat_enter_method=new_chat"; }
 	Alt+Z                           { spawn "bash" "-c" "appimage-run /home/shin/Downloads/ZenNotes-*-linux-x86_64.AppImage"; }
 	Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
-    Mod+O hotkey-overlay-title="Vicinae launcher" {spawn "vicinae" "toggle"}
+    Mod+O hotkey-overlay-title="Vicinae launcher" {spawn "vicinae" "toggle"; }
     //Mod+O                           hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
     Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    

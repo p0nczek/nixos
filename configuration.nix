@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "vicinae";
+  system.nixos.label = "vicinaeBrowserIntegration";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -124,10 +124,12 @@ boot.extraModprobeConfig = ''
     substituters = [
       "https://cache.nixos.org"
       "https://noctalia.cachix.org"
+      "https://vicinae.cachix.org" 
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" 
     ];
   };
 
