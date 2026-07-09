@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """nix-sweeper: curses TUI for managing NixOS generations."""
 
+from __future__ import annotations
+
 import curses
 import re
 import subprocess
-import sys
+import threading
 import time
 from dataclasses import dataclass
 
@@ -13,8 +15,15 @@ from dataclasses import dataclass
 # DATA
 # ═══════════════════════════════════════════════════════════════════
 
+GEN_RE = re.compile(
+    r"(\d+)\s+(\(current\)\s+)?"
+    r"(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})\s+"
+    r"(\S+)\s+(\S+)\s+(.+)"
+)
+REFRESH_INTERVAL = 30  # seconds between background refreshes
 
-@dataclass
+
+@dataclass(slots=True)
 class Generation:
     number: int
     is_current: bool
@@ -27,29 +36,22 @@ class Generation:
 
 def parse_nh_output(output: str) -> list[Generation]:
     """Parse `nh os info` stdout into a list of Generation objects."""
-    generations = []
     lines = output.strip().split("\n")
-
-    header_idx = None
-    for i, line in enumerate(lines):
-        if "Generation" in line and "Build Date" in line:
-            header_idx = i
-            break
+    header_idx = next(
+        (i for i, l in enumerate(lines) if "Generation" in l and "Build Date" in l),
+        None,
+    )
     if header_idx is None:
-        return generations
+        return []
 
-    for line in lines[header_idx + 1 :]:
+    gens: list[Generation] = []
+    for line in lines[header_idx + 1:]:
         line = line.strip()
         if not line:
             continue
-        m = re.match(
-            r"(\d+)\s+(\(current\)\s+)?"
-            r"(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})\s+"
-            r"(\S+)\s+(\S+)\s+(.+)",
-            line,
-        )
+        m = GEN_RE.match(line)
         if m:
-            generations.append(Generation(
+            gens.append(Generation(
                 number=int(m.group(1)),
                 is_current=bool(m.group(2)),
                 build_date=m.group(3),
@@ -57,16 +59,66 @@ def parse_nh_output(output: str) -> list[Generation]:
                 kernel=m.group(5),
                 closure_size=m.group(6).strip(),
             ))
-    return generations
+    return gens
 
 
 def fetch_generations() -> list[Generation]:
-    """Run `nh os info` and return parsed generations."""
+    """Run `nh os info` and return parsed generations (blocking; call off-thread)."""
     try:
         r = subprocess.run(["nh", "os", "info"], capture_output=True, text=True, timeout=30)
         return parse_nh_output(r.stdout)
-    except (subprocess.SubprocessError, FileNotFoundError):
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
         return []
+
+
+class Store:
+    """Thread-safe holder for the generation list + marks.
+
+    Refresh runs on a background thread so `nh os info` (which can take
+    a noticeable moment) never freezes the UI loop.
+    """
+
+    def __init__(self):
+        self._lock = threading.Lock()
+        self._gens: list[Generation] = []
+        self._marks: set[int] = set()
+        self.loading = True
+
+    def snapshot(self) -> list[Generation]:
+        with self._lock:
+            for g in self._gens:
+                g.marked = g.number in self._marks
+            return list(self._gens)
+
+    def refresh_async(self):
+        threading.Thread(target=self._refresh, daemon=True).start()
+
+    def _refresh(self):
+        gens = fetch_generations()
+        with self._lock:
+            self._gens = gens
+            self._marks &= {g.number for g in gens}  # drop stale marks
+            self.loading = False
+
+    def toggle_mark(self, number: int):
+        with self._lock:
+            self._marks.symmetric_difference_update({number})
+
+    def mark_from(self, numbers: list[int]):
+        with self._lock:
+            self._marks.update(numbers)
+
+    def clear_marks(self):
+        with self._lock:
+            self._marks.clear()
+
+    def marked_numbers(self) -> list[int]:
+        with self._lock:
+            return sorted(self._marks)
+
+    def mark_count(self) -> int:
+        with self._lock:
+            return len(self._marks)
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -158,13 +210,14 @@ def draw_sep(scr, y, w):
     safe_addstr(scr, y, 0, "─" * (w - 1), curses.color_pair(C_WHITE))
 
 
-def draw_summary(scr, y, gens, gc_on, w):
+def draw_summary(scr, y, gens, marked, loading, gc_on, w):
     total = len(gens)
-    marked = sum(1 for g in gens if g.marked)
     line = f" ═ NixOS Generations ({total} total"
     if marked:
         line += f", {marked} marked"
     line += ")"
+    if loading:
+        line += "  [refreshing…]"
     safe_addstr(scr, y, 0, line, curses.color_pair(C_CYAN) | curses.A_BOLD)
 
     gc_str = f"GC:{'on' if gc_on else 'off'}"
@@ -179,13 +232,7 @@ def draw_table_header(scr, y, w):
 
 
 def draw_row(scr, y, gen: Generation, is_cursor: bool, w):
-    if gen.is_current:
-        marker = "[★]"
-    elif gen.marked:
-        marker = "[x]"
-    else:
-        marker = "[ ]"
-
+    marker = "[★]" if gen.is_current else "[x]" if gen.marked else "[ ]"
     prefix = " ▸ " if is_cursor else "   "
     line = (
         f"{prefix}{marker} {gen.number:<6}"
@@ -228,15 +275,17 @@ def draw_confirm(scr, count, h, w):
 def main(stdscr):
     setup_colors()
     curses.curs_set(0)
-    stdscr.nodelay(True)
-    stdscr.timeout(1000)
+    stdscr.timeout(200)  # ms: responsive keys, periodic redraw for clock/spinner
+
+    store = Store()
+    store.refresh_async()
 
     gens: list[Generation] = []
     cursor = 0
     scroll = 0
     gc_on = True
     confirming = False
-    last_refresh = 0.0
+    last_refresh = time.time()
     status_msg = ""
     status_time = 0.0
 
@@ -244,22 +293,23 @@ def main(stdscr):
         now = time.time()
         key = stdscr.getch()
 
-        # ── Auto-refresh ─────────────────────────────────
-        if now - last_refresh >= 30 or not gens:
-            gens = fetch_generations()
-            last_refresh = now
+        if not store.loading:
+            gens = store.snapshot()
             cursor = min(cursor, max(0, len(gens) - 1))
+
+        if now - last_refresh >= REFRESH_INTERVAL:
+            store.refresh_async()
+            last_refresh = now
 
         # ── Key handling ─────────────────────────────────
         if confirming:
             if key in (ord("y"), ord("Y")):
                 confirming = False
-                to_del = [g.number for g in gens if g.marked]
+                to_del = store.marked_numbers()
                 if to_del:
                     ok = run_delete(stdscr, to_del, gc_on)
-                    gens = fetch_generations()
+                    store.refresh_async()
                     last_refresh = now
-                    cursor = min(cursor, max(0, len(gens) - 1))
                     status_msg = "✓ Deleted" if ok else "✗ Failed"
                     status_time = now
             elif key != -1:
@@ -277,17 +327,13 @@ def main(stdscr):
                     status_msg = "Cannot mark current generation"
                     status_time = now
                 else:
-                    g.marked = not g.marked
+                    store.toggle_mark(g.number)
             elif key in (ord("a"), ord("A")) and gens:
-                for g in gens[cursor:]:
-                    if not g.is_current:
-                        g.marked = True
+                store.mark_from([g.number for g in gens[cursor:] if not g.is_current])
             elif key in (ord("u"), ord("U")):
-                for g in gens:
-                    g.marked = False
+                store.clear_marks()
             elif key in (ord("d"), ord("D")):
-                cnt = sum(1 for g in gens if g.marked)
-                if cnt == 0:
+                if store.mark_count() == 0:
                     status_msg = "Nothing marked"
                     status_time = now
                 else:
@@ -297,10 +343,9 @@ def main(stdscr):
                 status_msg = f"GC {'on' if gc_on else 'off'}"
                 status_time = now
             elif key in (ord("r"), ord("R")):
-                gens = fetch_generations()
+                store.refresh_async()
                 last_refresh = now
-                cursor = min(cursor, max(0, len(gens) - 1))
-                status_msg = "Refreshed"
+                status_msg = "Refreshing…"
                 status_time = now
 
         # ── Drawing ──────────────────────────────────────
@@ -315,12 +360,12 @@ def main(stdscr):
         draw_sep(stdscr, 1, w)
 
         y = 2
-        draw_summary(stdscr, y, gens, gc_on, w)
+        draw_summary(stdscr, y, gens, store.mark_count(), store.loading, gc_on, w)
         y += 2
 
         if not gens:
-            safe_addstr(stdscr, y, 2, "No generations found. Is `nh` installed?",
-                        curses.color_pair(C_RED))
+            msg = "Loading…" if store.loading else "No generations found. Is `nh` installed?"
+            safe_addstr(stdscr, y, 2, msg, curses.color_pair(C_RED))
         else:
             draw_table_header(stdscr, y, w)
             y += 1
@@ -345,7 +390,7 @@ def main(stdscr):
         draw_sep(stdscr, h - 2, w)
 
         if confirming:
-            draw_confirm(stdscr, sum(1 for g in gens if g.marked), h, w)
+            draw_confirm(stdscr, store.mark_count(), h, w)
         else:
             draw_help(stdscr, h, w)
 
