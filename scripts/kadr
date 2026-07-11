@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+# export ELECTRON_OZONE_PLATFORM_HINT=x11  # fallback
+
+export KADR_FFMPEG="$(which ffmpeg)"
+export KADR_FFPROBE="$(which ffprobe)"
+
+ADDR="$DBUS_SESSION_BUS_ADDRESS"
+if [[ -z "$ADDR" || ! "$ADDR" =~ ^(unix|tcp): ]]; then
+  SOCK="/run/user/$(id - u)/bus"
+  [ -S "$SOCK" ] && export DBUS_SESSION_BUS_ADDRESS="unix:path=$SOCK"
+fi
+
+cd "$HOME/kadr" || exit 1
+exec npm run dev "$@"

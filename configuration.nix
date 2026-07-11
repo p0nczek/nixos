@@ -36,7 +36,7 @@ environment.sessionVariables = {
   #  SYSTEM LABEL
   # ============================================================================
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "stable";
+  system.nixos.label = "jj_";
 
   # ============================================================================
   #  HOME MANAGER (module integration)
@@ -99,6 +99,8 @@ environment.sessionVariables = {
     LC_TELEPHONE      = "de_DE.UTF-8";
     LC_TIME           = "de_DE.UTF-8";
   };
+
+
 
  # services.xserver.xkb = {
  #   layout = "us";
@@ -317,6 +319,7 @@ programs.obs-studio = {
     # --- NixOS tooling ---
     nh
     git
+    jujutsu
 
     # --- Recovery / rescue TUI ---
     kitty
@@ -338,6 +341,7 @@ programs.obs-studio = {
     appimage-run
     fuse
     fuse3
+	nodejs_22
 
     # --- System libraries (nix-ld, some apps need these in PATH) ---
     nix-ld

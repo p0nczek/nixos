@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""nix-sweeper: curses TUI for managing NixOS generations."""
+"""nclean: curses TUI for managing NixOS generations."""
 
 from __future__ import annotations
 
