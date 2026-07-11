@@ -9,6 +9,7 @@
 
 # -- variables --
 
+
 _dir_="$(dirname "$0")"
 plugin_managers=""$_dir_"/_plugin_managers_"
 
@@ -46,3 +47,5 @@ else
     exit 1
 fi
 
+unsetopt correct_all
+unsetopt correct
