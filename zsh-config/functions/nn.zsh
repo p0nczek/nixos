@@ -1,4 +1,4 @@
-nn() {
+function nn() {
   if [[ -z "$1" ]]; then
     echo "Usage: nn <opis>"
     return 1
@@ -11,4 +11,6 @@ nn() {
   sudo sed -i "s/system\.nixos\.label = \".*\";/system.nixos.label = \"${label}\";/" /etc/nixos/configuration.nix
 
   jj -R /etc/nixos commit -m "$1"
+  jj -R /etc/nixos bookmark set master -r @-
+  jj -R /etc/nixos git push --bookmark master
 }
