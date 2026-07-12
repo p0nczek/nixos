@@ -15,11 +15,11 @@
     ./modules/system/steam-obs.nix
     ./modules/system/users.nix
     ./modules/system/packages.nix
-    ./modules/system/qmk.nix
+    #./modules/system/qmk.nix
   ];
 
   # Managed by the `nn` helper. Do not edit manually.
-  system.nixos.label = "newSystem_";
+  system.nixos.label = "stable_";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

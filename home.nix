@@ -9,7 +9,7 @@
     ./modules/home/vicinae.nix
     ./modules/home/desktop-extras.nix
     ./modules/home/packages.nix
-    ./modules/home/ai-stack.nix
+    #./modules/home/ai-stack.nix
   ];
 
   home.stateVersion = "25.11";
