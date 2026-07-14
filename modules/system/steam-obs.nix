@@ -2,6 +2,7 @@
 {
   programs.steam.enable = true;
 
+
   programs.obs-studio = {
     enable = true;
     enableVirtualCamera = true;
