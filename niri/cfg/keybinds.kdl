@@ -46,9 +46,9 @@ binds {
     //XF86AudioMute                     allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
 
-    F3                                  { spawn "sh" "-c" "/etc/nixos/scripts/brightness.sh down"; }
-    F2                                                                  { spawn "sh" "-c" "/etc/nixos/scripts/brightness.sh up"; }
-    F1                                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    F3                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
+    F2                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }                                
+    F1                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
     XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }
     XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }

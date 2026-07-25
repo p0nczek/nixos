@@ -20,6 +20,8 @@
     vesktop
     #betterdiscordctl
 
+    lazyjj
+
     nautilus p7zip unrar python3 eza bat fd ripgrep fzf zoxide navi
     (btop.override { cudaSupport = true; })
     fastfetch ffmpeg atuin libnotify yazi
