@@ -1,6 +1,23 @@
 { config, pkgs, lib, inputs, ... }:
+let
+  betterdiscord-asar = pkgs.fetchurl {
+    url = "https://github.com/BetterDiscord/BetterDiscord/releases/latest/download/betterdiscord.asar";
+    sha256 = "sha256-fKOWQWjKJd9qUZbNmKrmj2JgTdmecmlxs1YR+WniZD4=";
+  };
 
+  discord-with-bd = pkgs.discord.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      CORE="$out/opt/Discord/modules/discord_desktop_core"
+      install -Dm444 ${betterdiscord-asar} "$out/opt/Discord/betterdiscord.asar"
+      echo "require('$out/opt/Discord/betterdiscord.asar');" > "$CORE/index.js.new"
+      cat "$CORE/index.js" >> "$CORE/index.js.new"
+      mv "$CORE/index.js.new" "$CORE/index.js"
+    '';
+  });
+in
 {
+  environment.systemPackages = [ discord-with-bd ];
+
   imports = [
     ./hardware-configuration.nix
     ./modules/system/xkb.nix
@@ -15,12 +32,13 @@
     ./modules/system/steam-obs.nix
     ./modules/system/users.nix
     ./modules/system/packages.nix
-    #./modules/system/qmk.nix
-    ./modules/system/vm.nix
+    ./modules/system/qmk.nix
+    #./modules/system/vm.nix
+
   ];
 
-  # Managed by the `nn` helper. Do not edit manually.
-  system.nixos.label = "vm_";
+  system.nixos.label = let label = builtins.getEnv "NIXOS_LABEL"; in
+    if label != "" then label else "nixos";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

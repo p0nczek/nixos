@@ -1,40 +1,28 @@
 { config, pkgs, ... }:
 
 {
-  # 1. Włącz libvirtd + QEMU/KVM
+  # IOMMU + VFIO
+  boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
+  boot.initrd.availableKernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
+  
+  # Przekaż RTX 3060 do VFIO od boota
+  boot.extraModprobeConfig = ''
+    options vfio-pci ids=10de:2504,10de:228e
+  '';
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
       package = pkgs.qemu_kvm;
-      swtpm.enable = true;                    # TPM 2.0 (wymagany przez Windows 11)
-      ovmf = {
-        enable = true;
-        packages = [ pkgs.OVMFFull.fd ];      # UEFI ze Secure Boot
-      };
+      runAsRoot = true;
+      swtpm.enable = true;
     };
   };
 
-  # 2. Włącz KVM w jądrze (wybierz jedno, zależnie od CPU)
-  boot.kernelModules = [ "kvm-amd" ];         # AMD
-  # boot.kernelModules = [ "kvm-intel" ];     # Intel
+  virtualisation.spiceUSBRedirection.enable = true;
 
-  # 3. Włącz IOMMU w jądrze (wymagane też w BIOS/UEFI: AMD-Vi / VT-d)
-  boot.kernelParams = [ "amd_iommu=on" ];     # AMD
-  # boot.kernelParams = [ "intel_iommu=on" ]; # Intel
-
-  # 4. Pakiety do zarządzania VM
   environment.systemPackages = with pkgs; [
     virt-manager
-    qemu
-    OVMF
-    swtpm
-    virtio-win          # sterowniki Windows dla QEMU (network, disk, GPU)
-    win-spice           # lepsza integracja myszki/klawiatury
+    looking-glass-client
   ];
-
-  # 5. Dodaj użytkownika do grup
-  users.users.shin.extraGroups = [ "libvirtd" "kvm" ];
-
-  # 6. 32-bitowe biblioteki (przydatne jeśli kiedyś wrócisz do Wine)
-  hardware.graphics.enable32Bit = true;
 }

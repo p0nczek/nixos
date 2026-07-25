@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
-  programs.steam.enable = true;
-
-
+  programs.steam = {
+  	enable = true;
+  	extraCompatPackages = with pkgs; [ proton-ge-bin ];
+  };
   programs.obs-studio = {
     enable = true;
     enableVirtualCamera = true;
@@ -15,4 +16,7 @@
     owner = "root";
     group = "root";
   };
+
+#  vesktop.enable = true;
+  
 }

@@ -38,7 +38,5 @@
     espeak-ng
     pipewire
     pipewire.jack
-
-    wineWowPackages.wine-ge
   ];
 }
