@@ -96,8 +96,9 @@ done
 echo "${win_app:-?} (pid $win_pid): głośność -> ${last_pct:-?}%"
 
 # --- 5. pokaż OSD: najpierw Noctalia (jeśli jest), inaczej powiadomienie
-#        z paskiem postępu przez surowe D-Bus (gdbus) — to omija problem
-#        z niepełną obsługą -p/-r w zwykłym notify-send ------------------
+#        z paskiem postępu przez surowe D-Bus (gdbus). Zamiast liczyć na
+#        replaces_id (niektóre demony ignorują je, gdy stare powiadomienie
+#        już zniknęło), jawnie zamykamy poprzednie i zawsze tworzymy nowe --
 NOTIF_ID_FILE="${XDG_RUNTIME_DIR:-/tmp}/niri-app-volume.notif-id"
 
 show_osd() {
@@ -109,16 +110,25 @@ show_osd() {
 
     command -v gdbus >/dev/null 2>&1 || return 0
 
-    local prev_id=0
-    [ -f "$NOTIF_ID_FILE" ] && prev_id="$(cat "$NOTIF_ID_FILE" 2>/dev/null || echo 0)"
-    [[ "$prev_id" =~ ^[0-9]+$ ]] || prev_id=0
+    # zamknij poprzedni dymek, jeśli jeszcze wisi (no-op, gdy już zniknął)
+    if [ -f "$NOTIF_ID_FILE" ]; then
+        local prev_id
+        prev_id="$(cat "$NOTIF_ID_FILE" 2>/dev/null || echo 0)"
+        if [[ "$prev_id" =~ ^[0-9]+$ ]] && [ "$prev_id" != "0" ]; then
+            gdbus call --session \
+                --dest org.freedesktop.Notifications \
+                --object-path /org/freedesktop/Notifications \
+                --method org.freedesktop.Notifications.CloseNotification \
+                "$prev_id" >/dev/null 2>&1
+        fi
+    fi
 
     local reply new_id
     reply="$(gdbus call --session \
         --dest org.freedesktop.Notifications \
         --object-path /org/freedesktop/Notifications \
         --method org.freedesktop.Notifications.Notify \
-        "niri-app-volume" "$prev_id" "audio-volume-high" \
+        "niri-app-volume" 0 "audio-volume-high" \
         "$label" "${pct}%" "[]" "{'value': <int32 ${pct}>}" 3000 2>/dev/null)"
 
     new_id="$(grep -oP '(?<=uint32 )[0-9]+' <<<"$reply" | head -n1)"
