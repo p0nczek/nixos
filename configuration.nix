@@ -16,6 +16,11 @@ let
   });
 in
 {
+
+
+  # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
+  system.nixos.label = "fixNN_";
+  
   environment.systemPackages = [ discord-with-bd ];
 
   imports = [
@@ -37,8 +42,6 @@ in
 
   ];
 
-  system.nixos.label = let label = builtins.getEnv "NIXOS_LABEL"; in
-    if label != "" then label else "nixos";
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
