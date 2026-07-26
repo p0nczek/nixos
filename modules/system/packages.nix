@@ -29,6 +29,7 @@
     libGL
 
     jq
+    glib
 
     android-tools
     adb-sync

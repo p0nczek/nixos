@@ -41,16 +41,20 @@ binds {
         CTRL+Shift+S                        { screenshot; }
 
     // ─── Media Controls ───
-    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
-    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
+    //XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
+    //XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
     //XF86AudioMute                     allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+
+    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh up 5"; }
+    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh down 5"; }
 
 
     F3                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
     F2                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }                                
     F1                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    
     XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
-    XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }
+    XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }    
     XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
     XF86AudioPause                      allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
 
