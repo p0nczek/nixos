@@ -64,7 +64,7 @@ binds {
   	Mod+A                           { focus-column-left; }
     Mod+F                           { switch-preset-column-width; }
     Mod+C                           { center-column; }
-    Mod+Shift+T                     { toggle-window-floating; }
+    Mod+T 	                        { toggle-window-floating; }
     Mod+Shift+F                     { fullscreen-window; }
     Mod+P                	  		{ toggle-window-rule-opacity; }
     CTRL+Shift+S                    { screenshot; }
