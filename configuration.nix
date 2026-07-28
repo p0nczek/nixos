@@ -19,7 +19,7 @@ in
 
 
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "fixNN_";
+  system.nixos.label = "niriFix_";
   
   environment.systemPackages = [ discord-with-bd ];
 

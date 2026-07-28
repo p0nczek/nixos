@@ -41,6 +41,13 @@
         url = "github:vicinaehq/vicinae";
         inputs.nixpkgs.follows = "nixpkgs";  # nie duplikuj nixpkgs
       };
+
+    nixos-cli = {
+          type = "github";
+          owner = "nix-community";
+          repo = "nixos-cli";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
     
     
   };
