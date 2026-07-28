@@ -5,75 +5,68 @@ binds {
     // ─── Applications ───
     Alt+Y 							hotkey-overlay-title="Open YouTube Music" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://music.youtube.com/"; }
     Alt+K 							hotkey-overlay-title="Open Kimi" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://www.kimi.com/?chat_enter_method=new_chat"; }
-	Alt+Z                           { spawn "bash" "-c" "appimage-run /home/shin/Downloads/ZenNotes-*-linux-x86_64.AppImage"; }
+	Alt+Z                           hotkey-overlay-title="Open ZenNotes" { spawn "bash" "-c" "appimage-run /home/shin/Downloads/ZenNotes-*-linux-x86_64.AppImage"; }
+	Alt+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
+	Alt+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
+	Alt+D 							hotkey-overlay-title="Open Discord" { spawn "discord"; } 
+	Mod+Backspace                   hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
+
+
+	
 	Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
-    Mod+O hotkey-overlay-title="Vicinae launcher" {spawn "vicinae" "toggle"; }
-    //Mod+O                           hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
-    Mod+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
-    Mod+D 							{ spawn "discord"; } 
+    Mod+O 							hotkey-overlay-title="Vicinae launcher" {spawn "vicinae" "toggle"; }
+    //Mod+O                         hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }  
+    Mod+Q                           { close-window; }  
 
-    ALT+F3 { spawn "/etc/nixos/scripts/monitor1-toggle"; }
-    ALT+F2 { spawn "/etc/nixos/scripts/monitor2-toggle"; }
-    ALT+F1 { spawn "/etc/nixos/scripts/tv-on"; }
 
+
+    ALT+F3 							{ spawn "/etc/nixos/scripts/monitor1-toggle"; }
+    ALT+F2 							{ spawn "/etc/nixos/scripts/monitor2-toggle"; }
+    ALT+F1 							{ spawn "/etc/nixos/scripts/tv-on"; }
 
     Mod+Escape 						{ spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
-
 
     Mod+Y 							{ spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/scripts/tlo"; }
     Mod+Shift+Y                     { spawn "pkill" "-f" "tlo-layer"; }
 
-
-
-
-    Mod+Backspace                       hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
-
-
-     	Mod+N                               { focus-column-right; }
-  		Mod+A                               { focus-column-left; }
-        Mod+K                               { switch-preset-column-width; }
-        Mod+CTRL+F                          { expand-column-to-available-width; }
-        Mod+C                               { center-column; }
-        Mod+Shift+T                         { toggle-window-floating; }
-        Mod+Shift+F                         { fullscreen-window; }
-   		Mod+P                	  		    { toggle-window-rule-opacity; }
-        CTRL+Shift+S                        { screenshot; }
+   
 
     // ─── Media Controls ───
-    //XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
-    //XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
-    //XF86AudioMute                     allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    //XF86AudioRaiseVolume          allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
+    //XF86AudioLowerVolume          allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
+    //XF86AudioMute                 allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
-    XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh up 5"; }
-    XF86AudioLowerVolume                allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh down 5"; }
+    XF86AudioRaiseVolume            allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh up 5"; }
+    XF86AudioLowerVolume            allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh down 5"; }
 
 
-    F3                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
-    F2                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }                                
-    F1                                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    F3                              allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
+    F2                              allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }                                
+    F1                              allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
     
-    XF86AudioNext                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
-    XF86AudioPrev                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }    
-    XF86AudioPlay                       allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
-    XF86AudioPause                      allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
-
-   
-    Mod+Q                               { close-window; }
-
-
+    XF86AudioNext                   allow-when-locked=true { spawn-sh "noctalia-shell ipc call media next"; }
+    XF86AudioPrev                   allow-when-locked=true { spawn-sh "noctalia-shell ipc call media previous"; }    
+    XF86AudioPlay                   allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
+    XF86AudioPause                  allow-when-locked=true { spawn-sh "noctalia-shell ipc call media playPause"; }
    
 
     // ─── Workspace Switching ───
-    Mod+WheelScrollDown                 cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollUp                   cooldown-ms=150 { focus-workspace-up; }
-   
+    Mod+WheelScrollDown             cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp               cooldown-ms=150 { focus-workspace-up; }   
 
-    Mod+WheelScrollRight                { focus-column-right; }
-    Mod+WheelScrollLeft                 { focus-column-left; }   
+    Mod+WheelScrollRight            { focus-column-right; }
+    Mod+WheelScrollLeft             { focus-column-left; }   
 
+    Mod+I                           { focus-workspace-down; }
+    Mod+E                           { focus-workspace-up; }
 
-    Mod+I                                                               { focus-workspace-down; }
-    Mod+E                                                               { focus-workspace-up; }
+    Mod+N                           { focus-column-right; }
+  	Mod+A                           { focus-column-left; }
+    Mod+F                           { switch-preset-column-width; }
+    Mod+C                           { center-column; }
+    Mod+Shift+T                     { toggle-window-floating; }
+    Mod+Shift+F                     { fullscreen-window; }
+    Mod+P                	  		{ toggle-window-rule-opacity; }
+    CTRL+Shift+S                    { screenshot; }
   
 }
