@@ -18,5 +18,9 @@
   };
 
 #  vesktop.enable = true;
+programs.nixos-cli = {
+    enable = true;
+    };
+
   
 }

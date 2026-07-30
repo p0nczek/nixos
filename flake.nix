@@ -32,6 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-cli = {
+      url = "github:nix-community/nixos-cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     qmk_firmware = {
       url = "github:qmk/qmk_firmware/0.18.17";
       flake = false;
@@ -41,21 +46,16 @@
         url = "github:vicinaehq/vicinae";
         inputs.nixpkgs.follows = "nixpkgs";  # nie duplikuj nixpkgs
       };
-
-    nixos-cli = {
-          type = "github";
-          owner = "nix-community";
-          repo = "nixos-cli";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
     
     
   };
 
+  
+
   # ============================================================================
   #  OUTPUTS
   # ============================================================================
-  outputs = inputs@{ nixpkgs, home-manager, noctalia, zen-browser, kimi-cli, qmk_firmware, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, noctalia, zen-browser, kimi-cli, nixos-cli, qmk_firmware, ... }:
     let
       system = "x86_64-linux";
     in
@@ -65,6 +65,8 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
+
+          nixos-cli.nixosModules.nixos-cli
 
           # Home Manager as a NixOS module
           home-manager.nixosModules.home-manager
