@@ -27,7 +27,7 @@
     anki-bin 
     croc 
     comma
-    vesktop
+    #vesktop
     #betterdiscordctl
 
     #lazyjj
