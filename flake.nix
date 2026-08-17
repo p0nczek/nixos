@@ -44,7 +44,7 @@
 
     vicinae = {
         url = "github:vicinaehq/vicinae";
-        inputs.nixpkgs.follows = "nixpkgs";  # nie duplikuj nixpkgs
+        inputs.nixpkgs.follows = "nixpkgs";  
       };
     
     

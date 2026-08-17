@@ -22,5 +22,5 @@ programs.nixos-cli = {
     enable = true;
     };
 
-  
+programs.steam.gamescopeSession.enable = true;  # albo po prostu environment.systemPackages = [ pkgs.gamescope ];  
 }

@@ -2,12 +2,22 @@
 {
 
   home.packages = with pkgs; [
-    reaper renoise pavucontrol qpwgraph lsp-plugins pamixer playerctl
-    wineWow64Packages.stable yabridge yabridgectl winetricks qjackctl
+    reaper 
+    #renoise 
+    pavucontrol 
+    qpwgraph 
+    #lsp-plugins 
+    pamixer 
+    #playerctl
+    wineWow64Packages.stable 
+    #yabridge 
+    #yabridgectl 
+    winetricks 
+    qjackctl
 
     mpv 
     obs-studio-plugins.wlrobs 
-    losslesscut-bin 
+    #losslesscut-bin 
     slurp
 
     telegram-desktop 
@@ -20,13 +30,35 @@
     vesktop
     #betterdiscordctl
 
-    lazyjj
+    #lazyjj
 
-    nautilus p7zip unrar python3 eza bat fd ripgrep fzf zoxide navi
+    nautilus 
+    p7zip 
+    unrar 
+    python3 
+    eza 
+    bat 
+    fd 
+    ripgrep 
+    fzf 
+    zoxide 
+    navi
     (btop.override { cudaSupport = true; })
-    fastfetch ffmpeg atuin libnotify yazi
+    fastfetch 
+    ffmpeg 
+    atuin 
+    libnotify 
+    ripdrag
+    
+    #superfile
+    
+
+	fresh-editor
+    
   ] ++ [
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     #inputs.kimi-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
+
+  
 }

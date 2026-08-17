@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 {
   # ─── Bootloader ───
+  boot.tmp.useTmpfs = true;
+  # Wyłącz core dumps
+  systemd.coredump.enable = false;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd.enable = true;
@@ -41,6 +44,7 @@
     # Jeśli NIE masz LUKS opartego o TPM:
     "tpm_tis.force=0"
     "tpm_crb.force=0"
+    "nvidia-drm.modeset=1"
   ];
 
   # Blacklist modułów TPM — tylko gdy realnie nie masz żadnych urządzeń LUKS
@@ -63,4 +67,16 @@
     after = lib.mkForce [ "network.target" "multi-user.target" ];
     wants = lib.mkForce [ "network.target" ];
   };
+  
+  # Ogranicz journald
+services.journald.extraConfig = ''
+  SystemMaxUse=500M
+  MaxFileSec=7day
+'';
+
+
+# Automatyczne czyszczenie /tmp i /var/tmp
+systemd.tmpfiles.rules = [
+  "D /var/tmp 0755 root root 7d -"
+];
 }

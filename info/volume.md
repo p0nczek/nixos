@@ -1,0 +1,1 @@
+tail -f $XDG_RUNTIME_DIR/niri-app-volume-daemon.log

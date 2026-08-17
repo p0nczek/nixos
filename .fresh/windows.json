@@ -1,0 +1,12 @@
+{
+  "active": 1,
+  "next_id": 2,
+  "windows": [
+    {
+      "id": 1,
+      "label": "nixos",
+      "root": "/etc/nixos",
+      "plugin_state": {}
+    }
+  ]
+}

@@ -46,6 +46,26 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
+  
+  # W configuration.nix
+zramSwap = {
+  enable = true;
+  algorithm = "lz4";      # szybszy niż zstd, mniej CPU
+  memoryPercent = 50;     # 8 GB skompresowanego swapu w RAM
+  priority = 100;         # używaj ZRAM przed ewentualnym disk swap
+};
+
+# OOM killer w userspace — zabija proces ZANIM system zamrze
+systemd.oomd = {
+  enable = true;
+  enableRootSlice = true;
+  enableSystemSlice = true;
+  enableUserSlices = true;
+};
+
+fileSystems."/".options = [ "noatime" "discard" ];
+  
+  
 
   system.stateVersion = "25.11";
 }

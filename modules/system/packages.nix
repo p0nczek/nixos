@@ -6,7 +6,7 @@
     jujutsu
 
     kitty
-    micro
+    #micro
 
     ddcutil
     ddcui
@@ -39,5 +39,6 @@
     espeak-ng
     pipewire
     pipewire.jack
+    pulseaudio
   ];
 }
