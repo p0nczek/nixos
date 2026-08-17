@@ -8,6 +8,7 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+  hardware.nvidia.nvidiaPersistenced = true;   # ← to jest nowe, dodaj gdzieś w configu
 
   hardware.graphics = {
     enable = true;
@@ -17,6 +18,7 @@
   hardware.i2c.enable = true;
   hardware.bluetooth.enable = true;
   programs.fuse.userAllowOther = true;
+  
 
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
@@ -28,6 +30,7 @@
       ExecStart = "${config.boot.kernelPackages.nvidia_x11.bin}/bin/nvidia-smi -pl 203";
     };
     wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-modules-load.service" ];
+    after = [ "nvidia-persistenced.service" ];
+    requires = [ "nvidia-persistenced.service" ]; 
   };
 }

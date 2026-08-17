@@ -36,8 +36,8 @@ binds {
     //XF86AudioLowerVolume          allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
     //XF86AudioMute                 allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
-    XF86AudioRaiseVolume            allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh up 5"; }
-    XF86AudioLowerVolume            allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh down 5"; }
+    XF86AudioRaiseVolume            allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh +5"; }
+    XF86AudioLowerVolume            allow-when-locked=true { spawn-sh "/etc/nixos/scripts/niri-app-volume.sh -5"; }
 
 
     F3                              allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
