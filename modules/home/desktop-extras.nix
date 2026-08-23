@@ -16,12 +16,12 @@
     };
   };
 
-  home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "0";
-    NIXOS_OZONE_WL = "0";
-    FLAKE = "/etc/nixos";
-    MOZ_WEBRENDER = "0";
-  };
+home.sessionVariables = {
+  MOZ_ENABLE_WAYLAND = "1";   # zamiast "0"
+  NIXOS_OZONE_WL = "1";       # zamiast "0"
+  # MOZ_WEBRENDER = "0";      # USUŃ tę linię całkowicie
+  FLAKE = "/etc/nixos";
+};
 
   home.sessionPath = [ "$HOME/.local/bin" ];
 
