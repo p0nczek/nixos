@@ -19,7 +19,7 @@ in
 
 
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "fix-niri-itp_";
+  system.nixos.label = "hdd-mount-autostart_";
   
   environment.systemPackages = [ discord-with-bd ];
 
@@ -64,7 +64,16 @@ systemd.oomd = {
 };
 
 fileSystems."/".options = [ "noatime" "discard" ];
-  
+services.udisks2.enable = true;  
+security.polkit.extraConfig = ''
+  polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+         action.id == "org.freedesktop.udisks2.filesystem-mount") &&
+        subject.user == "shin") {
+      return polkit.Result.YES;
+    }
+  });
+'';
   
 
   system.stateVersion = "25.11";

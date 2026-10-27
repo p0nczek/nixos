@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Szukamy największej niezamontowanej partycji z systemem plików
+PART=$(lsblk -brnpo NAME,TYPE,FSTYPE,SIZE,MOUNTPOINT \
+  | awk -F'[ ]' '$2=="part" && $3 ~ /^(ntfs|ext4|btrfs|exfat|xfs)$/ && $5=="" {print $4, $1}' \
+  | sort -nr | head -n1 | cut -d' ' -f2)
+
+if [ -z "$PART" ]; then
+  notify-send "Dysk" "Nie znaleziono partycji do zamontowania"
+  exit 1
+fi
+
+if udisksctl mount -b "$PART"; then
+  notify-send "Dysk" "Zamontowano $PART"
+  MOUNT=$(lsblk -no MOUNTPOINT "$PART")
+ln -sfn "$MOUNT" "$HOME/hdd"
+else
+  notify-send "Dysk" "Błąd montowania $PART"
+fi

@@ -5,6 +5,7 @@ binds {
     // ─── Applications ───
     Alt+Y 							hotkey-overlay-title="Open YouTube Music" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://music.youtube.com/"; }
     Alt+K 							hotkey-overlay-title="Open Kimi" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://www.kimi.com/?chat_enter_method=new_chat"; }
+    Alt+C 							hotkey-overlay-title="Open Claude" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://claude.ai/new"; }
 	Alt+Z                           hotkey-overlay-title="Open ZenNotes" { spawn "bash" "-c" "appimage-run /home/shin/Downloads/ZenNotes-*-linux-x86_64.AppImage"; }
 	Alt+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
 	Alt+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
