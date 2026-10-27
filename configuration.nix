@@ -19,7 +19,7 @@ in
 
 
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "nixos-cli_";
+  system.nixos.label = "fix-niri-itp_";
   
   environment.systemPackages = [ discord-with-bd ];
 

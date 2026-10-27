@@ -23,11 +23,12 @@ binds {
     ALT+F3 							{ spawn "/etc/nixos/scripts/monitor1-toggle"; }
     ALT+F2 							{ spawn "/etc/nixos/scripts/monitor2-toggle"; }
     ALT+F1 							{ spawn "/etc/nixos/scripts/tv-on"; }
+    ALT+Q 							{ spawn "/etc/nixos/scripts/tv-toggle"; }
 
-    Mod+Escape 						{ spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
+  //  Mod+Escape 						{ spawn "bash" "-c" "/etc/nixos/scripts/voice-note"; }
 
-    Mod+Y 							{ spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/scripts/tlo"; }
-    Mod+Shift+Y                     { spawn "pkill" "-f" "tlo-layer"; }
+   // Mod+Y 							{ spawn "bash" "-c" "WAYLAND_DISPLAY=$WAYLAND_DISPLAY bash /etc/nixos/scripts/tlo"; }
+   // Mod+Shift+Y                     { spawn "pkill" "-f" "tlo-layer"; }
 
    
 
@@ -66,7 +67,7 @@ binds {
     Mod+C                           { center-column; }
     Mod+T 	                        { toggle-window-floating; }
     Mod+Shift+F                     { fullscreen-window; }
-    Mod+P                	  		{ toggle-window-rule-opacity; }
+    Mod+Y                	  		{ toggle-window-rule-opacity; }
     CTRL+Shift+S                    { screenshot; }
   
 }

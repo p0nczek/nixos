@@ -36,3 +36,8 @@ layer-rule {
     place-within-backdrop true
 }
 
+window-rule {
+    match app-id=r#"^zen$"# title=r#"YouTube"#
+    exclude title=r#"YouTube Music"#
+    opacity 1.0
+}
