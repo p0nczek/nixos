@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# użycie: toggle-app <app-id> <komenda...>
+APP_ID="$1"; shift
+
+wins=$(niri msg --json windows)
+id=$(echo "$wins" | jq -r --arg a "$APP_ID" '[.[] | select(.app_id==$a)][0].id // empty')
+focused=$(niri msg --json focused-window | jq -r '.id // empty')
+
+if [ -n "$id" ] && [ "$id" = "$focused" ]; then
+    niri msg action close-window
+elif [ -n "$id" ]; then
+    ws=$(niri msg --json workspaces | jq -r '.[] | select(.is_focused) | .idx')
+    niri msg action move-window-to-workspace --window-id "$id" --focus false "$ws"
+    niri msg action focus-window --id "$id"
+else
+    "$@" &
+fi

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# użycie: focus-nav left|right
+if [ "$(niri msg --json focused-window | jq -r '.is_floating // false')" = "true" ]; then
+    niri msg action switch-focus-between-floating-and-tiling
+fi
+niri msg action focus-column-"$1"
