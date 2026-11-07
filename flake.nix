@@ -14,11 +14,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Noctalia desktop shell & widgets
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  url = "github:noctalia-dev/noctalia-shell/v4.7.7";
+  # bez inputs.nixpkgs.follows
+};
 
     # Zen Browser
     zen-browser = {
@@ -43,9 +42,15 @@
     };
 
     vicinae = {
-        url = "github:vicinaehq/vicinae";
+        url = "github:vicinaehq/vicinae/0f439e139c53a96fe15f3a7286e7fe054e25ae1c";
         inputs.nixpkgs.follows = "nixpkgs";  
       };
+      
+      millennium = {
+        url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+        inputs.nixpkgs.follows = "nixpkgs";  
+      };
+      
     
     
   };

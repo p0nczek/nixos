@@ -2,10 +2,11 @@
 let
   betterdiscord-asar = pkgs.fetchurl {
     url = "https://github.com/BetterDiscord/BetterDiscord/releases/latest/download/betterdiscord.asar";
-    sha256 = "sha256-fKOWQWjKJd9qUZbNmKrmj2JgTdmecmlxs1YR+WniZD4=";
+    sha256 = "sha256-P5yaFYiBPdO07h9XMVfam5PbR0KG/QooYDsOP6/nFlU==";
   };
 
-  discord-with-bd = pkgs.discord.overrideAttrs (old: {
+ discord-with-bd = pkgs.discord.override {
+  unwrappedDiscord = pkgs.discord.unwrappedDiscord.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
       CORE="$out/opt/Discord/modules/discord_desktop_core"
       install -Dm444 ${betterdiscord-asar} "$out/opt/Discord/betterdiscord.asar"
@@ -14,12 +15,14 @@ let
       mv "$CORE/index.js.new" "$CORE/index.js"
     '';
   });
+};
 in
 {
 
+    
 
   # Managed by the `nn` helper (updates label + git commit). Do not edit manually.
-  system.nixos.label = "hdd-mount-autostart_";
+  system.nixos.label = "allWork_";
   
   environment.systemPackages = [ discord-with-bd ];
 

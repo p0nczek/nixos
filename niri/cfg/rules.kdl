@@ -41,3 +41,10 @@ window-rule {
     exclude title=r#"YouTube Music"#
     opacity 1.0
 }
+
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"#
+    open-floating true
+    default-column-width { fixed 700; }
+    default-window-height { fixed 1000; }
+}

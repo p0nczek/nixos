@@ -32,7 +32,7 @@
     glib
 
     android-tools
-    adb-sync
+    better-adb-sync
     v4l-utils
 
     gpu-screen-recorder-gtk

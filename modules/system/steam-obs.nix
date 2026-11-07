@@ -1,9 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
+  nixpkgs.overlays = [
+  inputs.millennium.overlays.default
+  (final: prev: {
+    quickshell = prev.quickshell.override { withHyprland = false; };
+  })
+    ];
+
   programs.steam = {
-  	enable = true;
-  	extraCompatPackages = with pkgs; [ proton-ge-bin ];
+    enable = true;
+    extraCompatPackages = with pkgs; [ proton-ge-bin ];
+    package = pkgs.millennium-steam;
+    gamescopeSession.enable = true;
   };
+
   programs.obs-studio = {
     enable = true;
     enableVirtualCamera = true;
@@ -17,10 +27,5 @@
     group = "root";
   };
 
-#  vesktop.enable = true;
-programs.nixos-cli = {
-    enable = true;
-    };
-
-programs.steam.gamescopeSession.enable = true;  # albo po prostu environment.systemPackages = [ pkgs.gamescope ];  
+  programs.nixos-cli.enable = true;
 }

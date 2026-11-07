@@ -8,10 +8,12 @@ binds {
     Alt+C 							hotkey-overlay-title="Open Claude" { spawn "/etc/profiles/per-user/shin/bin/zen" "--new-window" "https://claude.ai/new"; }
 	Alt+Z                           hotkey-overlay-title="Open ZenNotes" { spawn "bash" "-c" "appimage-run /home/shin/Downloads/ZenNotes-*-linux-x86_64.AppImage"; }
 	Alt+F                           hotkey-overlay-title="Open Browser: zen" { spawn "zen"; }
-	Alt+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
-	Alt+D 							hotkey-overlay-title="Open Discord" { spawn "discord"; } 
+	//Alt+T                           hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }    
+	//Alt+E 							hotkey-overlay-title="Open Discord" { spawn "discord"; } 
 	Mod+Backspace                   hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
 
+ Alt+E hotkey-overlay-title="Toggle Discord"  { spawn "/etc/nixos/scripts/toggle-app" "discord" "discord"; }   
+    Alt+N hotkey-overlay-title="Toggle Telegram" { spawn "/etc/nixos/scripts/toggle-app" "org.telegram.desktop" "Telegram"; }
 
 	
 	Mod+Tab                         hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
@@ -62,13 +64,22 @@ binds {
     Mod+I                           { focus-workspace-down; }
     Mod+E                           { focus-workspace-up; }
 
-    Mod+N                           { focus-column-right; }
-  	Mod+A                           { focus-column-left; }
+    //Mod+N                           { focus-column-right; }
+  	//Mod+A                           { focus-column-left; }
+      
+    Mod+N { spawn "/etc/nixos/scripts/focus-nav" "right"; }
+    Mod+A { spawn "/etc/nixos/scripts/focus-nav" "left"; }  
+      
     Mod+F                           { switch-preset-column-width; }
     Mod+C                           { center-column; }
     Mod+T 	                        { toggle-window-floating; }
     Mod+Shift+F                     { fullscreen-window; }
     Mod+Y                	  		{ toggle-window-rule-opacity; }
     CTRL+Shift+S                    { screenshot; }
+    
+    Mod+Shift+I   { move-window-to-workspace-down; }
+    Mod+Shift+E   { move-window-to-workspace-up; }
+    Mod+Shift+N   { move-column-right; }
+    Mod+Shift+A   { move-column-left; }
   
 }

@@ -6,7 +6,6 @@
   systemd.coredump.enable = false;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.systemd.enable = true;
   boot.plymouth.enable = false;
   boot.loader.timeout = 1;
 
@@ -69,10 +68,10 @@
   };
   
   # Ogranicz journald
-services.journald.extraConfig = ''
-  SystemMaxUse=500M
-  MaxFileSec=7day
-'';
+services.journald.settings.Journal = {
+  SystemMaxUse="500M";
+  MaxFileSec="7day";
+};
 
 
 # Automatyczne czyszczenie /tmp i /var/tmp

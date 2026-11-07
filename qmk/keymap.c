@@ -1,22 +1,7 @@
-/*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
 #include QMK_KEYBOARD_H
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
@@ -25,9 +10,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                  		  |--------+--------+--------+--------+--------+--------|
       OS_LSFT,    LT(2,KC_A),    KC_I,    KC_E,    KC_N,    KC_O,                         KC_L,    KC_U,    KC_T,    KC_W, KC_R, KC_COMM,
   //|--------+--------+--------+--------+--------+--------|                   		 |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,    KC_V,    KC_C,    KC_K,    KC_TAB,                         KC_CAPS,    KC_M, KC_H,  KC_SLSH, KC_G,  TO(3),
+      KC_LCTL,    KC_Z,    KC_V,    KC_C,    KC_K,    KC_TAB,                         KC_CAPS,    KC_M, KC_H,  KC_SLSH, KC_G,  KC_MINS,
   //|--------+--------+--------+--------+--------+--------+--------|  			|--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,   KC_LGUI,  LT(1,KC_SPC),     LT(2,KC_SPC),   LT(4,KC_SPC), KC_RALT
+                                          LT(6,KC_LALT),   KC_LGUI,  LT(1,KC_SPC),     LT(2,KC_SPC),   LT(4,KC_SPC), LT(7,KC_RALT)
                                       //`--------------------------'  			`--------------------------'
 
   ),
@@ -38,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLU, KC_1, KC_2, KC_3, KC_4, KC_5,                      				KC_6, KC_7, KC_8, KC_9, KC_0, XXXXXXX,	 
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_VOLD, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5),                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_VOLD, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), KC_TAB,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -62,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UG_PREV, UG_HUED, UG_SATD, UG_VALD, UG_SPDD, UG_TOGG,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(5), TO(0),
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(0),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -76,22 +61,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
+                                            XXXXXXX, KC_ENT, KC_SPC,    XXXXXXX, XXXXXXX, XXXXXXX
                                         //`--------------------------'  `--------------------------'
     ),
     
    	  [5] = LAYOUT_split_3x6_3(
       //,-----------------------------------------------------.                   		 ,-----------------------------------------------------.
-           KC_ESC,    KC_Q,    KC_P,    KC_Y,    KC_F,    KC_BSPC,                         KC_B,    KC_S,    KC_D,    KC_J,   KC_X,  KC_DOT,
+           KC_ESC,    KC_Q,    KC_E,    KC_W,    KC_F,    KC_B,                         KC_B,    KC_Y,    KC_E,    KC_J,   KC_X,  KC_DOT,
       //|--------+--------+--------+--------+--------+--------|                  		  |--------+--------+--------+--------+--------+--------|
-          KC_1,    OS_LSFT,    KC_A,    KC_W,    KC_D,    KC_O,                         KC_L,    KC_U,    KC_T,    KC_W, KC_R, KC_COMM,
+          KC_1,    KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_O,                         KC_L,    KC_U,    KC_T,    KC_I, KC_R, KC_COMM,
       //|--------+--------+--------+--------+--------+--------|                   		 |--------+--------+--------+--------+--------+--------|
-          KC_2,    KC_LCTL,    KC_S,    KC_C,    KC_K,    KC_TAB,                         KC_CAPS,    KC_M, KC_H,  KC_SLSH, KC_G,  TO(0),
+          KC_2,    KC_LCTL,    KC_T,    KC_G,    KC_K,    KC_TAB,                         KC_CAPS,    KC_M, KC_H,  KC_SLSH, XXXXXXX,  TO(0),
       //|--------+--------+--------+--------+--------+--------+--------|  			|--------+--------+--------+--------+--------+--------+--------|
-                                              KC_LGUI,   KC_SPC,  KC_SPC,     LT(2,KC_SPC),   LT(4,KC_SPC), KC_RALT
+                                              KC_LGUI,   KC_SPC,  KC_X,    		 KC_ENT, KC_RALT, KC_RALT
                                           //`--------------------------'  			`--------------------------'
     
+    ),
+      [7] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                   								 		,-----------------------------------------------------.
+            LALT(KC_ESC),    LALT(KC_Q),    LALT(KC_P),    LALT(KC_Y),    LALT(KC_F),    LALT(KC_BSPC),                         LALT(KC_B),    KC_F19,    LALT(KC_D),    LALT(KC_J),   KC_F20,  KC_F3,
+        //|--------+--------+--------+--------+--------+--------|                  									  		|--------+--------+--------+--------+--------+--------|
+            LALT(OS_LSFT),    KC_F13,    LALT(KC_I),    KC_F15,    KC_F17,    KC_F18,                      					   KC_F16,    LALT(KC_U),    LALT(KC_T),    LALT(KC_W), LALT(KC_R), KC_F4,
+        //|--------+--------+--------+--------+--------+--------|                   								 		|--------+--------+--------+--------+--------+--------|
+            LALT(KC_LCTL),    KC_F21,    LALT(KC_V),    KC_F14,    LALT(KC_K),    LALT(KC_TAB),                      		   LALT(KC_CAPS),    LALT(KC_M), LALT(KC_H),  LALT(KC_SLSH), LALT(KC_G),  KC_F2,
+        //|--------+--------+--------+--------+--------+--------+--------|  												|--------+--------+--------+--------+--------+--------+--------|
+                                                XXXXXXX,   XXXXXXX,  XXXXXXX,           							 XXXXXXX,   XXXXXXX, XXXXXXX
+                                               //`--------------------------'  									`--------------------------'
+      
       ),
+        [6] = LAYOUT_split_3x6_3(
+          //,-----------------------------------------------------.                   		 ,-----------------------------------------------------.
+            LALT(KC_F1),    LALT(KC_Q),    LALT(KC_P),    LALT(KC_Y),    LALT(KC_F),    LALT(KC_BSPC),                         LALT(KC_B),    KC_SCROLL_LOCK,    LALT(KC_D),    LALT(KC_J),   LALT(KC_X),  LALT(KC_DOT),
+        //|--------+--------+--------+--------+--------+--------|                  									  		|--------+--------+--------+--------+--------+--------|
+            LALT(KC_F2),    KC_F22,    LALT(KC_I),    LALT(KC_E),    LALT(KC_N),    KC_F23,                         LALT(KC_L),    KC_F24,    LALT(KC_T),    LALT(KC_W), LALT(KC_R), KC_COMM,
+        //|--------+--------+--------+--------+--------+--------|                   								 		|--------+--------+--------+--------+--------+--------|
+            LALT(KC_F3),    LALT(KC_Z),    LALT(KC_V),    LALT(KC_C),    LALT(KC_K),    LALT(KC_TAB),                         LALT(KC_CAPS),    LALT(KC_M), LALT(KC_H),  LALT(KC_SLSH), TO(3),  TO(5),
+        //|--------+--------+--------+--------+--------+--------+--------|  												|--------+--------+--------+--------+--------+--------+--------|
+                                                XXXXXXX,   XXXXXXX,  XXXXXXX,           					 XXXXXXX,   XXXXXXX, XXXXXXX
+                                               //`--------------------------'  									`--------------------------'        
+        ),
+
+       
 };
 
 #ifdef ENCODER_MAP_ENABLE
@@ -101,6 +111,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
   [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
   [4] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
+  [5] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
+  [6] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
 };
 #endif
 #ifdef OLED_ENABLE
